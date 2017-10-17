@@ -11,18 +11,6 @@ file = dlmread(filename,'',1,0);
 
 
 % 10 Selected Phenotypes
-<<<<<<< HEAD
-% total_thigh_L = file(:,11);
-% mean_liver_fat_p = file(:,33);
-% total_fat = file(:,39);
-% age = file(:,43);
-% sex = file(:,44);
-% race = file(:,45);
-% diabetes = file(:,47);
-% weight = file(:,50);
-% height = file(:,51);
-% bmi = file(:,52);
-=======
 Waist_cir = T.Waist_cir3;
 mean_liver_fat_p = T.mean_liver_fat_p;
 total_fat = T.total_fat;
@@ -33,7 +21,6 @@ diabetes = T.diabetes3;
 weight = T.weight3;
 height = T.height3;
 bmi = T.bmi3;
->>>>>>> e7ef8dad7e872fbdb29b0222ff9cb1048e909113
 
 % Create Drop Down Menu
 figure = uifigure;
