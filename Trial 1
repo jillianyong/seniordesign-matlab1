@@ -1,6 +1,14 @@
+% Gets the import options for the spreadsheet
+x = detectImportOptions('liver_fat_with_covariates.csv');
+% Imports the spreadsheet as a table
+T = readtable('liver_fat_with_covariates.csv',x);
+% Converts the table into cell format
+liver_fat_with_covariates = table2cell(T);
+
 % Read all Excel files
 filename = 'liver_fat_with_covariates.csv';
 file = dlmread(filename,'',1,0);
+
 
 % 10 Selected Phenotypes
 total_thigh_L = file(:,11);
