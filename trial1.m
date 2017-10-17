@@ -11,7 +11,7 @@ file = dlmread(filename,'',1,0);
 
 
 % 10 Selected Phenotypes
-Waist_cir = T.Waist_cir3;
+waist_cir = T.waist_cir3;
 mean_liver_fat_p = T.mean_liver_fat_p;
 total_fat = T.total_fat;
 age = T.age3;
