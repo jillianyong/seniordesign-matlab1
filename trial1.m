@@ -7,7 +7,7 @@ liver_fat_with_covariates = table2cell(T);
 
 % Read all Excel files
 filename = 'liver_fat_with_covariates.csv';
-file = dlmread(filename,'',1,0);
+% file = dlmread(filename,'',1,0);
 
 
 % 10 Selected Phenotypes
