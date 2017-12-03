@@ -40,26 +40,56 @@ ddmenu = uidropdown(figure,...
             waist_cir(isnan(waist_cir)) = [];
             meanwaistcir = mean(waist_cir);
             medianwaistcir = median(waist_cir);
-            fivep = prctile(waist_cir,5);
-            ninefivep = prctile(waist_cir,95);
+            fivepwaistcir = prctile(waist_cir,5);
+            ninefivepwaistcir = prctile(waist_cir,95);
         case {'Mean Liver Fat p'}
             mean_liver_fat_p = T.mean_liver_fat_p;
             histogram(ax,mean_liver_fat_p)
+            mean_liver_fat_p(isnan(mean_liver_fat_p)) = [];
+            meanlivfatp = mean(mean_liver_fat_p);
+            medianlivfatp = median(mean_liver_fat_p);
+            fiveplivfatp = prctile(mean_liver_fat_p,5);
+            ninefiveplivfatp = prctile(mean_liver_fat_p,95);
         case {'Total Fat'}
             total_fat = T.total_fat;
             histogram(ax,total_fat)
+            total_fat(isnan(total_fat)) = [];
+            meantotfat = mean(total_fat);
+            mediantotfat = median(total_fat);
+            fiveptotfat = prctile(total_fat,5);
+            ninefiveptotfat = prctile(total_fat,95);
         case {'Age'}
             age = T.age3;
             histogram(ax,age)
+            age(isnan(age)) = [];
+            meanage = mean(age);
+            medianage = median(age);
+            fivepage = prctile(age,5);
+            ninefivepage = prctile(age,95);
         case {'Weight'}
             weight = T.weight3;
             histogram(ax,weight)
+            weight(isnan(weight)) = [];
+            meanweight = mean(weight);
+            medianweight = median(weight);
+            fivepweight = prctile(weight,5);
+            ninefivepweight = prctile(weight,95);
         case {'Height'}
             height = T.height3;
             histogram(ax,height)
+            height(isnan(height)) = [];
+            meanheight = mean(height);
+            medianheight = median(height);
+            fivepheight = prctile(height,5);
+            ninefivepheight = prctile(height,95);
         case {'BMI'}
             bmi = T.bmi3;
             histogram(ax,bmi)
+            bmi(isnan(bmi)) = [];
+            meanbmi = mean(bmi);
+            medianbmi = median(bmi);
+            fivepbmi = prctile(bmi,5);
+            ninefivepbmi = prctile(bmi,95);
         case {'Sex'}
             sex = T.sex;
             c1 = categorical(sex);
