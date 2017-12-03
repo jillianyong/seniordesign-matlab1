@@ -1,3 +1,4 @@
+%Rita Test if this works
 function trial1_JY
 % Gets the import options for the spreadsheet
 x = detectImportOptions('liver_fat_with_covariates.csv');
