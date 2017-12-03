@@ -37,11 +37,7 @@ ddmenu = uidropdown(figure,...
         case {'Waist Circumference'}
             waist_cir = T.waist_cir3;
             histogram(ax,waist_cir)
-            waist_cir(isnan(waist_cir)) = [];
-            meanwaistcir = mean(waist_cir);
-            medianwaistcir = median(waist_cir);
-            fivep = prctile(waist_cir,5);
-            ninefivep = prctile(waist_cir,95);
+            meanwaistcir = mean(waist
         case {'Mean Liver Fat p'}
             mean_liver_fat_p = T.mean_liver_fat_p;
             histogram(ax,mean_liver_fat_p)
