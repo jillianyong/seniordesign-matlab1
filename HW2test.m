@@ -1,29 +1,35 @@
 % Create title page
 
 function HW2test
+global T;
+global male_ind;
+global female_ind;
+
+x = detectImportOptions('liver_fat_with_covariates.csv');
+T = readtable('liver_fat_with_covariates.csv',x);
+male_ind = (strcmp(T.sex, 'Male'));
+female_ind = (strcmp(T.sex, 'Female'));
 
 %Create GUI background
 f1 = figure;
-global uif;
-
-
-
-%  global pan;
-%  pan = uipanel('Parent',GuiViewFig,'Position',[10 10 400 400],'visible','on');
-
-%  global ax;
-%  ax = uiaxes('Parent',figure,'Position',[10 10 400 400],'visible','off');
+ global uif;
  global ddmenu;
+ global ddmenu2;
+ global ddmenu3;
  global b1;
  global b2;
+ global b3;
  global txt;
  global ax;
  global histy;
  global texty;
+ global m_scatter_x;
+ global m_scatter_y;
+ global f_scatter_x;
+ global f_scatter_y;
 
 
 % Buttons
-% bgroup = uibuttongroup('parent',figure,'units','normalized','position',[.3 .3 .4 .4],'visible','off','title','Choose one of the following:','fontsize',24,'ForegroundColor','red');
 b1 = uicontrol( 'Parent',f1,'visible', ...
     'off', 'Style','Pushbutton','Units','normalized',...
     'Position',[.2 .5 .2 .1], 'BackgroundColor',[.8 .6 .9],...
@@ -31,7 +37,7 @@ b1 = uicontrol( 'Parent',f1,'visible', ...
 b2 = uicontrol('Parent',f1,'visible', ...
     'off','Style','Pushbutton','Units','normalized',...
     'Position',[.6 .5 .2 .1], 'BackgroundColor',[.6 .4 .7],...
-    'String','Histogram','FontSize', 18, 'Callback',@scat);
+    'String','Histogram','FontSize', 18, 'Callback',@hist);
 
 % Add a text uicontrol for user instructions
 txt = uicontrol('Parent',f1,'visible', ...
@@ -51,6 +57,10 @@ txt = uicontrol('Parent',f1,'visible', ...
 uif = uifigure('visible','off');
 ax = uiaxes('Parent',uif,'Position',[10 10 400 400],'visible','off');
 
+b3 = uibutton(uif,'push',...
+               'Text', 'plot', 'Position',[430, 260, 100, 22], ...
+               'ButtonPushedFcn', @(b3,event) plotButtonPushed(b3,ax));
+
 
 % Creating a dropdown menu
 ddmenu = uidropdown(uif,...
@@ -60,18 +70,35 @@ ddmenu = uidropdown(uif,...
     'Value','BMI',...
     'ValueChangedFcn',@(ddmenu,event) selection(ddmenu),'visible', 'off');
 
+% Creating a dropdown menu
+ddmenu2 = uidropdown(uif,...
+    'Position',[430 300 100 22],...
+    'Items',{'Waist Circumference', 'Mean Liver Fat p', 'Total Fat',...
+    'Age', 'Weight', 'Height', 'BMI'},...
+    'Value','BMI',...
+    'ValueChangedFcn',@(ddmenu2,event) selection2(ddmenu2),'visible', 'off');
+
+% Creating a dropdown menu
+ddmenu3 = uidropdown(uif,...
+    'Position',[430 100 100 22],...
+    'Items',{'Waist Circumference', 'Mean Liver Fat p', 'Total Fat',...
+    'Age', 'Weight', 'Height', 'BMI'},...
+    'Value','BMI',...
+    'ValueChangedFcn',@(ddmenu3,event) selection3(ddmenu3),'visible', 'off');
 
 
-function scat(hObject,eventdata)
+function hist(hObject,eventdata)
     set([f1,b1,b2,txt],'visible','off');
     set([uif,ddmenu],'visible','on');
 end
 
+function scat(hObject,eventdata)
+    set([f1,b1,b2,txt],'visible','off');
+    set([uif,ddmenu2,ddmenu3,b3 ],'visible','on');
+end
 
 % Create ValueChangedFcn callback:
 function selection(ddmenu, eventdata, handles)
-    x = detectImportOptions('liver_fat_with_covariates.csv');
-    T = readtable('liver_fat_with_covariates.csv',x);
     choice = get(ddmenu,'Value');
     switch choice
         case {'Waist Circumference'}
@@ -215,4 +242,74 @@ function selection(ddmenu, eventdata, handles)
             histy = histogram(ax,c3);
     end
 end
-end  
+
+% Create ValueChangedFcn callback:
+function selection2(ddmenu2, eventdata, handles)
+    choice2 = get(ddmenu2,'Value');
+    switch choice2
+        case {'Waist Circumference'}
+            m_scatter_x = T.waist_cir3(male_ind);
+            f_scatter_x = T.waist_cir3(female_ind);
+        case {'Mean Liver Fat p'}
+            m_scatter_x = T.mean_liver_fat_p(male_ind);
+            f_scatter_x = T.mean_liver_fat_p(female_ind);
+        case {'Total Fat'}
+            m_scatter_x = T.total_fat(male_ind);
+            f_scatter_x = T.total_fat(female_ind);
+        case {'Age'}
+            m_scatter_x = T.age3(male_ind);
+            f_scatter_x = T.age3(female_ind);
+        case {'Weight'}
+            m_scatter_x = T.weight3(male_ind);
+            f_scatter_x = T.weight3(female_ind);            
+        case {'Height'}
+            m_scatter_x = T.height3(male_ind);
+            f_scatter_x = T.height3(female_ind);
+        case {'BMI'}
+            m_scatter_x = T.bmi3(male_ind);
+            f_scatter_x = T.bmi3(female_ind);
+    end       
+end
+
+
+% Create ValueChangedFcn callback:
+function selection3(ddmenu3, eventdata, handles)
+    choice3 = get(ddmenu3,'Value');
+    switch choice3
+        case {'Waist Circumference'}
+            m_scatter_y = T.waist_cir3(male_ind);
+            f_scatter_y = T.waist_cir3(female_ind);
+        case {'Mean Liver Fat p'}
+            m_scatter_y = T.mean_liver_fat_p(male_ind);
+            f_scatter_y = T.mean_liver_fat_p(female_ind);
+        case {'Total Fat'}
+            m_scatter_y = T.total_fat(male_ind);
+            f_scatter_y = T.total_fat(female_ind);
+        case {'Age'}
+            m_scatter_y = T.age3(male_ind);
+            f_scatter_y = T.age3(female_ind);
+        case {'Weight'}
+            m_scatter_y = T.weight3(male_ind);
+            f_scatter_y = T.weight3(female_ind);            
+        case {'Height'}
+            m_scatter_y = T.height3(male_ind);
+            f_scatter_y = T.height3(female_ind);
+        case {'BMI'}
+            m_scatter_y = T.bmi3(male_ind);
+            f_scatter_y = T.bmi3(female_ind);
+    end      
+end
+
+% Create the function for the ButtonPushedFcn callback
+function plotButtonPushed(b3,ax)
+    ax.NextPlot = 'replace';
+    cla(ax);    
+    set(ax,'visible','on');
+    scatter(ax,m_scatter_x, m_scatter_y);
+    hold(ax,'on')
+    scatter(ax,f_scatter_x, f_scatter_y,'MarkerEdgeColor',[1 0 0]);
+end
+
+
+
+end
