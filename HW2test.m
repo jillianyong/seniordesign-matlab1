@@ -74,21 +74,19 @@ function selection(ddmenu, eventdata, handles)
     switch choice
         case {'Waist Circumference'}
             waist_cir = T.waist_cir3;
-            histogram(ax,waist_cir)
+            hist1 = histogram(ax,waist_cir);
             hold on;
             waist_cir(isnan(waist_cir)) = [];
             meanwaistcir = mean(waist_cir);
             medianwaistcir = median(waist_cir);
             fivepwaistcir = prctile(waist_cir,5);
             ninefivepwaistcir = prctile(waist_cir,95);
-%             circstr = sprintf("Mean: %d, Median: %d, 5th Percentile: %d, 95th Percentile: %f",meanwaistcir,medianwaistcir,fivepwaistcir,ninefivepwaistcir); 
-%             uicontrol('visible', ...
-%             'on','Style','text',...
-%              'Units','normalized',...
-%             'Position',[.2 .7 .6 .05],...
-%             'BackgroundColor',[.8 .8 .8],...
-%             'FontSize', 18,...
-%             'String',circstr);
+            circstr1 = sprintf("Mean: %d",meanwaistcir); 
+            circstr2 = sprintf("Median: %d",medianwaistcir);
+            circstr3 = sprintf("5th Percentile: %d",fivepwaistcir);
+            circstr4 = sprintf("95th Percentile: %f",ninefivepwaistcir);
+            circstr = {circstr1,circstr2,circstr3,circstr4};
+            text(ax,110,250,circstr);
         case {'Mean Liver Fat p'}
             mean_liver_fat_p = T.mean_liver_fat_p;
             histogram(ax,mean_liver_fat_p)
@@ -97,6 +95,12 @@ function selection(ddmenu, eventdata, handles)
             medianlivfatp = median(mean_liver_fat_p);
             fiveplivfatp = prctile(mean_liver_fat_p,5);
             ninefiveplivfatp = prctile(mean_liver_fat_p,95);
+            circstr1 = sprintf("Mean: %d",meanlivfatp); 
+            circstr2 = sprintf("Median: %d",medianlivfatp);
+            circstr3 = sprintf("5th Percentile: %d",fiveplivfatp);
+            circstr4 = sprintf("95th Percentile: %f",ninefiveplivfatp);
+            circstr = {circstr1,circstr2,circstr3,circstr4};
+            text(ax,20,800,circstr);
         case {'Total Fat'}
             total_fat = T.total_fat;
             histogram(ax,total_fat)
@@ -105,6 +109,12 @@ function selection(ddmenu, eventdata, handles)
             mediantotfat = median(total_fat);
             fiveptotfat = prctile(total_fat,5);
             ninefiveptotfat = prctile(total_fat,95);
+            circstr1 = sprintf("Mean: %d",meantotfat); 
+            circstr2 = sprintf("Median: %d",mediantotfat);
+            circstr3 = sprintf("5th Percentile: %d",fiveptotfat);
+            circstr4 = sprintf("95th Percentile: %f",ninefiveptotfat);
+            circstr = {circstr1,circstr2,circstr3,circstr4};
+            text(ax,20,200,circstr);            
         case {'Age'}
             age = T.age3;
             histogram(ax,age)
@@ -113,6 +123,12 @@ function selection(ddmenu, eventdata, handles)
             medianage = median(age);
             fivepage = prctile(age,5);
             ninefivepage = prctile(age,95);
+            circstr1 = sprintf("Mean: %d",meanage); 
+            circstr2 = sprintf("Median: %d",medianage);
+            circstr3 = sprintf("5th Percentile: %d",fivepage);
+            circstr4 = sprintf("95th Percentile: %f",ninefivepage);
+            circstr = {circstr1,circstr2,circstr3,circstr4};
+            text(ax,42,300,circstr);            
         case {'Weight'}
             weight = T.weight3;
             histogram(ax,weight)
@@ -121,6 +137,12 @@ function selection(ddmenu, eventdata, handles)
             medianweight = median(weight);
             fivepweight = prctile(weight,5);
             ninefivepweight = prctile(weight,95);
+            circstr1 = sprintf("Mean: %d",meanweight); 
+            circstr2 = sprintf("Median: %d",medianweight);
+            circstr3 = sprintf("5th Percentile: %d",fivepweight);
+            circstr4 = sprintf("95th Percentile: %f",ninefivepweight);
+            circstr = {circstr1,circstr2,circstr3,circstr4};
+            text(ax,100,200,circstr); 
         case {'Height'}
             height = T.height3;
             histogram(ax,height)
@@ -129,6 +151,12 @@ function selection(ddmenu, eventdata, handles)
             medianheight = median(height);
             fivepheight = prctile(height,5);
             ninefivepheight = prctile(height,95);
+            circstr1 = sprintf("Mean: %d",meanheight); 
+            circstr2 = sprintf("Median: %d",medianheight);
+            circstr3 = sprintf("5th Percentile: %d",fivepheight);
+            circstr4 = sprintf("95th Percentile: %f",ninefivepheight);
+            circstr = {circstr1,circstr2,circstr3,circstr4};
+            text(ax,175,230,circstr);
         case {'BMI'}
             bmi = T.bmi3;
             histogram(ax,bmi)
@@ -137,6 +165,12 @@ function selection(ddmenu, eventdata, handles)
             medianbmi = median(bmi);
             fivepbmi = prctile(bmi,5);
             ninefivepbmi = prctile(bmi,95);
+            circstr1 = sprintf("Mean: %d",meanbmi); 
+            circstr2 = sprintf("Median: %d",medianbmi);
+            circstr3 = sprintf("5th Percentile: %d",fivepbmi);
+            circstr4 = sprintf("95th Percentile: %f",ninefivepbmi);
+            circstr = {circstr1,circstr2,circstr3,circstr4};
+            text(ax,33,250,circstr);
         case {'Sex'}
             sex = T.sex;
             c1 = categorical(sex);
