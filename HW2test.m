@@ -347,6 +347,25 @@ function plotButtonPushed(b3,ax)
         ax.NextPlot = 'replace';
         cla(ax);    
         set(ax,'visible','on');
+        m_xy = [m_scatter_x'; m_scatter_y'];
+        m_xy1 = m_xy(:, ~any(isnan(m_xy)));
+        m_x = m_xy1(1,:);
+        m_y = m_xy1(2,:);
+        
+        f_xy = [f_scatter_x'; f_scatter_y'];
+        f_xy1 = f_xy(:, ~any(isnan(f_xy)));
+        f_x = f_xy1(1,:);
+        f_y = f_xy1(2,:);
+
+        
+        m_r = corr2(m_x, m_y);
+        f_r = corr2(f_x, f_y);
+        m_r_str = sprintf('Male Correlation Value: %d', m_r);
+        f_r_str = sprintf('Female Correlation Value: %d', f_r);
+        
+        % Put UI Label stuff here
+        
+        
         scatter(ax,m_scatter_x, m_scatter_y);
         hold(ax,'on')
         scatter(ax,f_scatter_x, f_scatter_y,'MarkerEdgeColor',[1 0 0]);
