@@ -4,6 +4,9 @@ function HW2test
 global T;
 global male_ind;
 global female_ind;
+global choice2;
+global choice3;
+
 
 x = detectImportOptions('liver_fat_with_covariates.csv');
 T = readtable('liver_fat_with_covariates.csv',x);
@@ -58,9 +61,8 @@ uif = uifigure('visible','off');
 ax = uiaxes('Parent',uif,'Position',[10 10 400 400],'visible','off');
 
 b3 = uibutton(uif,'push',...
-               'Text', 'plot', 'Position',[430, 260, 100, 22], ...
+               'Text', 'plot', 'Position',[430, 200, 100, 22], ...
                'ButtonPushedFcn', @(b3,event) plotButtonPushed(b3,ax));
-
 
 % Creating a dropdown menu
 ddmenu = uidropdown(uif,...
@@ -73,17 +75,17 @@ ddmenu = uidropdown(uif,...
 % Creating a dropdown menu
 ddmenu2 = uidropdown(uif,...
     'Position',[430 300 100 22],...
-    'Items',{'Waist Circumference', 'Mean Liver Fat p', 'Total Fat',...
+    'Items',{'Select X Variable:','Waist Circumference', 'Mean Liver Fat p', 'Total Fat',...
     'Age', 'Weight', 'Height', 'BMI'},...
-    'Value','BMI',...
+    'Value','Select X Variable:',...
     'ValueChangedFcn',@(ddmenu2,event) selection2(ddmenu2),'visible', 'off');
 
 % Creating a dropdown menu
 ddmenu3 = uidropdown(uif,...
     'Position',[430 100 100 22],...
-    'Items',{'Waist Circumference', 'Mean Liver Fat p', 'Total Fat',...
+    'Items',{'Select Y Variable:','Waist Circumference', 'Mean Liver Fat p', 'Total Fat',...
     'Age', 'Weight', 'Height', 'BMI'},...
-    'Value','BMI',...
+    'Value','Select Y Variable:',...
     'ValueChangedFcn',@(ddmenu3,event) selection3(ddmenu3),'visible', 'off');
 
 
@@ -247,6 +249,8 @@ end
 function selection2(ddmenu2, eventdata, handles)
     choice2 = get(ddmenu2,'Value');
     switch choice2
+        case {'Select X Variable:'}
+
         case {'Waist Circumference'}
             m_scatter_x = T.waist_cir3(male_ind);
             f_scatter_x = T.waist_cir3(female_ind);
@@ -276,6 +280,8 @@ end
 function selection3(ddmenu3, eventdata, handles)
     choice3 = get(ddmenu3,'Value');
     switch choice3
+        case {'Select Y Variable:'}
+
         case {'Waist Circumference'}
             m_scatter_y = T.waist_cir3(male_ind);
             f_scatter_y = T.waist_cir3(female_ind);
@@ -302,12 +308,14 @@ end
 
 % Create the function for the ButtonPushedFcn callback
 function plotButtonPushed(b3,ax)
-    ax.NextPlot = 'replace';
-    cla(ax);    
-    set(ax,'visible','on');
-    scatter(ax,m_scatter_x, m_scatter_y);
-    hold(ax,'on')
-    scatter(ax,f_scatter_x, f_scatter_y,'MarkerEdgeColor',[1 0 0]);
+    if(~strcmp(choice2, 'Select X Variable:') && ~strcmp(choice3, 'Select Y Variable:'))
+        ax.NextPlot = 'replace';
+        cla(ax);    
+        set(ax,'visible','on');
+        scatter(ax,m_scatter_x, m_scatter_y);
+        hold(ax,'on')
+        scatter(ax,f_scatter_x, f_scatter_y,'MarkerEdgeColor',[1 0 0]);
+    end
 end
 
 
