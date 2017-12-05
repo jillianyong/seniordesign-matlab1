@@ -18,7 +18,6 @@ global uif;
  global b2;
  global txt;
  global ax;
- global axcat;
  global histy;
  global texty;
 
@@ -52,7 +51,7 @@ txt = uicontrol('Parent',f1,'visible', ...
  
 uif = uifigure('visible','off');
 ax = uiaxes('Parent',uif,'Position',[10 10 400 400],'visible','off');
-axcat = uiaxes('Parent',uif,'Position',[10 10 400 400],'visible','off');
+
 
 % Creating a dropdown menu
 ddmenu = uidropdown(uif,...
@@ -77,9 +76,8 @@ function selection(ddmenu, eventdata, handles)
     choice = get(ddmenu,'Value');
     switch choice
         case {'Waist Circumference'}
-            set(axcat,'visible','off');
+            ax.NextPlot = 'replace';
             cla(ax);
-            cla(axcat);
             set(ax,'visible','on');
             waist_cir = T.waist_cir3;
             histy = histogram(ax,waist_cir);
@@ -95,9 +93,8 @@ function selection(ddmenu, eventdata, handles)
             circstr = {circstr1,circstr2,circstr3,circstr4};
             texty = text(ax,110,250,circstr);
         case {'Mean Liver Fat p'}
-            set(axcat,'visible','off');
+            ax.NextPlot = 'replace';
             cla(ax);
-            cla(axcat);
             set(ax,'visible','on');
             mean_liver_fat_p = T.mean_liver_fat_p;
             histy = histogram(ax,mean_liver_fat_p);
@@ -112,10 +109,9 @@ function selection(ddmenu, eventdata, handles)
             circstr4 = sprintf("95th Percentile: %f",ninefiveplivfatp);
             circstr = {circstr1,circstr2,circstr3,circstr4};
             texty = text(ax,20,800,circstr);
-        case {'Total Fat'}
-            set(axcat,'visible','off');
+        case {'Total Fat'}            
+            ax.NextPlot = 'replace';
             cla(ax);
-            cla(axcat);
             set(ax,'visible','on');
             total_fat = T.total_fat;
             histy = histogram(ax,total_fat);
@@ -131,9 +127,8 @@ function selection(ddmenu, eventdata, handles)
             circstr = {circstr1,circstr2,circstr3,circstr4};
             texty = text(ax,20,200,circstr);            
         case {'Age'}
-            set(axcat,'visible','off');
+            ax.NextPlot = 'replace';
             cla(ax);
-            cla(axcat);
             set(ax,'visible','on');age = T.age3;
             histy = histogram(ax,age);
             age(isnan(age)) = [];
@@ -148,9 +143,8 @@ function selection(ddmenu, eventdata, handles)
             circstr = {circstr1,circstr2,circstr3,circstr4};
             texty = text(ax,42,300,circstr);            
         case {'Weight'}
-            set(axcat,'visible','off');
+            ax.NextPlot = 'replace';
             cla(ax);
-            cla(axcat);
             set(ax,'visible','on');
             weight = T.weight3;
             histy = histogram(ax,weight);
@@ -166,9 +160,8 @@ function selection(ddmenu, eventdata, handles)
             circstr = {circstr1,circstr2,circstr3,circstr4};
             texty = text(ax,100,200,circstr); 
         case {'Height'}
-            set(axcat,'visible','off');
+            ax.NextPlot = 'replace';
             cla(ax);
-            cla(axcat);
             set(ax,'visible','on');
             height = T.height3;
             histy = histogram(ax,height);
@@ -184,9 +177,8 @@ function selection(ddmenu, eventdata, handles)
             circstr = {circstr1,circstr2,circstr3,circstr4};
             texty = text(ax,175,230,circstr);
         case {'BMI'}
-            set(axcat,'visible','off');
+            ax.NextPlot = 'replace';
             cla(ax);
-            cla(axcat);
             set(ax,'visible','on');
             bmi = T.bmi3;
             histy = histogram(ax,bmi);
@@ -202,29 +194,26 @@ function selection(ddmenu, eventdata, handles)
             circstr = {circstr1,circstr2,circstr3,circstr4};
             texty = text(ax,33,250,circstr);
         case {'Sex'}
-            set(axcat,'visible','on');
+            ax.NextPlot = 'replace';
             cla(ax);
-            cla(axcat);
-            set(ax,'visible','off');
+            set(ax,'visible','on');
             sex = T.sex;
             c1 = categorical(sex);
-            histy = histogram(axcat,c1);
+            histy = histogram(ax,c1);
         case {'Race'}
-            set(axcat,'visible','on');
+            ax.NextPlot = 'replace';
             cla(ax);
-            cla(axcat);
-            set(ax,'visible','off');
+            set(ax,'visible','on');
             race = T.race3;
             c2 = categorical(race);
-            histy = histogram(axcat,c2);
+            histy = histogram(ax,c2);
         case {'Diabetes'}
-            set(axcat,'visible','on');
+            ax.NextPlot = 'replace';
             cla(ax);
-            cla(axcat);
-            set(ax,'visible','off');
+            set(ax,'visible','on');
             diabetes = T.diabetes3;
             c3 = categorical(diabetes);
-            histy = histogram(axcat,c3);
+            histy = histogram(ax,c3);
     end
 end
 end  
