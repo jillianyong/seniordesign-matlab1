@@ -18,6 +18,9 @@ global uif;
  global b2;
  global txt;
  global ax;
+ global axcat;
+ global histy;
+ global texty;
 
 
 % Buttons
@@ -49,6 +52,7 @@ txt = uicontrol('Parent',f1,'visible', ...
  
 uif = uifigure('visible','off');
 ax = uiaxes('Parent',uif,'Position',[10 10 400 400],'visible','off');
+axcat = uiaxes('Parent',uif,'Position',[10 10 400 400],'visible','off');
 
 % Creating a dropdown menu
 ddmenu = uidropdown(uif,...
@@ -62,7 +66,7 @@ ddmenu = uidropdown(uif,...
 
 function scat(hObject,eventdata)
     set([f1,b1,b2,txt],'visible','off');
-    set([uif,ax,ddmenu],'visible','on');
+    set([uif,ddmenu],'visible','on');
 end
 
 
@@ -73,9 +77,12 @@ function selection(ddmenu, eventdata, handles)
     choice = get(ddmenu,'Value');
     switch choice
         case {'Waist Circumference'}
+            set(axcat,'visible','off');
+            cla(ax);
+            cla(axcat);
+            set(ax,'visible','on');
             waist_cir = T.waist_cir3;
-            hist1 = histogram(ax,waist_cir);
-            hold on;
+            histy = histogram(ax,waist_cir);
             waist_cir(isnan(waist_cir)) = [];
             meanwaistcir = mean(waist_cir);
             medianwaistcir = median(waist_cir);
@@ -86,10 +93,14 @@ function selection(ddmenu, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %d",fivepwaistcir);
             circstr4 = sprintf("95th Percentile: %f",ninefivepwaistcir);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            text(ax,110,250,circstr);
+            texty = text(ax,110,250,circstr);
         case {'Mean Liver Fat p'}
+            set(axcat,'visible','off');
+            cla(ax);
+            cla(axcat);
+            set(ax,'visible','on');
             mean_liver_fat_p = T.mean_liver_fat_p;
-            histogram(ax,mean_liver_fat_p)
+            histy = histogram(ax,mean_liver_fat_p);
             mean_liver_fat_p(isnan(mean_liver_fat_p)) = [];
             meanlivfatp = mean(mean_liver_fat_p);
             medianlivfatp = median(mean_liver_fat_p);
@@ -100,10 +111,14 @@ function selection(ddmenu, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %d",fiveplivfatp);
             circstr4 = sprintf("95th Percentile: %f",ninefiveplivfatp);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            text(ax,20,800,circstr);
+            texty = text(ax,20,800,circstr);
         case {'Total Fat'}
+            set(axcat,'visible','off');
+            cla(ax);
+            cla(axcat);
+            set(ax,'visible','on');
             total_fat = T.total_fat;
-            histogram(ax,total_fat)
+            histy = histogram(ax,total_fat);
             total_fat(isnan(total_fat)) = [];
             meantotfat = mean(total_fat);
             mediantotfat = median(total_fat);
@@ -114,10 +129,13 @@ function selection(ddmenu, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %d",fiveptotfat);
             circstr4 = sprintf("95th Percentile: %f",ninefiveptotfat);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            text(ax,20,200,circstr);            
+            texty = text(ax,20,200,circstr);            
         case {'Age'}
-            age = T.age3;
-            histogram(ax,age)
+            set(axcat,'visible','off');
+            cla(ax);
+            cla(axcat);
+            set(ax,'visible','on');age = T.age3;
+            histy = histogram(ax,age);
             age(isnan(age)) = [];
             meanage = mean(age);
             medianage = median(age);
@@ -128,10 +146,14 @@ function selection(ddmenu, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %d",fivepage);
             circstr4 = sprintf("95th Percentile: %f",ninefivepage);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            text(ax,42,300,circstr);            
+            texty = text(ax,42,300,circstr);            
         case {'Weight'}
+            set(axcat,'visible','off');
+            cla(ax);
+            cla(axcat);
+            set(ax,'visible','on');
             weight = T.weight3;
-            histogram(ax,weight)
+            histy = histogram(ax,weight);
             weight(isnan(weight)) = [];
             meanweight = mean(weight);
             medianweight = median(weight);
@@ -142,10 +164,14 @@ function selection(ddmenu, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %d",fivepweight);
             circstr4 = sprintf("95th Percentile: %f",ninefivepweight);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            text(ax,100,200,circstr); 
+            texty = text(ax,100,200,circstr); 
         case {'Height'}
+            set(axcat,'visible','off');
+            cla(ax);
+            cla(axcat);
+            set(ax,'visible','on');
             height = T.height3;
-            histogram(ax,height)
+            histy = histogram(ax,height);
             height(isnan(height)) = [];
             meanheight = mean(height);
             medianheight = median(height);
@@ -156,10 +182,14 @@ function selection(ddmenu, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %d",fivepheight);
             circstr4 = sprintf("95th Percentile: %f",ninefivepheight);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            text(ax,175,230,circstr);
+            texty = text(ax,175,230,circstr);
         case {'BMI'}
+            set(axcat,'visible','off');
+            cla(ax);
+            cla(axcat);
+            set(ax,'visible','on');
             bmi = T.bmi3;
-            histogram(ax,bmi)
+            histy = histogram(ax,bmi);
             bmi(isnan(bmi)) = [];
             meanbmi = mean(bmi);
             medianbmi = median(bmi);
@@ -170,19 +200,31 @@ function selection(ddmenu, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %d",fivepbmi);
             circstr4 = sprintf("95th Percentile: %f",ninefivepbmi);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            text(ax,33,250,circstr);
+            texty = text(ax,33,250,circstr);
         case {'Sex'}
+            set(axcat,'visible','on');
+            cla(ax);
+            cla(axcat);
+            set(ax,'visible','off');
             sex = T.sex;
             c1 = categorical(sex);
-            histogram(ax,c1)
+            histy = histogram(axcat,c1);
         case {'Race'}
+            set(axcat,'visible','on');
+            cla(ax);
+            cla(axcat);
+            set(ax,'visible','off');
             race = T.race3;
             c2 = categorical(race);
-            histogram(ax,c2)
+            histy = histogram(axcat,c2);
         case {'Diabetes'}
+            set(axcat,'visible','on');
+            cla(ax);
+            cla(axcat);
+            set(ax,'visible','off');
             diabetes = T.diabetes3;
             c3 = categorical(diabetes);
-            histogram(ax,c3)
+            histy = histogram(axcat,c3);
     end
 end
 end  
