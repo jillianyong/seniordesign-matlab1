@@ -30,6 +30,8 @@ f1 = figure;
  global m_scatter_y;
  global f_scatter_x;
  global f_scatter_y;
+ global xaxis_label;
+ global yaxis_label;
 
 
 % Buttons
@@ -61,7 +63,7 @@ uif = uifigure('visible','off');
 ax = uiaxes('Parent',uif,'Position',[10 10 400 400],'visible','off');
 
 b3 = uibutton(uif,'push',...
-               'Text', 'plot', 'Position',[430, 200, 100, 22], ...
+               'Text', 'plot', 'visible','off','Position',[430, 200, 100, 22], ...
                'ButtonPushedFcn', @(b3,event) plotButtonPushed(b3,ax));
 
 % Creating a dropdown menu
@@ -120,6 +122,8 @@ function selection(ddmenu, eventdata, handles)
             circstr4 = sprintf("95th Percentile: %f",ninefivepwaistcir);
             circstr = {circstr1,circstr2,circstr3,circstr4};
             texty = text(ax,110,250,circstr);
+            xlabel(ax,'Waist Circumference');
+            ylabel(ax,'Frequency');
         case {'Mean Liver Fat p'}
             ax.NextPlot = 'replace';
             cla(ax);
@@ -137,6 +141,8 @@ function selection(ddmenu, eventdata, handles)
             circstr4 = sprintf("95th Percentile: %f",ninefiveplivfatp);
             circstr = {circstr1,circstr2,circstr3,circstr4};
             texty = text(ax,20,800,circstr);
+            xlabel(ax,'Mean Liver Fat p');
+            ylabel(ax,'Frequency');
         case {'Total Fat'}            
             ax.NextPlot = 'replace';
             cla(ax);
@@ -153,7 +159,9 @@ function selection(ddmenu, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %d",fiveptotfat);
             circstr4 = sprintf("95th Percentile: %f",ninefiveptotfat);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            texty = text(ax,20,200,circstr);            
+            texty = text(ax,20,200,circstr);
+            xlabel(ax,'Total Fat');
+            ylabel(ax,'Frequency');
         case {'Age'}
             ax.NextPlot = 'replace';
             cla(ax);
@@ -169,7 +177,9 @@ function selection(ddmenu, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %d",fivepage);
             circstr4 = sprintf("95th Percentile: %f",ninefivepage);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            texty = text(ax,42,300,circstr);            
+            texty = text(ax,42,300,circstr); 
+            xlabel(ax,'Age');
+            ylabel(ax,'Frequency');
         case {'Weight'}
             ax.NextPlot = 'replace';
             cla(ax);
@@ -187,6 +197,8 @@ function selection(ddmenu, eventdata, handles)
             circstr4 = sprintf("95th Percentile: %f",ninefivepweight);
             circstr = {circstr1,circstr2,circstr3,circstr4};
             texty = text(ax,100,200,circstr); 
+            xlabel(ax,'Weight');
+            ylabel(ax,'Frequency');
         case {'Height'}
             ax.NextPlot = 'replace';
             cla(ax);
@@ -204,6 +216,8 @@ function selection(ddmenu, eventdata, handles)
             circstr4 = sprintf("95th Percentile: %f",ninefivepheight);
             circstr = {circstr1,circstr2,circstr3,circstr4};
             texty = text(ax,175,230,circstr);
+            xlabel(ax,'Height');
+            ylabel(ax,'Frequency');
         case {'BMI'}
             ax.NextPlot = 'replace';
             cla(ax);
@@ -221,6 +235,8 @@ function selection(ddmenu, eventdata, handles)
             circstr4 = sprintf("95th Percentile: %f",ninefivepbmi);
             circstr = {circstr1,circstr2,circstr3,circstr4};
             texty = text(ax,33,250,circstr);
+            xlabel(ax,'BMI');
+            ylabel(ax,'Frequency');
         case {'Sex'}
             ax.NextPlot = 'replace';
             cla(ax);
@@ -228,6 +244,8 @@ function selection(ddmenu, eventdata, handles)
             sex = T.sex;
             c1 = categorical(sex);
             histy = histogram(ax,c1);
+            xlabel(ax,'Sex');
+            ylabel(ax,'Frequency');
         case {'Race'}
             ax.NextPlot = 'replace';
             cla(ax);
@@ -235,6 +253,8 @@ function selection(ddmenu, eventdata, handles)
             race = T.race3;
             c2 = categorical(race);
             histy = histogram(ax,c2);
+            xlabel(ax,'Race');
+            ylabel(ax,'Frequency');
         case {'Diabetes'}
             ax.NextPlot = 'replace';
             cla(ax);
@@ -242,6 +262,8 @@ function selection(ddmenu, eventdata, handles)
             diabetes = T.diabetes3;
             c3 = categorical(diabetes);
             histy = histogram(ax,c3);
+            xlabel(ax,'Diabetes');
+            ylabel(ax,'Frequency');
     end
 end
 
@@ -254,24 +276,30 @@ function selection2(ddmenu2, eventdata, handles)
         case {'Waist Circumference'}
             m_scatter_x = T.waist_cir3(male_ind);
             f_scatter_x = T.waist_cir3(female_ind);
+            xaxis_label = 'Waist Circumference';
         case {'Mean Liver Fat p'}
             m_scatter_x = T.mean_liver_fat_p(male_ind);
             f_scatter_x = T.mean_liver_fat_p(female_ind);
         case {'Total Fat'}
             m_scatter_x = T.total_fat(male_ind);
             f_scatter_x = T.total_fat(female_ind);
+            xaxis_label = 'Total Fat';
         case {'Age'}
             m_scatter_x = T.age3(male_ind);
             f_scatter_x = T.age3(female_ind);
+            xaxis_label = 'Age';
         case {'Weight'}
             m_scatter_x = T.weight3(male_ind);
-            f_scatter_x = T.weight3(female_ind);            
+            f_scatter_x = T.weight3(female_ind); 
+            xaxis_label = 'Weight';
         case {'Height'}
             m_scatter_x = T.height3(male_ind);
             f_scatter_x = T.height3(female_ind);
+            xaxis_label = 'Height';
         case {'BMI'}
             m_scatter_x = T.bmi3(male_ind);
             f_scatter_x = T.bmi3(female_ind);
+            xaxis_label = 'BMI';
     end       
 end
 
@@ -285,24 +313,31 @@ function selection3(ddmenu3, eventdata, handles)
         case {'Waist Circumference'}
             m_scatter_y = T.waist_cir3(male_ind);
             f_scatter_y = T.waist_cir3(female_ind);
+            yaxis_label = 'Waist Circumference';
         case {'Mean Liver Fat p'}
             m_scatter_y = T.mean_liver_fat_p(male_ind);
             f_scatter_y = T.mean_liver_fat_p(female_ind);
+            yaxis_label = 'Mean Liver Fat p';
         case {'Total Fat'}
             m_scatter_y = T.total_fat(male_ind);
             f_scatter_y = T.total_fat(female_ind);
+            yaxis_label = 'Total Fat';
         case {'Age'}
             m_scatter_y = T.age3(male_ind);
             f_scatter_y = T.age3(female_ind);
+            yaxis_label = 'Age';
         case {'Weight'}
             m_scatter_y = T.weight3(male_ind);
-            f_scatter_y = T.weight3(female_ind);            
+            f_scatter_y = T.weight3(female_ind);
+            yaxis_label = 'Weight';
         case {'Height'}
             m_scatter_y = T.height3(male_ind);
             f_scatter_y = T.height3(female_ind);
+            yaxis_label = 'Height';
         case {'BMI'}
             m_scatter_y = T.bmi3(male_ind);
             f_scatter_y = T.bmi3(female_ind);
+            yaxis_label = 'BMI';
     end      
 end
 
@@ -315,6 +350,8 @@ function plotButtonPushed(b3,ax)
         scatter(ax,m_scatter_x, m_scatter_y);
         hold(ax,'on')
         scatter(ax,f_scatter_x, f_scatter_y,'MarkerEdgeColor',[1 0 0]);
+        xlabel(ax,xaxis_label);
+        ylabel(ax,yaxis_label);
     end
 end
 
