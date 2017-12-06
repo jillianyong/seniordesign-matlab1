@@ -1,3 +1,10 @@
+%% Copyright 2017
+% Rita Chen richen@bu.edu
+% Max Christ mmchrist@bu.edu
+% Jillian Yong jeyong@bu.edu
+% All Rights Reserved
+
+%%
 % Gets the import options for the spreadsheet
 x = detectImportOptions('liver_fat_with_covariates.csv');
 % Imports the spreadsheet as a table

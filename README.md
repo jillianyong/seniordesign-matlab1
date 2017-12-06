@@ -1,2 +1,2 @@
 # seniordesign-matlab1
-simple matlab GUI code
+Repository for all the lovely Matlab we've done for Senior Design.

@@ -1,3 +1,10 @@
+%% Copyright 2017
+% Rita Chen richen@bu.edu
+% Max Christ mmchrist@bu.edu
+% Jillian Yong jeyong@bu.edu
+% All Rights Reserved
+
+%%
 function HW2
 global T;
 global male_ind;

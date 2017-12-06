@@ -1,3 +1,8 @@
+%% Copyright
+% Pfizer Inc.
+% All Rights Reserved.
+
+%%
 function pLiverDisplay(action, varargin)
 %pLiverDisplay   
 % 
