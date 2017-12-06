@@ -1,3 +1,9 @@
+%% Copyright 2017 
+% Jillian Yong jeyong@bu.edu
+% Max Christ mmchrist@bu.edu
+% Rita Chen richen@bu.edu
+% All Rights Reserved
+
 %% Create title page
 
 function HW2
