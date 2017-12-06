@@ -1,4 +1,4 @@
-function HW2_HealthyAge
+function HW2_HealthyGenderAge
 global T;
 global male_ind;
 global female_ind;
@@ -80,28 +80,28 @@ ax = uiaxes('Parent',uif,'Position',[10 10 400 400],'visible','off');
 
 % Creating a dropdown menu
 ddmenu = uidropdown(uif,...
-    'Position',[430 210 100 22],...
+    'Position',[410 210 140 22],...
     'Items',{'Waist Circumference', 'Mean Liver Fat p', 'Total Fat Index',...
     'Age', 'Weight', 'Height', 'BMI', 'Sex', 'Race', 'Diabetes'},...
     'Value','BMI',...
     'ValueChangedFcn',@(ddmenu,event) selection(ddmenu),'visible', 'off');
 
 ddmenu1 = uidropdown(uif,...
-    'Position',[430 210 100 22],...
+    'Position',[410 210 140 22],...
     'Items',{'Waist Circumference', 'Mean Liver Fat p', 'Total Fat Index',...
     'Age', 'Weight', 'Height', 'BMI', 'Sex', 'Race', 'Diabetes'},...
     'Value','BMI',...
     'ValueChangedFcn',@(ddmenu1,event) selection1(ddmenu1),'visible', 'off');
 
 ddmenu2 = uidropdown(uif,...
-    'Position',[430 210 100 22],...
+    'Position',[410 210 140 22],...
     'Items',{'Waist Circumference', 'Mean Liver Fat p', 'Total Fat Index',...
     'Age', 'Weight', 'Height', 'BMI', 'Sex', 'Race', 'Diabetes'},...
     'Value','BMI',...
     'ValueChangedFcn',@(ddmenu2,event) selection2(ddmenu2),'visible', 'off');
 
 ddmenu3 = uidropdown(uif,...
-    'Position',[430 210 100 22],...
+    'Position',[410 210 140 22],...
     'Items',{'Waist Circumference', 'Mean Liver Fat p', 'Total Fat Index',...
     'Age', 'Weight', 'Height', 'BMI', 'Sex', 'Race', 'Diabetes'},...
     'Value','BMI',...
@@ -132,8 +132,8 @@ function selection(ddmenu, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %.2f",fivepwaistcir);
             circstr4 = sprintf("95th Percentile: %.2f",ninefivepwaistcir);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            texty = text(ax,110,250,circstr);
-            xlabel(ax,'Waist Circumference');
+            texty = text(ax,94,4,circstr);
+            xlabel(ax,'Waist Circumference (cm)');
             ylabel(ax,'Frequency');
         case {'Mean Liver Fat p'}
             ax.NextPlot = 'replace';
@@ -151,8 +151,8 @@ function selection(ddmenu, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %.2f",fiveplivfatp);
             circstr4 = sprintf("95th Percentile: %.2f",ninefiveplivfatp);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            texty = text(ax,20,800,circstr);
-            xlabel(ax,'Mean Liver Fat p');
+            texty = text(ax,5,10,circstr);
+            xlabel(ax,'Mean Liver Fat p (%)');
             ylabel(ax,'Frequency');
         case {'Total Fat Index'}            
             ax.NextPlot = 'replace';
@@ -170,7 +170,7 @@ function selection(ddmenu, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %.2f",fiveptotfat);
             circstr4 = sprintf("95th Percentile: %.2f",ninefiveptotfat);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            texty = text(ax,5,140,circstr);
+            texty = text(ax,4.5,10,circstr);
             xlabel(ax,'Total Fat Index');
             ylabel(ax,'Frequency');
         case {'Age'}
@@ -189,8 +189,8 @@ function selection(ddmenu, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %.2f",fivepage);
             circstr4 = sprintf("95th Percentile: %.2f",ninefivepage);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            texty = text(ax,42,300,circstr); 
-            xlabel(ax,'Age');
+            texty = text(ax,73,9,circstr); 
+            xlabel(ax,'Age (year)');
             ylabel(ax,'Frequency');
             xlim([69 78]);
         case {'Weight'}
@@ -209,8 +209,8 @@ function selection(ddmenu, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %.2f",fivepweight);
             circstr4 = sprintf("95th Percentile: %.2f",ninefivepweight);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            texty = text(ax,100,200,circstr); 
-            xlabel(ax,'Weight');
+            texty = text(ax,50,9,circstr); 
+            xlabel(ax,'Weight (kg)');
             ylabel(ax,'Frequency');
         case {'Height'}
             ax.NextPlot = 'replace';
@@ -228,8 +228,8 @@ function selection(ddmenu, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %.2f",fivepheight);
             circstr4 = sprintf("95th Percentile: %.2f",ninefivepheight);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            texty = text(ax,175,230,circstr);
-            xlabel(ax,'Height');
+            texty = text(ax,160,9,circstr);
+            xlabel(ax,'Height (cm)');
             ylabel(ax,'Frequency');
         case {'BMI'}
             ax.NextPlot = 'replace';
@@ -247,8 +247,8 @@ function selection(ddmenu, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %.2f",fivepbmi);
             circstr4 = sprintf("95th Percentile: %.2f",ninefivepbmi);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            texty = text(ax,33,250,circstr);
-            xlabel(ax,'BMI');
+            texty = text(ax,18,9,circstr);
+            xlabel(ax,'BMI (kg/m^2)');
             ylabel(ax,'Frequency');
         case {'Sex'}
             ax.NextPlot = 'replace';
@@ -306,8 +306,8 @@ function selection1(ddmenu1, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %.2f",fivepwaistcir);
             circstr4 = sprintf("95th Percentile: %.2f",ninefivepwaistcir);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            texty = text(ax,110,250,circstr);
-            xlabel(ax,'Waist Circumference');
+            texty = text(ax,110,70,circstr);
+            xlabel(ax,'Waist Circumference (cm)');
             ylabel(ax,'Frequency');
         case {'Mean Liver Fat p'}
             ax.NextPlot = 'replace';
@@ -325,8 +325,8 @@ function selection1(ddmenu1, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %.2f",fiveplivfatp);
             circstr4 = sprintf("95th Percentile: %.2f",ninefiveplivfatp);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            texty = text(ax,20,800,circstr);
-            xlabel(ax,'Mean Liver Fat p');
+            texty = text(ax,20,100,circstr);
+            xlabel(ax,'Mean Liver Fat p (%)');
             ylabel(ax,'Frequency');
         case {'Total Fat Index'}            
             ax.NextPlot = 'replace';
@@ -344,7 +344,7 @@ function selection1(ddmenu1, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %.2f",fiveptotfat);
             circstr4 = sprintf("95th Percentile: %.2f",ninefiveptotfat);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            texty = text(ax,5,140,circstr);
+            texty = text(ax,5,50,circstr);
             xlabel(ax,'Total Fat Index');
             ylabel(ax,'Frequency');
         case {'Age'}
@@ -363,8 +363,8 @@ function selection1(ddmenu1, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %.2f",fivepage);
             circstr4 = sprintf("95th Percentile: %.2f",ninefivepage);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            texty = text(ax,42,300,circstr); 
-            xlabel(ax,'Age');
+            texty = text(ax,45,50,circstr); 
+            xlabel(ax,'Age (year)');
             ylabel(ax,'Frequency');
         case {'Weight'}
             ax.NextPlot = 'replace';
@@ -382,8 +382,8 @@ function selection1(ddmenu1, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %.2f",fivepweight);
             circstr4 = sprintf("95th Percentile: %.2f",ninefivepweight);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            texty = text(ax,100,200,circstr); 
-            xlabel(ax,'Weight');
+            texty = text(ax,100,50,circstr); 
+            xlabel(ax,'Weight (kg)');
             ylabel(ax,'Frequency');
         case {'Height'}
             ax.NextPlot = 'replace';
@@ -401,8 +401,8 @@ function selection1(ddmenu1, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %.2f",fivepheight);
             circstr4 = sprintf("95th Percentile: %.2f",ninefivepheight);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            texty = text(ax,175,230,circstr);
-            xlabel(ax,'Height');
+            texty = text(ax,153,60,circstr);
+            xlabel(ax,'Height (cm)');
             ylabel(ax,'Frequency');
         case {'BMI'}
             ax.NextPlot = 'replace';
@@ -420,8 +420,8 @@ function selection1(ddmenu1, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %.2f",fivepbmi);
             circstr4 = sprintf("95th Percentile: %.2f",ninefivepbmi);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            texty = text(ax,33,250,circstr);
-            xlabel(ax,'BMI');
+            texty = text(ax,33,80,circstr);
+            xlabel(ax,'BMI (kg/m^2)');
             ylabel(ax,'Frequency');
         case {'Sex'}
             ax.NextPlot = 'replace';
@@ -478,8 +478,8 @@ function selection2(ddmenu2, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %.2f",fivepwaistcir);
             circstr4 = sprintf("95th Percentile: %.2f",ninefivepwaistcir);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            texty = text(ax,110,250,circstr);
-            xlabel(ax,'Waist Circumference');
+            texty = text(ax,90,4,circstr);
+            xlabel(ax,'Waist Circumference (cm)');
             ylabel(ax,'Frequency');
         case {'Mean Liver Fat p'}
             ax.NextPlot = 'replace';
@@ -497,8 +497,8 @@ function selection2(ddmenu2, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %.2f",fiveplivfatp);
             circstr4 = sprintf("95th Percentile: %.2f",ninefiveplivfatp);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            texty = text(ax,20,800,circstr);
-            xlabel(ax,'Mean Liver Fat p');
+            texty = text(ax,6,20,circstr);
+            xlabel(ax,'Mean Liver Fat p (%)');
             ylabel(ax,'Frequency');
         case {'Total Fat Index'}            
             ax.NextPlot = 'replace';
@@ -516,7 +516,7 @@ function selection2(ddmenu2, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %.2f",fiveptotfat);
             circstr4 = sprintf("95th Percentile: %.2f",ninefiveptotfat);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            texty = text(ax,5,140,circstr);
+            texty = text(ax,5,10,circstr);
             xlabel(ax,'Total Fat Index');
             ylabel(ax,'Frequency');
         case {'Age'}
@@ -535,8 +535,8 @@ function selection2(ddmenu2, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %.2f",fivepage);
             circstr4 = sprintf("95th Percentile: %.2f",ninefivepage);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            texty = text(ax,42,300,circstr); 
-            xlabel(ax,'Age');
+            texty = text(ax,73,14,circstr); 
+            xlabel(ax,'Age (year)');
             ylabel(ax,'Frequency');
             xlim([69 78]);
         case {'Weight'}
@@ -555,8 +555,8 @@ function selection2(ddmenu2, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %.2f",fivepweight);
             circstr4 = sprintf("95th Percentile: %.2f",ninefivepweight);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            texty = text(ax,100,200,circstr); 
-            xlabel(ax,'Weight');
+            texty = text(ax,80,14,circstr); 
+            xlabel(ax,'Weight (kg)');
             ylabel(ax,'Frequency');
         case {'Height'}
             ax.NextPlot = 'replace';
@@ -574,8 +574,8 @@ function selection2(ddmenu2, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %.2f",fivepheight);
             circstr4 = sprintf("95th Percentile: %.2f",ninefivepheight);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            texty = text(ax,175,230,circstr);
-            xlabel(ax,'Height');
+            texty = text(ax,166,14,circstr);
+            xlabel(ax,'Height (cm)');
             ylabel(ax,'Frequency');
         case {'BMI'}
             ax.NextPlot = 'replace';
@@ -593,8 +593,8 @@ function selection2(ddmenu2, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %.2f",fivepbmi);
             circstr4 = sprintf("95th Percentile: %.2f",ninefivepbmi);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            texty = text(ax,33,250,circstr);
-            xlabel(ax,'BMI');
+            texty = text(ax,28,12,circstr);
+            xlabel(ax,'BMI (kg/m^2)');
             ylabel(ax,'Frequency');
         case {'Sex'}
             ax.NextPlot = 'replace';
@@ -652,8 +652,8 @@ function selection3(ddmenu3, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %.2f",fivepwaistcir);
             circstr4 = sprintf("95th Percentile: %.2f",ninefivepwaistcir);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            texty = text(ax,110,250,circstr);
-            xlabel(ax,'Waist Circumference');
+            texty = text(ax,100,80,circstr);
+            xlabel(ax,'Waist Circumference (cm)');
             ylabel(ax,'Frequency');
         case {'Mean Liver Fat p'}
             ax.NextPlot = 'replace';
@@ -671,8 +671,8 @@ function selection3(ddmenu3, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %.2f",fiveplivfatp);
             circstr4 = sprintf("95th Percentile: %.2f",ninefiveplivfatp);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            texty = text(ax,20,800,circstr);
-            xlabel(ax,'Mean Liver Fat p');
+            texty = text(ax,15,180,circstr);
+            xlabel(ax,'Mean Liver Fat p (%)');
             ylabel(ax,'Frequency');
         case {'Total Fat Index'}            
             ax.NextPlot = 'replace';
@@ -690,7 +690,7 @@ function selection3(ddmenu3, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %.2f",fiveptotfat);
             circstr4 = sprintf("95th Percentile: %.2f",ninefiveptotfat);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            texty = text(ax,5,140,circstr);
+            texty = text(ax,6,90,circstr);
             xlabel(ax,'Total Fat Index');
             ylabel(ax,'Frequency');
         case {'Age'}
@@ -709,8 +709,8 @@ function selection3(ddmenu3, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %.2f",fivepage);
             circstr4 = sprintf("95th Percentile: %.2f",ninefivepage);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            texty = text(ax,42,300,circstr); 
-            xlabel(ax,'Age');
+            texty = text(ax,45,60,circstr); 
+            xlabel(ax,'Age (year)');
             ylabel(ax,'Frequency');
         case {'Weight'}
             ax.NextPlot = 'replace';
@@ -728,8 +728,8 @@ function selection3(ddmenu3, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %.2f",fivepweight);
             circstr4 = sprintf("95th Percentile: %.2f",ninefivepweight);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            texty = text(ax,100,200,circstr); 
-            xlabel(ax,'Weight');
+            texty = text(ax,90,70,circstr); 
+            xlabel(ax,'Weight (kg)');
             ylabel(ax,'Frequency');
         case {'Height'}
             ax.NextPlot = 'replace';
@@ -747,8 +747,8 @@ function selection3(ddmenu3, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %.2f",fivepheight);
             circstr4 = sprintf("95th Percentile: %.2f",ninefivepheight);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            texty = text(ax,175,230,circstr);
-            xlabel(ax,'Height');
+            texty = text(ax,170,80,circstr);
+            xlabel(ax,'Height (cm)');
             ylabel(ax,'Frequency');
         case {'BMI'}
             ax.NextPlot = 'replace';
@@ -766,8 +766,8 @@ function selection3(ddmenu3, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %.2f",fivepbmi);
             circstr4 = sprintf("95th Percentile: %.2f",ninefivepbmi);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            texty = text(ax,33,250,circstr);
-            xlabel(ax,'BMI');
+            texty = text(ax,33,80,circstr);
+            xlabel(ax,'BMI (kg/m^2)');
             ylabel(ax,'Frequency');
         case {'Sex'}
             ax.NextPlot = 'replace';
