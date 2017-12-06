@@ -68,7 +68,7 @@ b3 = uibutton(uif,'push',...
 
 % Creating a dropdown menu
 ddmenu = uidropdown(uif,...
-    'Position',[430 210 100 22],...
+    'Position',[410 210 140 22],...
     'Items',{'Waist Circumference', 'Mean Liver Fat p', 'Total Fat Index',...
     'Age', 'Weight', 'Height', 'BMI', 'Sex', 'Race', 'Diabetes'},...
     'Value','BMI',...
@@ -76,7 +76,7 @@ ddmenu = uidropdown(uif,...
 
 % Creating a dropdown menu
 ddmenu2 = uidropdown(uif,...
-    'Position',[430 250 100 22],...
+    'Position',[410 250 140 22],...
     'Items',{'Select X Variable:','Waist Circumference', 'Mean Liver Fat p', 'Total Fat Index',...
     'Age', 'Weight', 'Height', 'BMI'},...
     'Value','Select X Variable:',...
@@ -84,7 +84,7 @@ ddmenu2 = uidropdown(uif,...
 
 % Creating a dropdown menu
 ddmenu3 = uidropdown(uif,...
-    'Position',[430 220 100 22],...
+    'Position',[410 220 140 22],...
     'Items',{'Select Y Variable:','Waist Circumference', 'Mean Liver Fat p', 'Total Fat Index',...
     'Age', 'Weight', 'Height', 'BMI'},...
     'Value','Select Y Variable:',...
@@ -122,7 +122,7 @@ function selection(ddmenu, eventdata, handles)
             circstr4 = sprintf("95th Percentile: %.2f",ninefivepwaistcir);
             circstr = {circstr1,circstr2,circstr3,circstr4};
             texty = text(ax,110,250,circstr);
-            xlabel(ax,'Waist Circumference');
+            xlabel(ax,'Waist Circumference (cm)');
             ylabel(ax,'Frequency');
         case {'Mean Liver Fat p'}
             ax.NextPlot = 'replace';
@@ -141,7 +141,7 @@ function selection(ddmenu, eventdata, handles)
             circstr4 = sprintf("95th Percentile: %.2f",ninefiveplivfatp);
             circstr = {circstr1,circstr2,circstr3,circstr4};
             texty = text(ax,20,800,circstr);
-            xlabel(ax,'Mean Liver Fat p');
+            xlabel(ax,'Mean Liver Fat p (%)');
             ylabel(ax,'Frequency');
         case {'Total Fat Index'}            
             ax.NextPlot = 'replace';
@@ -178,7 +178,7 @@ function selection(ddmenu, eventdata, handles)
             circstr4 = sprintf("95th Percentile: %.2f",ninefivepage);
             circstr = {circstr1,circstr2,circstr3,circstr4};
             texty = text(ax,42,300,circstr); 
-            xlabel(ax,'Age');
+            xlabel(ax,'Age (year)');
             ylabel(ax,'Frequency');
         case {'Weight'}
             ax.NextPlot = 'replace';
@@ -197,7 +197,7 @@ function selection(ddmenu, eventdata, handles)
             circstr4 = sprintf("95th Percentile: %.2f",ninefivepweight);
             circstr = {circstr1,circstr2,circstr3,circstr4};
             texty = text(ax,100,200,circstr); 
-            xlabel(ax,'Weight');
+            xlabel(ax,'Weight (kg)');
             ylabel(ax,'Frequency');
         case {'Height'}
             ax.NextPlot = 'replace';
@@ -216,7 +216,7 @@ function selection(ddmenu, eventdata, handles)
             circstr4 = sprintf("95th Percentile: %.2f",ninefivepheight);
             circstr = {circstr1,circstr2,circstr3,circstr4};
             texty = text(ax,175,230,circstr);
-            xlabel(ax,'Height');
+            xlabel(ax,'Height (cm)');
             ylabel(ax,'Frequency');
         case {'BMI'}
             ax.NextPlot = 'replace';
@@ -235,7 +235,7 @@ function selection(ddmenu, eventdata, handles)
             circstr4 = sprintf("95th Percentile: %.2f",ninefivepbmi);
             circstr = {circstr1,circstr2,circstr3,circstr4};
             texty = text(ax,33,250,circstr);
-            xlabel(ax,'BMI');
+            xlabel(ax,'BMI (kg/m^2)');
             ylabel(ax,'Frequency');
         case {'Sex'}
             ax.NextPlot = 'replace';
@@ -275,10 +275,11 @@ function selection2(ddmenu2, eventdata, handles)
         case {'Waist Circumference'}
             m_scatter_x = T.waist_cir3(male_ind);
             f_scatter_x = T.waist_cir3(female_ind);
-            xaxis_label = 'Waist Circumference';
+            xaxis_label = 'Waist Circumference (cm)';
         case {'Mean Liver Fat p'}
             m_scatter_x = T.mean_liver_fat_p(male_ind);
             f_scatter_x = T.mean_liver_fat_p(female_ind);
+            xaxis_label = 'Mean Liver Fat p (%)';
         case {'Total Fat Index'}
             m_scatter_x = T.total_fat_index(male_ind);
             f_scatter_x = T.total_fat_index(female_ind);
@@ -286,19 +287,19 @@ function selection2(ddmenu2, eventdata, handles)
         case {'Age'}
             m_scatter_x = T.age3(male_ind);
             f_scatter_x = T.age3(female_ind);
-            xaxis_label = 'Age';
+            xaxis_label = 'Age (year)';
         case {'Weight'}
             m_scatter_x = T.weight3(male_ind);
             f_scatter_x = T.weight3(female_ind); 
-            xaxis_label = 'Weight';
+            xaxis_label = 'Weight (kg)';
         case {'Height'}
             m_scatter_x = T.height3(male_ind);
             f_scatter_x = T.height3(female_ind);
-            xaxis_label = 'Height';
+            xaxis_label = 'Height (cm)';
         case {'BMI'}
             m_scatter_x = T.bmi3(male_ind);
             f_scatter_x = T.bmi3(female_ind);
-            xaxis_label = 'BMI';
+            xaxis_label = 'BMI (kg/m^2)';
     end       
 end
 
@@ -311,31 +312,31 @@ function selection3(ddmenu3, eventdata, handles)
         case {'Waist Circumference'}
             m_scatter_y = T.waist_cir3(male_ind);
             f_scatter_y = T.waist_cir3(female_ind);
-            yaxis_label = 'Waist Circumference';
+            yaxis_label = 'Waist Circumference (cm)';
         case {'Mean Liver Fat p'}
             m_scatter_y = T.mean_liver_fat_p(male_ind);
             f_scatter_y = T.mean_liver_fat_p(female_ind);
-            yaxis_label = 'Mean Liver Fat p';
+            yaxis_label = 'Mean Liver Fat p (%)';
         case {'Total Fat Index'}
             m_scatter_y = T.total_fat_index(male_ind);
             f_scatter_y = T.total_fat_index(female_ind);
-            yaxis_label = 'Total Fat';
+            yaxis_label = 'Total Fat Index';
         case {'Age'}
             m_scatter_y = T.age3(male_ind);
             f_scatter_y = T.age3(female_ind);
-            yaxis_label = 'Age';
+            yaxis_label = 'Age (year)';
         case {'Weight'}
             m_scatter_y = T.weight3(male_ind);
             f_scatter_y = T.weight3(female_ind);
-            yaxis_label = 'Weight';
+            yaxis_label = 'Weight (kg)';
         case {'Height'}
             m_scatter_y = T.height3(male_ind);
             f_scatter_y = T.height3(female_ind);
-            yaxis_label = 'Height';
+            yaxis_label = 'Height (cm)';
         case {'BMI'}
             m_scatter_y = T.bmi3(male_ind);
             f_scatter_y = T.bmi3(female_ind);
-            yaxis_label = 'BMI';
+            yaxis_label = 'BMI (kg/m^2)';
     end      
 end
 
