@@ -69,7 +69,7 @@ b3 = uibutton(uif,'push',...
 % Creating a dropdown menu
 ddmenu = uidropdown(uif,...
     'Position',[430 210 100 22],...
-    'Items',{'Waist Circumference', 'Mean Liver Fat p', 'Total Fat',...
+    'Items',{'Waist Circumference', 'Mean Liver Fat p', 'Total Fat Index',...
     'Age', 'Weight', 'Height', 'BMI', 'Sex', 'Race', 'Diabetes'},...
     'Value','BMI',...
     'ValueChangedFcn',@(ddmenu,event) selection(ddmenu),'visible', 'off');
@@ -77,7 +77,7 @@ ddmenu = uidropdown(uif,...
 % Creating a dropdown menu
 ddmenu2 = uidropdown(uif,...
     'Position',[430 300 100 22],...
-    'Items',{'Select X Variable:','Waist Circumference', 'Mean Liver Fat p', 'Total Fat',...
+    'Items',{'Select X Variable:','Waist Circumference', 'Mean Liver Fat p', 'Total Fat Index',...
     'Age', 'Weight', 'Height', 'BMI'},...
     'Value','Select X Variable:',...
     'ValueChangedFcn',@(ddmenu2,event) selection2(ddmenu2),'visible', 'off');
@@ -85,7 +85,7 @@ ddmenu2 = uidropdown(uif,...
 % Creating a dropdown menu
 ddmenu3 = uidropdown(uif,...
     'Position',[430 100 100 22],...
-    'Items',{'Select Y Variable:','Waist Circumference', 'Mean Liver Fat p', 'Total Fat',...
+    'Items',{'Select Y Variable:','Waist Circumference', 'Mean Liver Fat p', 'Total Fat Index',...
     'Age', 'Weight', 'Height', 'BMI'},...
     'Value','Select Y Variable:',...
     'ValueChangedFcn',@(ddmenu3,event) selection3(ddmenu3),'visible', 'off');
@@ -143,11 +143,11 @@ function selection(ddmenu, eventdata, handles)
             texty = text(ax,20,800,circstr);
             xlabel(ax,'Mean Liver Fat p');
             ylabel(ax,'Frequency');
-        case {'Total Fat'}            
+        case {'Total Fat Index'}            
             ax.NextPlot = 'replace';
             cla(ax);
             set(ax,'visible','on');
-            total_fat = T.total_fat;
+            total_fat = T.total_fat_index;
             histy = histogram(ax,total_fat);
             total_fat(isnan(total_fat)) = [];
             meantotfat = mean(total_fat);
@@ -159,7 +159,7 @@ function selection(ddmenu, eventdata, handles)
             circstr3 = sprintf("5th Percentile: %d",fiveptotfat);
             circstr4 = sprintf("95th Percentile: %f",ninefiveptotfat);
             circstr = {circstr1,circstr2,circstr3,circstr4};
-            texty = text(ax,20,200,circstr);
+            texty = text(ax,7,300,circstr);
             xlabel(ax,'Total Fat');
             ylabel(ax,'Frequency');
         case {'Age'}
@@ -280,10 +280,10 @@ function selection2(ddmenu2, eventdata, handles)
         case {'Mean Liver Fat p'}
             m_scatter_x = T.mean_liver_fat_p(male_ind);
             f_scatter_x = T.mean_liver_fat_p(female_ind);
-        case {'Total Fat'}
-            m_scatter_x = T.total_fat(male_ind);
-            f_scatter_x = T.total_fat(female_ind);
-            xaxis_label = 'Total Fat';
+        case {'Total Fat Index'}
+            m_scatter_x = T.total_fat_index(male_ind);
+            f_scatter_x = T.total_fat_index(female_ind);
+            xaxis_label = 'Total Fat Index';
         case {'Age'}
             m_scatter_x = T.age3(male_ind);
             f_scatter_x = T.age3(female_ind);
@@ -318,10 +318,10 @@ function selection3(ddmenu3, eventdata, handles)
             m_scatter_y = T.mean_liver_fat_p(male_ind);
             f_scatter_y = T.mean_liver_fat_p(female_ind);
             yaxis_label = 'Mean Liver Fat p';
-        case {'Total Fat'}
-            m_scatter_y = T.total_fat(male_ind);
-            f_scatter_y = T.total_fat(female_ind);
-            yaxis_label = 'Total Fat';
+        case {'Total Fat Index'}
+            m_scatter_y = T.total_fat_index(male_ind);
+            f_scatter_y = T.total_fat_index(female_ind);
+            yaxis_label = 'Total Fat Index';
         case {'Age'}
             m_scatter_y = T.age3(male_ind);
             f_scatter_y = T.age3(female_ind);
