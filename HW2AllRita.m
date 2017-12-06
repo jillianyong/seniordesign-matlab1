@@ -373,9 +373,9 @@ function plotButtonPushed(b3,ax)
         label2 = uilabel('Text',f_r_str,'Parent',uif,...
             'Position',[390 260 180 80]);
         
-        scatter(ax,m_scatter_x, m_scatter_y,'d','cyan','filled');
+        scatter(ax,m_scatter_x, m_scatter_y,'r');
         hold(ax,'on')
-        scatter(ax,f_scatter_x, f_scatter_y,'o','magenta'); %'MarkerEdgeColor',[1 0 0]
+        scatter(ax,f_scatter_x, f_scatter_y,'b'); %'MarkerEdgeColor',[1 0 0]
         xlabel(ax,xaxis_label);
         ylabel(ax,yaxis_label);
         legend(ax,'Male','Female');
