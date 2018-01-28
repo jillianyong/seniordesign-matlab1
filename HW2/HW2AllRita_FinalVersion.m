@@ -5,7 +5,7 @@
 % All Rights Reserved
 
 %%
-function HW2
+function HW2AllRita_FinalVersion
 global T;
 global male_ind;
 global female_ind;
@@ -19,16 +19,17 @@ male_ind = (strcmp(T.sex, 'Male'));
 female_ind = (strcmp(T.sex, 'Female'));
 
 %Create GUI background
-f1 = figure('Name','HW2','NumberTitle','off');
+%f1 = figure('Name','HW2','NumberTitle','off');
  global uif;
  global ddmenu;
  global ddmenu2;
  global ddmenu3;
- global b1;
- global b2;
+ %global b1;
+ %global b2;
  global b3;
- global txt;
+ %global txt;
  global ax;
+ global ax2;
  global histy;
  global texty;
  global m_scatter_x;
@@ -42,40 +43,43 @@ f1 = figure('Name','HW2','NumberTitle','off');
 
 
 % Buttons
-b1 = uicontrol( 'Parent',f1,'visible', ...
-    'off', 'Style','Pushbutton','Units','normalized',...
-    'Position',[.2 .5 .2 .1], 'BackgroundColor',[.8 .6 .9],...
-    'String','Scatter Plot','FontSize', 18,'Callback',@scat);
-b2 = uicontrol('Parent',f1,'visible', ...
-    'off','Style','Pushbutton','Units','normalized',...
-    'Position',[.6 .5 .2 .1], 'BackgroundColor',[.6 .4 .7],...
-    'String','Histogram','FontSize', 18, 'Callback',@hist);
+% b1 = uicontrol( 'Parent',f1,'visible', ...
+%     'off', 'Style','Pushbutton','Units','normalized',...
+%     'Position',[.2 .5 .2 .1], 'BackgroundColor',[.8 .6 .9],...
+%     'String','Scatter Plot','FontSize', 18,'Callback',@scat);
+% b2 = uicontrol('Parent',f1,'visible', ...
+%     'off','Style','Pushbutton','Units','normalized',...
+%     'Position',[.6 .5 .2 .1], 'BackgroundColor',[.6 .4 .7],...
+%     'String','Histogram','FontSize', 18, 'Callback',@hist);
 
 % Add a text uicontrol for user instructions
-txt = uicontrol('Parent',f1,'visible', ...
-    'off','Style','text',...
-      'Units','normalized',...
-      'Position',[.08 .7 .9 .08],...
-      'FontSize', 18,...
-      'String','Please select a button to display different figures.');
+% txt = uicontrol('Parent',f1,'visible', ...
+%     'off','Style','text',...
+%       'Units','normalized',...
+%       'Position',[.08 .7 .9 .08],...
+%       'FontSize', 18,...
+%       'String','Please select a button to display different figures.');
  
 
 
 
 % Creating a dropdown menu
- set([ b1, b2 txt], 'visible','on');
+%  set([ b1, b2 txt], 'visible','on');
  
  
 uif = uifigure('visible','off','name','HW2');
-ax = uiaxes('Parent',uif,'Position',[10 10 400 400],'visible','off');
+ax = uiaxes('Parent',uif,'Position',[10 10 200 200],'visible','off');
+ax2 = uiaxes('Parent',uif,'Position',[300 10 200 200],'visible','off');
 
 b3 = uibutton(uif,'push',...
-               'Text', 'Plot', 'visible','off','Position',[430, 150, 100, 22], ...
-               'ButtonPushedFcn', @(b3,event) plotButtonPushed(b3,ax));
+               'Text', 'Plot', 'visible','off','Position',[300, 250, 100, 22], ...
+               'ButtonPushedFcn', @(b3,event) plotButtonPushed(b3,ax2));
+
+
 
 % Creating a dropdown menu
 ddmenu = uidropdown(uif,...
-    'Position',[410 210 140 22],...
+    'Position',[10 250 140 22],...
     'Items',{'Waist Circumference', 'Mean Liver Fat p', 'Total Fat Index',...
     'Age', 'Weight', 'Height', 'BMI', 'Sex', 'Race', 'Diabetes'},...
     'Value','BMI',...
@@ -83,7 +87,7 @@ ddmenu = uidropdown(uif,...
 
 % Creating a dropdown menu
 ddmenu2 = uidropdown(uif,...
-    'Position',[410 250 140 22],...
+    'Position',[300 310 140 22],...
     'Items',{'Select X Variable:','Waist Circumference', 'Mean Liver Fat p', 'Total Fat Index',...
     'Age', 'Weight', 'Height', 'BMI'},...
     'Value','Select X Variable:',...
@@ -91,22 +95,24 @@ ddmenu2 = uidropdown(uif,...
 
 % Creating a dropdown menu
 ddmenu3 = uidropdown(uif,...
-    'Position',[410 220 140 22],...
+    'Position',[300 280 140 22],...
     'Items',{'Select Y Variable:','Waist Circumference', 'Mean Liver Fat p', 'Total Fat Index',...
     'Age', 'Weight', 'Height', 'BMI'},...
     'Value','Select Y Variable:',...
     'ValueChangedFcn',@(ddmenu3,event) selection3(ddmenu3),'visible', 'off');
 
 
-function hist(hObject,eventdata)
-    set([f1,b1,b2,txt],'visible','off');
-    set([uif,ddmenu],'visible','on');
-end
+set([ uif, ddmenu2, ddmenu3, b3, ddmenu], 'visible','on');
 
-function scat(hObject,eventdata)
-    set([f1,b1,b2,txt],'visible','off');
-    set([uif,ddmenu2,ddmenu3,b3 ],'visible','on');
-end
+% function hist(hObject,eventdata)
+%     set([f1,b1,b2,txt],'visible','off');
+%     set([uif,ddmenu],'visible','on');
+% end
+% 
+% function scat(hObject,eventdata)
+%     set([f1,b1,b2,txt],'visible','off');
+%     set([uif,ddmenu2,ddmenu3,b3 ],'visible','on');
+% end
 
 % Create ValueChangedFcn callback:
 function selection(ddmenu, eventdata, handles)
@@ -348,11 +354,12 @@ function selection3(ddmenu3, eventdata, handles)
 end
 
 % Create the function for the ButtonPushedFcn callback
-function plotButtonPushed(b3,ax)
+function plotButtonPushed(b3,ax2)
+    %set(ax, 'visible', 'off');
     if(~strcmp(choice2, 'Select X Variable:') && ~strcmp(choice3, 'Select Y Variable:'))
-        ax.NextPlot = 'replace';
-        cla(ax);    
-        set(ax,'visible','on');
+        ax2.NextPlot = 'replace';
+        cla(ax2);    
+        set(ax2,'visible','on');
         if (ishandle(label1))
         set(label1, 'visible','off');
         end
@@ -381,12 +388,12 @@ function plotButtonPushed(b3,ax)
         label2 = uilabel('Text',f_r_str,'Parent',uif,...
             'Position',[390 260 180 80]);
         
-        scatter(ax,m_scatter_x, m_scatter_y,'r');
-        hold(ax,'on')
-        scatter(ax,f_scatter_x, f_scatter_y,'b'); %'MarkerEdgeColor',[1 0 0]
-        xlabel(ax,xaxis_label);
-        ylabel(ax,yaxis_label);
-        legend(ax,'Male','Female');
+        scatter(ax2,m_scatter_x, m_scatter_y,'r');
+        hold(ax2,'on')
+        scatter(ax2,f_scatter_x, f_scatter_y,'b'); %'MarkerEdgeColor',[1 0 0]
+        xlabel(ax2,xaxis_label);
+        ylabel(ax2,yaxis_label);
+        legend(ax2,'Male','Female');
     end
 end
 
