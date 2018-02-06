@@ -1,20 +1,30 @@
-function Liver_Pfat_GUI
+function Liver_Pfat_GUI_Without_sprintf
 % Global Variables for Imported Data
 global T;
 global Thist;
-global Tscat;
-global male_ind;
-global female_ind;
+global mTscat;
+global fTscat;
+global nmTscat;
+global nfTscat;
+% global male_ind;
+% global female_ind;
 global choice2;
 global choice3;
 
 % Import Data
 x = detectImportOptions('BCP_Activity6021.xlsx');
 T = readtable('BCP_Activity6021.xlsx',x);
-male_ind = (strcmp(T.sex, 'Male'));
-female_ind = (strcmp(T.sex, 'Female'));
+% male_ind = (strcmp(T.sex, 'Male'));
+% female_ind = (strcmp(T.sex, 'Female'));
 Thist = T;
-Tscat = T;
+mTscat = T;
+fTscat = T;
+male_ind = (strcmp(mTscat.sex, 'Male'));
+mTscat = mTscat(male_ind,:);
+female_ind = (strcmp(fTscat.sex, 'Female'));
+fTscat = fTscat(female_ind,:);
+nmTscat = mTscat;
+nfTscat = fTscat;
 
 % Create global variables
  global uif;
@@ -197,7 +207,7 @@ function selection(ddmenu, eventdata, handles)
             if (ishandle(label6))
             set(label6, 'visible','off');
             end               
-            waist_cir = T.waist_cir3;
+            waist_cir = Thist.waist_cir3;
             histy = histogram(ax,waist_cir);
             waist_cir(isnan(waist_cir)) = [];
             meanwaistcir = num2str(round(mean(waist_cir),2));
@@ -239,7 +249,7 @@ function selection(ddmenu, eventdata, handles)
             if (ishandle(label6))
             set(label6, 'visible','off');
             end             
-            mean_liver_fat_p = T.mean_liver_fat_p;
+            mean_liver_fat_p = Thist.mean_liver_fat_p;
             histy = histogram(ax,mean_liver_fat_p);
             mean_liver_fat_p(isnan(mean_liver_fat_p)) = [];
             meantxt = 'Mean:';
@@ -281,7 +291,7 @@ function selection(ddmenu, eventdata, handles)
             if (ishandle(label6))
             set(label6, 'visible','off');
             end            
-            total_fat = T.total_fat_index;
+            total_fat = Thist.total_fat_index;
             histy = histogram(ax,total_fat);
             total_fat(isnan(total_fat)) = [];
             meantxt = 'Mean:';
@@ -323,7 +333,7 @@ function selection(ddmenu, eventdata, handles)
             if (ishandle(label6))
             set(label6, 'visible','off');
             end                
-            age = T.age3;
+            age = Thist.age3;
             histy = histogram(ax,age);
             age(isnan(age)) = [];
             meantxt = 'Mean:';
@@ -365,7 +375,7 @@ function selection(ddmenu, eventdata, handles)
             if (ishandle(label6))
             set(label6, 'visible','off');
             end                
-            weight = T.weight3;
+            weight = Thist.weight3;
             histy = histogram(ax,weight);
             weight(isnan(weight)) = [];
             meantxt = 'Mean:';
@@ -407,7 +417,7 @@ function selection(ddmenu, eventdata, handles)
             if (ishandle(label6))
             set(label6, 'visible','off');
             end            
-            height = T.height3;
+            height = Thist.height3;
             histy = histogram(ax,height);
             height(isnan(height)) = [];
             meantxt = 'Mean:';
@@ -449,7 +459,7 @@ function selection(ddmenu, eventdata, handles)
             if (ishandle(label6))
             set(label6, 'visible','off');
             end            
-            bmi = T.bmi3;
+            bmi = Thist.bmi3;
             histy = histogram(ax,bmi);
             bmi(isnan(bmi)) = [];
             meantxt = 'Mean:';
@@ -491,7 +501,7 @@ function selection(ddmenu, eventdata, handles)
             if (ishandle(label6))
             set(label6, 'visible','off');
             end                
-            sex = T.sex;
+            sex = Thist.sex;
             c1 = categorical(sex);
             histy = histogram(ax,c1);
             xlabel(ax,'Sex');
@@ -513,7 +523,7 @@ function selection(ddmenu, eventdata, handles)
             if (ishandle(label6))
             set(label6, 'visible','off');
             end                
-            race = T.race3;
+            race = Thist.race3;
             c2 = categorical(race);
             histy = histogram(ax,c2);
             xlabel(ax,'Race');
@@ -535,7 +545,7 @@ function selection(ddmenu, eventdata, handles)
             if (ishandle(label6))
             set(label6, 'visible','off');
             end                
-            diabetes = T.diabetes3;
+            diabetes = Thist.diabetes3;
             c3 = categorical(diabetes);
             histy = histogram(ax,c3);
             xlabel(ax,'Diabetes');
@@ -547,24 +557,30 @@ end
 % Create ValueChangedFcn callback for Scatter Plot:
 function selection2(ddmenu2, eventdata, handles)
     choice2 = get(ddmenu2,'Value');
-    
+
     switch scathealth
         case {'Healthy'}
-            histind = (Tscat.healthy_icd_and_self_reported_fi == 1);
-            Tscat = Tscat(histind,:);
+            histind = (nmTscat.healthy_icd_and_self_reported_fi == 1);
+            nmTscat = nmTscat(histind,:);
+            histind = (nfTscat.healthy_icd_and_self_reported_fi == 1);
+            nfTscat = nfTscat(histind,:);
         case {'Unhealthy'}
-            histind = (Tscat.healthy_icd_and_self_reported_fi == 0);
-            Tscat = Tscat(histind,:);
+            histind = (nmTscat.healthy_icd_and_self_reported_fi == 0);
+            nmTscat = nmTscat(histind,:);
+            histind = (nfTscat.healthy_icd_and_self_reported_fi == 0);
+            nfTscat = nfTscat(histind,:);
         case {'All'}
     end
     
     switch scatage
         case {'<69'}
-            histind = (Tscat.age3 < 69);
-            Tscat = Tscat(histind,:);
+            histind = (nmTscat.age3 < 69);
+            nmTscat = nmTscat(histind,:);
+            histind = (nfTscat.age3 < 69);
+            nfTscat = nfTscat(histind,:);
         case {'>=69'}
-            histind = (Tscat.age3 >= 69);
-            Tscat = Tscat(histind,:);
+            histind = (nfTscat.age3 >= 69);
+            nfTscat = nfTscat(histind,:);
         case {'All'}
     end
     
@@ -572,95 +588,109 @@ function selection2(ddmenu2, eventdata, handles)
     switch choice2
         case {'Select X Variable:'}
         case {'Waist Circumference'}
-            m_scatter_x = T.waist_cir3(male_ind);
-            f_scatter_x = T.waist_cir3(female_ind);
+            m_scatter_x = nmTscat.waist_cir3;
+            f_scatter_x = nfTscat.waist_cir3;
             xaxis_label = 'Waist Circumference (cm)';
         case {'Mean Liver Fat p'}
-            m_scatter_x = T.mean_liver_fat_p(male_ind);
-            f_scatter_x = T.mean_liver_fat_p(female_ind);
+            m_scatter_x = nmTscat.mean_liver_fat_p;
+            f_scatter_x = nfTscat.mean_liver_fat_p;
             xaxis_label = 'Mean Liver Fat p (%)';
         case {'Total Fat Index'}
-            m_scatter_x = T.total_fat_index(male_ind);
-            f_scatter_x = T.total_fat_index(female_ind);
+            m_scatter_x = nmTscat.total_fat_index;
+            f_scatter_x = nfTscat.total_fat_index;
             xaxis_label = 'Total Fat Index';
         case {'Age'}
-            m_scatter_x = T.age3(male_ind);
-            f_scatter_x = T.age3(female_ind);
+            m_scatter_x = nmTscat.age3;
+            f_scatter_x = nfTscat.age3;
             xaxis_label = 'Age (year)';
         case {'Weight'}
-            m_scatter_x = T.weight3(male_ind);
-            f_scatter_x = T.weight3(female_ind); 
+            m_scatter_x = nmTscat.weight3;
+            f_scatter_x = nfTscat.weight3; 
             xaxis_label = 'Weight (kg)';
         case {'Height'}
-            m_scatter_x = T.height3(male_ind);
-            f_scatter_x = T.height3(female_ind);
+            m_scatter_x = nmTscat.height3;
+            f_scatter_x = nfTscat.height3;
             xaxis_label = 'Height (cm)';
         case {'BMI'}
-            m_scatter_x = T.bmi3(male_ind);
-            f_scatter_x = T.bmi3(female_ind);
+            m_scatter_x = nmTscat.bmi3;
+            f_scatter_x = nfTscat.bmi3;
             xaxis_label = 'BMI (kg/m^2)';
     end
-    Tscat = T;
+    nmTscat = mTscat;
+    nfTscat = fTscat;
+    male_ind = 0;
+    female_ind = 0;
 end
 
 
 % Create ValueChangedFcn callback for Scatter Plot:
 function selection3(ddmenu3, eventdata, handles)
     choice3 = get(ddmenu3,'Value');
-    
-    switch histhealth
+
+    switch scathealth
         case {'Healthy'}
-            histind = (Tscat.healthy_icd_and_self_reported_fi == 1);
-            Tscat = Tscat(histind,:);
+            histind = (nmTscat.healthy_icd_and_self_reported_fi == 1);
+            nmTscat = nmTscat(histind,:);
+            histind = (nfTscat.healthy_icd_and_self_reported_fi == 1);
+            nfTscat = nfTscat(histind,:);
         case {'Unhealthy'}
-            histind = (Tscat.healthy_icd_and_self_reported_fi == 0);
-            Tscat = Tscat(histind,:);
+            histind = (nmTscat.healthy_icd_and_self_reported_fi == 0);
+            nmTscat = nmTscat(histind,:);
+            histind = (nfTscat.healthy_icd_and_self_reported_fi == 0);
+            nfTscat = nfTscat(histind,:);
         case {'All'}
     end
     
-    switch histage
+    switch scatage
         case {'<69'}
-            histind = (Tscat.age3 < 69);
-            Tscat = Tscat(histind,:);
+            histind = (nmTscat.age3 < 69);
+            nmTscat = nmTscat(histind,:);
+            histind = (nfTscat.age3 < 69);
+            nfTscat = nfTscat(histind,:);
         case {'>=69'}
-            histind = (Tscat.age3 >= 69);
-            Tscat = Tscat(histind,:);
+            histind = (nmTscat.age3 >= 69);
+            nmTscat = nmTscat(histind,:);
+            histind = (nfTscat.age3 >= 69);
+            nfTscat = nfTscat(histind,:);
         case {'All'}
     end
-    
+
     % Switching between different variables for Scatter Plot     
     switch choice3
         case {'Select Y Variable:'}
         case {'Waist Circumference'}
-            m_scatter_y = T.waist_cir3(male_ind);
-            f_scatter_y = T.waist_cir3(female_ind);
+            m_scatter_y = nmTscat.waist_cir3;
+            f_scatter_y = nfTscat.waist_cir3;
             yaxis_label = 'Waist Circumference (cm)';
         case {'Mean Liver Fat p'}
-            m_scatter_y = T.mean_liver_fat_p(male_ind);
-            f_scatter_y = T.mean_liver_fat_p(female_ind);
+            m_scatter_y = nmTscat.mean_liver_fat_p;
+            f_scatter_y = nfTscat.mean_liver_fat_p;
             yaxis_label = 'Mean Liver Fat p (%)';
         case {'Total Fat Index'}
-            m_scatter_y = T.total_fat_index(male_ind);
-            f_scatter_y = T.total_fat_index(female_ind);
+            m_scatter_y = nmTscat.total_fat_index;
+            f_scatter_y = nfTscat.total_fat_index;
             yaxis_label = 'Total Fat Index';
         case {'Age'}
-            m_scatter_y = T.age3(male_ind);
-            f_scatter_y = T.age3(female_ind);
+            m_scatter_y = nmTscat.age3;
+            f_scatter_y = nfTscat.age3;
             yaxis_label = 'Age (year)';
         case {'Weight'}
-            m_scatter_y = T.weight3(male_ind);
-            f_scatter_y = T.weight3(female_ind);
+            m_scatter_y = nmTscat.weight3;
+            f_scatter_y = nfTscat.weight3;
             yaxis_label = 'Weight (kg)';
         case {'Height'}
-            m_scatter_y = T.height3(male_ind);
-            f_scatter_y = T.height3(female_ind);
+            m_scatter_y = nmTscat.height3;
+            f_scatter_y = nfTscat.height3;
             yaxis_label = 'Height (cm)';
         case {'BMI'}
-            m_scatter_y = T.bmi3(male_ind);
-            f_scatter_y = T.bmi3(female_ind);
+            m_scatter_y = nmTscat.bmi3;
+            f_scatter_y = nfTscat.bmi3;
             yaxis_label = 'BMI (kg/m^2)';
     end
-    Tscat = T;
+    nmTscat = mTscat;
+    nfTscat = fTscat;
+    male_ind = 0;
+    female_ind = 0;
 end
 
 % Create the function for the ButtonPushedFcn callback (Scatter Plot):
@@ -675,6 +705,7 @@ function plotButtonPushed(b3,ax2)
         if (ishandle(label2))
         set(label2, 'visible','off');
         end
+        fprintf("%d %d", length(m_scatter_x),length(m_scatter_y));
         m_xy = [m_scatter_x'; m_scatter_y'];
         m_xy1 = m_xy(:, ~any(isnan(m_xy)));
         m_x = m_xy1(1,:);
@@ -704,6 +735,12 @@ function plotButtonPushed(b3,ax2)
         ylabel(ax2,yaxis_label);
         legend(ax2,'Male','Female');
     end
+    m_scatter_x = 0;
+    m_scatter_y = 0;
+    f_scatter_x = 0;
+    f_scatter_y = 0;
+    nmTscat = mTscat;
+    nfTscat = fTscat;
 end
 
 % Reset toggle switch variables
