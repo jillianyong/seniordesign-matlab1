@@ -1,4 +1,4 @@
-function Liver_Pfat_GUI_Without_sprintf
+function Liver_Pfat_GUI_Without_sprintf_JY
 % Global Variables for Imported Data
 global T;
 global Thist;
@@ -44,6 +44,7 @@ nfTscat = fTscat;
  global yaxis_label;
  global label1;
  global label2;
+ global titleall;
  global title1;
  global title2;
  global bg1;
@@ -51,6 +52,8 @@ nfTscat = fTscat;
  global bg3;
  global bg4;
  global bg5;
+ global bg6;
+ global bg7;
  global tb1;
  global tb2;
  global tb3;
@@ -66,6 +69,12 @@ nfTscat = fTscat;
  global tb13;
  global tb14;
  global tb15;
+ global tb16;
+ global tb17;
+ global tb18;
+ global rb1;
+ global rb2;
+ global rb3;
  global histmf;
  global histage;
  global histhealth;
@@ -87,30 +96,35 @@ scatage = 'All';
 scathealth = 'All';
 
 % Create Window and Axes
-uif = uifigure('visible','off','name','Pfabulous Pfun with Liver Pfat: A Story of Correlations and Distributions of Relevant Variables');
-ax = uiaxes('Parent',uif,'Position',[10 10 200 200],'visible','off'); % Axis for Histogram 
-ax2 = uiaxes('Parent',uif,'Position',[300 10 200 200],'visible','off'); % Axis for Scatter Plot
+uif = uifigure('visible','off','name','Pfabulous Pfun with Liver Pfat: A Story of Correlations and Distributions of Relevant Variables', 'Position',[20 20 1000 1000]);
+ax = uiaxes('Parent',uif,'Position',[10 10 400 400],'visible','off'); % Axis for Histogram 
+ax2 = uiaxes('Parent',uif,'Position',[550 10 400 400],'visible','off'); % Axis for Scatter Plot
+
+titleall = uilabel('Text','Correlations and Distributions of Variables Related to NAFLD','Parent',uif,...
+            'Position',[100 700 1000 40],'FontSize',30); % Title for Scatter Plot
 title1 = uilabel('Text','Histogram','Parent',uif,...
-            'Position',[100 400 150 40],'FontSize',24); % Title for Scatter Plot
+            'Position',[50 650 150 40],'FontSize',24); % Title for Scatter Plot
 title2 = uilabel('Text','Scatter Plot','Parent',uif,...
-            'Position',[370 400 150 40],'FontSize',24); % Title for Histogram
+            'Position',[600 650 150 40],'FontSize',24); % Title for Histogram
 
 pan1 = uipanel('Parent',uif,'Title','Relevant Statistics','FontWeight','bold',...
              'BackgroundColor','white',...
-             'Position',[50 220 150 100],'Units','pixels','visible','off');
+             'Position',[50 430 150 100],'Units','pixels','visible','off');
 pan2 = uipanel('Parent',uif,'Title','Relevant Statistics','FontWeight','bold',...
              'BackgroundColor','white',...
-             'Position',[350 210 200 60],'Units','pixels','visible','off');
+             'Position',[600 430 200 60],'Units','pixels','visible','off');
          
 b3 = uibutton(uif,'push',...
-               'Text', 'Plot', 'visible','off','Position',[350, 275, 40, 20], ...
+               'Text', 'Plot', 'visible','off','Position',[600, 610, 40, 20], ...
                'ButtonPushedFcn', @(b3,event) plotButtonPushed(b3,ax2)); % Push button for Scatter Plot 
 
-bg1 = uibuttongroup(uif,'Position',[50 350 80 60],'visible', 'off','SelectionChangedFcn',@bg1fn); % Toggle switches Position for Histogram
-bg2 = uibuttongroup(uif,'Position',[130 350 80 60],'visible', 'off','SelectionChangedFcn',@bg2fn); % Toggle switches Position for Histogram
-bg3 = uibuttongroup(uif,'Position',[210 350 80 60],'visible', 'off','SelectionChangedFcn',@bg3fn); % Toggle switches Position for Histogram
-bg4 = uibuttongroup(uif,'Position',[350 350 80 60],'visible', 'off','SelectionChangedFcn',@bg4fn); % Toggle switches Position for Scatter Plot
-bg5 = uibuttongroup(uif,'Position',[430 350 80 60],'visible', 'off','SelectionChangedFcn',@bg5fn); % Toggle switches Position for Scatter Plot
+bg1 = uibuttongroup(uif,'Position',[50 550 80 60],'visible', 'off','SelectionChangedFcn',@bg1fn); % Toggle switches Position for Histogram
+bg2 = uibuttongroup(uif,'Position',[130 550 80 60],'visible', 'off','SelectionChangedFcn',@bg2fn); % Toggle switches Position for Histogram
+bg3 = uibuttongroup(uif,'Position',[210 550 80 60],'visible', 'off','SelectionChangedFcn',@bg3fn); % Toggle switches Position for Histogram
+bg4 = uibuttongroup(uif,'Position',[600 540 80 60],'visible', 'off','SelectionChangedFcn',@bg4fn); % Toggle switches Position for Scatter Plot
+bg5 = uibuttongroup(uif,'Position',[680 540 80 60],'visible', 'off','SelectionChangedFcn',@bg5fn); % Toggle switches Position for Scatter Plot
+bg6 = uibuttongroup(uif,'Position',[760 540 80 60],'visible', 'off','SelectionChangedFcn',@bg6fn); % Toggle switches Position for Scatter Plot
+bg7 = uibuttongroup(uif,'Position',[600 505 240 30],'visible', 'off','SelectionChangedFcn',@bg7fn); % Radio buttons for Scatter Plot
 
 % Individual Toggle switches Position for Histogram
 tb1 = uitogglebutton(bg1,'Position',[0 40 80 20],'Text','All');
@@ -129,18 +143,27 @@ tb9 = uitogglebutton(bg3,'Position',[0 0 80 20],'Text','>=69');
 
 % Individual Toggle switches Position for Scatter Plot
 tb10 = uitogglebutton(bg4,'Position',[0 40 80 20],'Text','All');
-tb11 = uitogglebutton(bg4,'Position',[0 20 80 20],'Text','Healthy');
-tb12 = uitogglebutton(bg4,'Position',[0 0 80 20],'Text','Unhealthy');
+tb11 = uitogglebutton(bg4,'Position',[0 20 80 20],'Text','Male');
+tb12 = uitogglebutton(bg4,'Position',[0 0 80 20],'Text','Female');
 
 % Individual Toggle switches Position for Scatter Plot
 tb13 = uitogglebutton(bg5,'Position',[0 40 80 20],'Text','All');
-tb14 = uitogglebutton(bg5,'Position',[0 20 80 20],'Text','<69');
-tb15 = uitogglebutton(bg5,'Position',[0 0 80 20],'Text','>=69');
-           
+tb14 = uitogglebutton(bg5,'Position',[0 20 80 20],'Text','Healthy');
+tb15 = uitogglebutton(bg5,'Position',[0 0 80 20],'Text','Unhealthy');
+
+% Individual Toggle switches Position for Scatter Plot
+tb16 = uitogglebutton(bg6,'Position',[0 40 80 20],'Text','All');
+tb17 = uitogglebutton(bg6,'Position',[0 20 80 20],'Text','<69');
+tb18 = uitogglebutton(bg6,'Position',[0 0 80 20],'Text','>=69');
+
+%Radio button for Color Coding
+rb1 = uiradiobutton(bg7, 'Position',[0 15 80 15],'Text','Gender');
+rb2 = uiradiobutton(bg7,'Position',[80 15 80 15],'Text','Healthiness');
+rb3 = uiradiobutton(bg7,'Position',[170 15 80 15],'Text','Age');
 
 % Creating a dropdown menu for Histogram
 ddmenu = uidropdown(uif,...
-    'Position',[50 325 100 20],...
+    'Position',[50 635 100 20],...
     'Items',{'Waist Circumference', 'Mean Liver Fat p', 'Total Fat Index',...
     'Age', 'Weight', 'Height', 'BMI', 'Sex', 'Race', 'Diabetes'},...
     'Value','BMI',...
@@ -148,7 +171,7 @@ ddmenu = uidropdown(uif,...
 
 % Creating a dropdown menu for Scatter Plot
 ddmenu2 = uidropdown(uif,...
-    'Position',[350 325 100 20],...
+    'Position',[600 635 120 20],...
     'Items',{'Select X Variable:','Waist Circumference', 'Mean Liver Fat p', 'Total Fat Index',...
     'Age', 'Weight', 'Height', 'BMI'},...
     'Value','Select X Variable:',...
@@ -156,14 +179,13 @@ ddmenu2 = uidropdown(uif,...
 
 % Creating a dropdown menu for Scatter Plot
 ddmenu3 = uidropdown(uif,...
-    'Position',[350 300 100 20],...
+    'Position',[740 635 120 20],...
     'Items',{'Select Y Variable:','Waist Circumference', 'Mean Liver Fat p', 'Total Fat Index',...
     'Age', 'Weight', 'Height', 'BMI'},...
     'Value','Select Y Variable:',...
     'ValueChangedFcn',@(ddmenu3,event) selection3(ddmenu3),'visible', 'off');
 
-
-set([ uif, ddmenu2, ddmenu3, b3, ddmenu, bg1, bg2, bg3, bg4, bg5, pan1, pan2], 'visible','on');
+set([ uif, ddmenu2, ddmenu3, b3, ddmenu, bg1, bg2, bg3, bg4, bg5, bg6, bg7, pan1, pan2], 'visible','on');
 
 % Create ValueChangedFcn callback for Histogram:
 function selection(ddmenu, eventdata, handles)
@@ -566,7 +588,7 @@ end
 % Create ValueChangedFcn callback for Scatter Plot:
 function selection2(ddmenu2, eventdata, handles)
     choice2 = get(ddmenu2,'Value');
-    
+
     switch scathealth
         case {'Healthy'}
             histind = (nmTscat.healthy_icd_and_self_reported_fi == 1);
@@ -631,7 +653,6 @@ function selection2(ddmenu2, eventdata, handles)
     nfTscat = fTscat;
     male_ind = 0;
     female_ind = 0;
-    
 end
 
 
@@ -703,8 +724,6 @@ function selection3(ddmenu3, eventdata, handles)
     nfTscat = fTscat;
     male_ind = 0;
     female_ind = 0;
-    
-
 end
 
 % Create the function for the ButtonPushedFcn callback (Scatter Plot):
@@ -792,6 +811,28 @@ function bg4fn(source,event)
 end
 
 function bg5fn(source,event)
+    scatage = event.NewValue.Text;
+        scathealth = event.NewValue.Text;
+    if(~strcmp(choice2, 'Select X Variable:') && ~strcmp(choice3, 'Select Y Variable:'))
+        selection2(ddmenu2);
+        selection3(ddmenu3);
+        plotButtonPushed(b3,ax2);
+        
+    end
+end
+
+function bg6fn(source,event)
+    scatage = event.NewValue.Text;
+        scathealth = event.NewValue.Text;
+    if(~strcmp(choice2, 'Select X Variable:') && ~strcmp(choice3, 'Select Y Variable:'))
+        selection2(ddmenu2);
+        selection3(ddmenu3);
+        plotButtonPushed(b3,ax2);
+        
+    end
+end
+
+function bg7fn(source,event)
     scatage = event.NewValue.Text;
         scathealth = event.NewValue.Text;
     if(~strcmp(choice2, 'Select X Variable:') && ~strcmp(choice3, 'Select Y Variable:'))
