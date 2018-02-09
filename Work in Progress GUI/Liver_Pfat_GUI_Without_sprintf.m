@@ -1,4 +1,4 @@
-function Liver_Pfat_GUI_Without_sprintf_JY
+function Liver_Pfat_GUI_Without_sprintf
 % Global Variables for Imported Data
 global T;
 global Thist;
@@ -86,6 +86,8 @@ nfTscat = fTscat;
  global label6;
  global pan1;
  global pan2;
+ global pan3;
+ global pan4;
 
 % Initiate Toggle Switches 
 histmf = 'All';
@@ -109,22 +111,29 @@ title2 = uilabel('Text','Scatter Plot','Parent',uif,...
 
 pan1 = uipanel('Parent',uif,'Title','Relevant Statistics','FontWeight','bold',...
              'BackgroundColor','white',...
-             'Position',[50 430 150 100],'Units','pixels','visible','off');
+             'Position',[50 420 150 100],'Units','pixels','visible','off');
+
 pan2 = uipanel('Parent',uif,'Title','Relevant Statistics','FontWeight','bold',...
              'BackgroundColor','white',...
-             'Position',[600 430 200 60],'Units','pixels','visible','off');
+             'Position',[600 420 200 60],'Units','pixels','visible','off');
+
+pan3 = uipanel('Parent',uif,'Title','Please select a filter:','FontWeight','bold',... %for Histogram
+             'Position',[50 570 150 50],'Units','pixels','visible','off');
+         
+pan4 = uipanel('Parent',uif,'Title','Please select a filter:','FontWeight','bold',... %for Scatter Plot
+             'Position',[600 550 150 50],'Units','pixels','visible','off');
          
 b3 = uibutton(uif,'push',...
                'Text', 'Plot', 'visible','off','Position',[600, 610, 40, 20], ...
                'ButtonPushedFcn', @(b3,event) plotButtonPushed(b3,ax2)); % Push button for Scatter Plot 
 
-bg1 = uibuttongroup(uif,'Position',[50 550 80 60],'visible', 'off','SelectionChangedFcn',@bg1fn); % Toggle switches Position for Histogram
-bg2 = uibuttongroup(uif,'Position',[130 550 80 60],'visible', 'off','SelectionChangedFcn',@bg2fn); % Toggle switches Position for Histogram
-bg3 = uibuttongroup(uif,'Position',[210 550 80 60],'visible', 'off','SelectionChangedFcn',@bg3fn); % Toggle switches Position for Histogram
-bg4 = uibuttongroup(uif,'Position',[600 540 80 60],'visible', 'off','SelectionChangedFcn',@bg4fn); % Toggle switches Position for Scatter Plot
-bg5 = uibuttongroup(uif,'Position',[680 540 80 60],'visible', 'off','SelectionChangedFcn',@bg5fn); % Toggle switches Position for Scatter Plot
-bg6 = uibuttongroup(uif,'Position',[760 540 80 60],'visible', 'off','SelectionChangedFcn',@bg6fn); % Toggle switches Position for Scatter Plot
-bg7 = uibuttongroup(uif,'Position',[600 505 240 30],'visible', 'off','SelectionChangedFcn',@bg7fn); % Radio buttons for Scatter Plot
+bg1 = uibuttongroup(uif,'Position',[50 540 80 60],'visible', 'off','SelectionChangedFcn',@bg1fn); % Toggle switches Position for Histogram
+bg2 = uibuttongroup(uif,'Position',[130 540 80 60],'visible', 'off','SelectionChangedFcn',@bg2fn); % Toggle switches Position for Histogram
+bg3 = uibuttongroup(uif,'Position',[210 540 80 60],'visible', 'off','SelectionChangedFcn',@bg3fn); % Toggle switches Position for Histogram
+bg4 = uibuttongroup(uif,'Position',[600 520 80 60],'visible', 'off','SelectionChangedFcn',@bg4fn); % Toggle switches Position for Scatter Plot
+bg5 = uibuttongroup(uif,'Position',[680 520 80 60],'visible', 'off','SelectionChangedFcn',@bg5fn); % Toggle switches Position for Scatter Plot
+bg6 = uibuttongroup(uif,'Position',[760 520 80 60],'visible', 'off','SelectionChangedFcn',@bg6fn); % Toggle switches Position for Scatter Plot
+bg7 = uibuttongroup(uif,'Position',[600 485 240 30],'visible', 'off','SelectionChangedFcn',@bg7fn); % Radio buttons for Scatter Plot
 
 % Individual Toggle switches Position for Histogram
 tb1 = uitogglebutton(bg1,'Position',[0 40 80 20],'Text','All');
@@ -185,7 +194,7 @@ ddmenu3 = uidropdown(uif,...
     'Value','Select Y Variable:',...
     'ValueChangedFcn',@(ddmenu3,event) selection3(ddmenu3),'visible', 'off');
 
-set([ uif, ddmenu2, ddmenu3, b3, ddmenu, bg1, bg2, bg3, bg4, bg5, bg6, bg7, pan1, pan2], 'visible','on');
+set([ uif, ddmenu2, ddmenu3, b3, ddmenu, bg1, bg2, bg3, bg4, bg5, bg6, bg7, pan1, pan2, pan3, pan4], 'visible','on');
 
 % Create ValueChangedFcn callback for Histogram:
 function selection(ddmenu, eventdata, handles)
