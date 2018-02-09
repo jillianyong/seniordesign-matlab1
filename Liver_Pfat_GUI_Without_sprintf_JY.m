@@ -729,6 +729,14 @@ end
 % Create the function for the ButtonPushedFcn callback (Scatter Plot):
 function plotButtonPushed(b3,ax2)
     if(~strcmp(choice2, 'Select X Variable:') && ~strcmp(choice3, 'Select Y Variable:'))
+        if(~strcmp(choice2, 'Select X Variable:'))
+            selection2(ddmenu2);
+        end
+        
+        if(~strcmp(choice3, 'Select Y Variable:'))
+            selection3(ddmenu3);
+        end
+        
         ax2.NextPlot = 'replace';
         cla(ax2);    
         set(ax2,'visible','on');
@@ -738,7 +746,7 @@ function plotButtonPushed(b3,ax2)
         if (ishandle(label2))
         set(label2, 'visible','off');
         end
-        fprintf("%d %d", length(m_scatter_x),length(m_scatter_y));
+        
         m_xy = [m_scatter_x'; m_scatter_y'];
         m_xy1 = m_xy(:, ~any(isnan(m_xy)));
         m_x = m_xy1(1,:);
@@ -776,7 +784,6 @@ function plotButtonPushed(b3,ax2)
     nfTscat = fTscat;
 end
 
-% Reset toggle switch variables
 % Reset toggle switch variables
 function bg1fn(source,event)
     histmf = event.NewValue.Text;
