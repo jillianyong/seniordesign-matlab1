@@ -28,10 +28,12 @@ nfTscat = fTscat;
 
 % Create global variables
  global uif;
+ global helpfig;
  global ddmenu;
  global ddmenu2;
  global ddmenu3;
  global b3;
+ global b4;
  global ax;
  global ax2;
  global histy;
@@ -88,6 +90,7 @@ nfTscat = fTscat;
  global pan2;
  global pan3;
  global pan4;
+ global pan5;
 
 % Initiate Toggle Switches 
 histmf = 'All';
@@ -117,16 +120,20 @@ pan2 = uipanel('Parent',uif,'Title','Relevant Statistics','FontWeight','bold',..
              'BackgroundColor','white',...
              'Position',[600 420 200 60],'Units','pixels','visible','off');
 
-pan3 = uipanel('Parent',uif,'Title','Please select a filter:','FontWeight','bold',... %for Histogram
-             'Position',[50 570 150 50],'Units','pixels','visible','off');
+pan3 = uilabel('Parent',uif,'text','Please select a filter:','FontWeight','bold',... %for Histogram
+             'Position',[50 570 150 50],'visible','off');
          
-pan4 = uipanel('Parent',uif,'Title','Please select a filter:','FontWeight','bold',... %for Scatter Plot
-             'Position',[600 550 150 50],'Units','pixels','visible','off');
+pan4 = uilabel('Parent',uif,'text','Please select a filter:','FontWeight','bold',... %for Scatter Plot
+             'Position',[600 550 150 50],'visible','off');
          
 b3 = uibutton(uif,'push',...
                'Text', 'Plot', 'visible','off','Position',[600, 610, 40, 20], ...
                'ButtonPushedFcn', @(b3,event) plotButtonPushed(b3,ax2)); % Push button for Scatter Plot 
 
+b4 = uibutton(uif,'push',...
+               'Text', 'Help', 'visible','off','Position',[930, 730, 40, 20], ...
+               'ButtonPushedFcn', @(b4,event) OpenHelpMenu(b4)); % Push button for Scatter Plot 
+           
 bg1 = uibuttongroup(uif,'Position',[50 540 80 60],'visible', 'off','SelectionChangedFcn',@bg1fn); % Toggle switches Position for Histogram
 bg2 = uibuttongroup(uif,'Position',[130 540 80 60],'visible', 'off','SelectionChangedFcn',@bg2fn); % Toggle switches Position for Histogram
 bg3 = uibuttongroup(uif,'Position',[210 540 80 60],'visible', 'off','SelectionChangedFcn',@bg3fn); % Toggle switches Position for Histogram
@@ -194,7 +201,7 @@ ddmenu3 = uidropdown(uif,...
     'Value','Select Y Variable:',...
     'ValueChangedFcn',@(ddmenu3,event) selection3(ddmenu3),'visible', 'off');
 
-set([ uif, ddmenu2, ddmenu3, b3, ddmenu, bg1, bg2, bg3, bg4, bg5, bg6, bg7, pan1, pan2, pan3, pan4], 'visible','on');
+set([ uif, ddmenu2, ddmenu3, b3, b4, ddmenu, bg1, bg2, bg3, bg4, bg5, bg6, bg7, pan1, pan2, pan3, pan4], 'visible','on');
 
 % Create ValueChangedFcn callback for Histogram:
 function selection(ddmenu, eventdata, handles)
@@ -735,6 +742,15 @@ function selection3(ddmenu3, eventdata, handles)
     female_ind = 0;
 end
 
+% Create the function for the Help menu callback
+function OpenHelpMenu(b4)
+    helpfig = uifigure('visible','off','name','Help Menu', 'Position',[100 100 500 250]);
+    pan5 = uilabel('Parent', helpfig,'text','is mayonnaise an instrument?? but really help instructions will go here later','FontWeight','bold',...
+             'Position',[30 100 450 50],'visible','off');
+    set(helpfig, 'visible', 'on')
+    set(pan5, 'visible', 'on')
+end
+    
 % Create the function for the ButtonPushedFcn callback (Scatter Plot):
 function plotButtonPushed(b3,ax2)
     if(~strcmp(choice2, 'Select X Variable:') && ~strcmp(choice3, 'Select Y Variable:'))
