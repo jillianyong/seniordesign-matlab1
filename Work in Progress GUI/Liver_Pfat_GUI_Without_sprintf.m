@@ -826,18 +826,17 @@ function bg3fn(source,event)
 end
 
 function bg4fn(source,event)
-    scathealth = event.NewValue.Text;
-    if(~strcmp(choice2, 'Select X Variable:') && ~strcmp(choice3, 'Select Y Variable:'))
-        selection2(ddmenu2);
-        selection3(ddmenu3);
-        plotButtonPushed(b3,ax2);
-        
-    end
+%     scathealth = event.NewValue.Text;
+%     if(~strcmp(choice2, 'Select X Variable:') && ~strcmp(choice3, 'Select Y Variable:'))
+%         selection2(ddmenu2);
+%         selection3(ddmenu3);
+%         plotButtonPushed(b3,ax2);
+%         
+%     end
 end
 
 function bg5fn(source,event)
-    scatage = event.NewValue.Text;
-        scathealth = event.NewValue.Text;
+    scathealth = event.NewValue.Text;
     if(~strcmp(choice2, 'Select X Variable:') && ~strcmp(choice3, 'Select Y Variable:'))
         selection2(ddmenu2);
         selection3(ddmenu3);
@@ -848,7 +847,6 @@ end
 
 function bg6fn(source,event)
     scatage = event.NewValue.Text;
-        scathealth = event.NewValue.Text;
     if(~strcmp(choice2, 'Select X Variable:') && ~strcmp(choice3, 'Select Y Variable:'))
         selection2(ddmenu2);
         selection3(ddmenu3);
@@ -858,14 +856,14 @@ function bg6fn(source,event)
 end
 
 function bg7fn(source,event)
-    scatage = event.NewValue.Text;
-        scathealth = event.NewValue.Text;
-    if(~strcmp(choice2, 'Select X Variable:') && ~strcmp(choice3, 'Select Y Variable:'))
-        selection2(ddmenu2);
-        selection3(ddmenu3);
-        plotButtonPushed(b3,ax2);
+%     scatage = event.NewValue.Text;
+%         scathealth = event.NewValue.Text;
+%     if(~strcmp(choice2, 'Select X Variable:') && ~strcmp(choice3, 'Select Y Variable:'))
+%         selection2(ddmenu2);
+%         selection3(ddmenu3);
+%         plotButtonPushed(b3,ax2);
         
-    end
-end
 
+    % end
+end
 end
