@@ -19,10 +19,10 @@ T = readtable('BCP_Activity6021.xlsx',x);
 Thist = T;
 mTscat = T;
 fTscat = T;
-male_ind = (strcmp(mTscat.sex, 'Male'));
-mTscat = mTscat(male_ind,:);
-female_ind = (strcmp(fTscat.sex, 'Female'));
-fTscat = fTscat(female_ind,:);
+% male_ind = (strcmp(mTscat.sex, 'Male'));
+% mTscat = mTscat(male_ind,:);
+% female_ind = (strcmp(fTscat.sex, 'Female'));
+% fTscat = fTscat(female_ind,:);
 nmTscat = mTscat;
 nfTscat = fTscat;
 
@@ -37,7 +37,6 @@ nfTscat = fTscat;
  global ax;
  global ax2;
  global histy;
- global texty;
  global m_scatter_x;
  global m_scatter_y;
  global f_scatter_x;
@@ -82,6 +81,7 @@ nfTscat = fTscat;
  global histhealth;
  global scatage;
  global scathealth;
+ global scatmf;
  global label3;
  global label4;
  global label5;
@@ -99,6 +99,7 @@ histhealth = 'All';
 
 scatage = 'All';
 scathealth = 'All';
+scatmf = 'All';
 
 % Create Window and Axes
 uif = uifigure('visible','off','name','Pfabulous Pfun with Liver Pfat: A Story of Correlations and Distributions of Relevant Variables', 'Position',[20 20 1000 1000]);
@@ -633,6 +634,20 @@ function selection2(ddmenu2, eventdata, handles)
         case {'All'}
     end
     
+    switch scatmf
+        case {'Male'}
+            histind = (strcmp(nmTscat.sex, 'Male'));
+            nmTscat = nmTscat(histind,:);
+            histind = (strcmp(nfTscat.sex, 'Male'));
+            nfTscat = nfTscat(histind,:);
+        case {'Female'}
+            histind = (strcmp(nmTscat.sex, 'Female'));
+            nmTscat = nmTscat(histind,:);
+            histind = (strcmp(nfTscat.sex, 'Female'));
+            nfTscat = nfTscat(histind,:);
+        case {'All'}
+    end
+    
     % Switching between different variables for Scatter Plot    
     switch choice2
         case {'Select X Variable:'}
@@ -700,6 +715,20 @@ function selection3(ddmenu3, eventdata, handles)
             histind = (nmTscat.age3 >= 69);
             nmTscat = nmTscat(histind,:);
             histind = (nfTscat.age3 >= 69);
+            nfTscat = nfTscat(histind,:);
+        case {'All'}
+    end
+    
+    switch scatmf
+        case {'Male'}
+            histind = (strcmp(nmTscat.sex, 'Male'));
+            nmTscat = nmTscat(histind,:);
+            histind = (strcmp(nfTscat.sex, 'Male'));
+            nfTscat = nfTscat(histind,:);
+        case {'Female'}
+            histind = (strcmp(nmTscat.sex, 'Female'));
+            nmTscat = nmTscat(histind,:);
+            histind = (strcmp(nfTscat.sex, 'Female'));
             nfTscat = nfTscat(histind,:);
         case {'All'}
     end
@@ -805,6 +834,8 @@ function plotButtonPushed(b3,ax2)
     m_scatter_y = 0;
     f_scatter_x = 0;
     f_scatter_y = 0;
+    mTscat = T;
+    fTscat = T;
     nmTscat = mTscat;
     nfTscat = fTscat;
 end
@@ -826,16 +857,53 @@ function bg3fn(source,event)
 end
 
 function bg4fn(source,event)
-%     scathealth = event.NewValue.Text;
-%     if(~strcmp(choice2, 'Select X Variable:') && ~strcmp(choice3, 'Select Y Variable:'))
-%         selection2(ddmenu2);
-%         selection3(ddmenu3);
-%         plotButtonPushed(b3,ax2);
-%         
-%     end
+    scatradio = bg7.SelectedObject.Text;
+    if(strcmp(scatradio, 'Gender'))
+         male_ind = (strcmp(mTscat.sex, 'Male'));
+         mTscat = mTscat(male_ind,:);
+         female_ind = (strcmp(fTscat.sex, 'Female'));
+         fTscat = fTscat(female_ind,:);
+     elseif(strcmp(scatradio, 'Healthiness'))
+         male_ind = (mTscat.healthy_icd_and_self_reported_fi == 1);
+         mTscat = mTscat(male_ind,:);
+         female_ind = (fTscat.healthy_icd_and_self_reported_fi == 0);
+         fTscat = fTscat(female_ind,:);
+     elseif(strcmp(scatradio, 'Age'))
+         male_ind = (mTscat.age3 < 69);
+         mTscat = mTscat(male_ind,:);
+         female_ind = (fTscat.age3 >= 69);
+         fTscat = fTscat(female_ind,:);
+     end
+    
+    scatmf = event.NewValue.Text;
+    if(~strcmp(choice2, 'Select X Variable:') && ~strcmp(choice3, 'Select Y Variable:'))
+        selection2(ddmenu2);
+        selection3(ddmenu3);
+        plotButtonPushed(b3,ax2);
+        
+    end
+
 end
 
 function bg5fn(source,event)
+    scatradio = bg7.SelectedObject.Text;
+    if(strcmp(scatradio, 'Gender'))
+         male_ind = (strcmp(mTscat.sex, 'Male'));
+         mTscat = mTscat(male_ind,:);
+         female_ind = (strcmp(fTscat.sex, 'Female'));
+         fTscat = fTscat(female_ind,:);
+     elseif(strcmp(scatradio, 'Healthiness'))
+         male_ind = (mTscat.healthy_icd_and_self_reported_fi == 1);
+         mTscat = mTscat(male_ind,:);
+         female_ind = (fTscat.healthy_icd_and_self_reported_fi == 0);
+         fTscat = fTscat(female_ind,:);
+     elseif(strcmp(scatradio, 'Age'))
+         male_ind = (mTscat.age3 < 69);
+         mTscat = mTscat(male_ind,:);
+         female_ind = (fTscat.age3 >= 69);
+         fTscat = fTscat(female_ind,:);
+     end
+    
     scathealth = event.NewValue.Text;
     if(~strcmp(choice2, 'Select X Variable:') && ~strcmp(choice3, 'Select Y Variable:'))
         selection2(ddmenu2);
@@ -843,9 +911,28 @@ function bg5fn(source,event)
         plotButtonPushed(b3,ax2);
         
     end
+
 end
 
 function bg6fn(source,event)
+    scatradio = bg7.SelectedObject.Text;
+    if(strcmp(scatradio, 'Gender'))
+         male_ind = (strcmp(mTscat.sex, 'Male'));
+         mTscat = mTscat(male_ind,:);
+         female_ind = (strcmp(fTscat.sex, 'Female'));
+         fTscat = fTscat(female_ind,:);
+     elseif(strcmp(scatradio, 'Healthiness'))
+         male_ind = (mTscat.healthy_icd_and_self_reported_fi == 1);
+         mTscat = mTscat(male_ind,:);
+         female_ind = (fTscat.healthy_icd_and_self_reported_fi == 0);
+         fTscat = fTscat(female_ind,:);
+     elseif(strcmp(scatradio, 'Age'))
+         male_ind = (mTscat.age3 < 69);
+         mTscat = mTscat(male_ind,:);
+         female_ind = (fTscat.age3 >= 69);
+         fTscat = fTscat(female_ind,:);
+     end
+    
     scatage = event.NewValue.Text;
     if(~strcmp(choice2, 'Select X Variable:') && ~strcmp(choice3, 'Select Y Variable:'))
         selection2(ddmenu2);
@@ -853,17 +940,35 @@ function bg6fn(source,event)
         plotButtonPushed(b3,ax2);
         
     end
+
 end
 
 function bg7fn(source,event)
-%     scatage = event.NewValue.Text;
-%         scathealth = event.NewValue.Text;
-%     if(~strcmp(choice2, 'Select X Variable:') && ~strcmp(choice3, 'Select Y Variable:'))
-%         selection2(ddmenu2);
-%         selection3(ddmenu3);
-%         plotButtonPushed(b3,ax2);
-        
+     scatradio = event.NewValue.Text;
+     if(strcmp(scatradio, 'Gender'))
+         male_ind = (strcmp(mTscat.sex, 'Male'));
+         mTscat = mTscat(male_ind,:);
+         female_ind = (strcmp(fTscat.sex, 'Female'));
+         fTscat = fTscat(female_ind,:);
+     elseif(strcmp(scatradio, 'Healthiness'))
+         male_ind = (mTscat.healthy_icd_and_self_reported_fi == 1);
+         mTscat = mTscat(male_ind,:);
+         female_ind = (fTscat.healthy_icd_and_self_reported_fi == 0);
+         fTscat = fTscat(female_ind,:);
+     elseif(strcmp(scatradio, 'Age'))
+         male_ind = (mTscat.age3 < 69);
+         mTscat = mTscat(male_ind,:);
+         female_ind = (fTscat.age3 >= 69);
+         fTscat = fTscat(female_ind,:);
+     end
+     scatmf = bg4.SelectedObject.Text;
+     scathealth = bg5.SelectedObject.Text;
+     scatage = bg6.SelectedObject.Text;
+     if(~strcmp(choice2, 'Select X Variable:') && ~strcmp(choice3, 'Select Y Variable:'))
+        selection2(ddmenu2);
+        selection3(ddmenu3);
+        plotButtonPushed(b3,ax2); 
+     end
 
-    % end
 end
 end
