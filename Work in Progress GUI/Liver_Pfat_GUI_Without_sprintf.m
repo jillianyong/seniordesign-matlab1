@@ -6,23 +6,17 @@ global mTscat;
 global fTscat;
 global nmTscat;
 global nfTscat;
-% global male_ind;
-% global female_ind;
 global choice2;
 global choice3;
+global scatvar1label;
+global scatvar2label;
 
 % Import Data
 x = detectImportOptions('BCP_Activity6021.xlsx');
 T = readtable('BCP_Activity6021.xlsx',x);
-% male_ind = (strcmp(T.sex, 'Male'));
-% female_ind = (strcmp(T.sex, 'Female'));
 Thist = T;
 mTscat = T;
 fTscat = T;
-% male_ind = (strcmp(mTscat.sex, 'Male'));
-% mTscat = mTscat(male_ind,:);
-% female_ind = (strcmp(fTscat.sex, 'Female'));
-% fTscat = fTscat(female_ind,:);
 nmTscat = mTscat;
 nfTscat = fTscat;
 
@@ -76,6 +70,7 @@ nfTscat = fTscat;
  global rb1;
  global rb2;
  global rb3;
+ global rb4;
  global histmf;
  global histage;
  global histhealth;
@@ -101,6 +96,9 @@ scatage = 'All';
 scathealth = 'All';
 scatmf = 'All';
 
+scatvar1label = 'All';
+scatvar2label = 'All';
+
 % Create Window and Axes
 uif = uifigure('visible','off','name','Pfabulous Pfun with Liver Pfat: A Story of Correlations and Distributions of Relevant Variables', 'Position',[20 20 1000 1000]);
 ax = uiaxes('Parent',uif,'Position',[10 10 400 400],'visible','off'); % Axis for Histogram 
@@ -119,13 +117,13 @@ pan1 = uipanel('Parent',uif,'Title','Relevant Statistics','FontWeight','bold',..
 
 pan2 = uipanel('Parent',uif,'Title','Relevant Statistics','FontWeight','bold',...
              'BackgroundColor','white',...
-             'Position',[600 420 200 60],'Units','pixels','visible','off');
+             'Position',[600 420 230 60],'Units','pixels','visible','off');
 
 pan3 = uilabel('Parent',uif,'text','Please select a filter:','FontWeight','bold',... %for Histogram
              'Position',[50 570 150 50],'visible','off');
          
 pan4 = uilabel('Parent',uif,'text','Please select a filter:','FontWeight','bold',... %for Scatter Plot
-             'Position',[600 550 150 50],'visible','off');
+             'Position',[600 555 150 50],'visible','off');
          
 b3 = uibutton(uif,'push',...
                'Text', 'Plot', 'visible','off','Position',[600, 610, 40, 20], ...
@@ -138,10 +136,10 @@ b4 = uibutton(uif,'push',...
 bg1 = uibuttongroup(uif,'Position',[50 540 80 60],'visible', 'off','SelectionChangedFcn',@bg1fn); % Toggle switches Position for Histogram
 bg2 = uibuttongroup(uif,'Position',[130 540 80 60],'visible', 'off','SelectionChangedFcn',@bg2fn); % Toggle switches Position for Histogram
 bg3 = uibuttongroup(uif,'Position',[210 540 80 60],'visible', 'off','SelectionChangedFcn',@bg3fn); % Toggle switches Position for Histogram
-bg4 = uibuttongroup(uif,'Position',[600 520 80 60],'visible', 'off','SelectionChangedFcn',@bg4fn); % Toggle switches Position for Scatter Plot
-bg5 = uibuttongroup(uif,'Position',[680 520 80 60],'visible', 'off','SelectionChangedFcn',@bg5fn); % Toggle switches Position for Scatter Plot
-bg6 = uibuttongroup(uif,'Position',[760 520 80 60],'visible', 'off','SelectionChangedFcn',@bg6fn); % Toggle switches Position for Scatter Plot
-bg7 = uibuttongroup(uif,'Position',[600 485 240 30],'visible', 'off','SelectionChangedFcn',@bg7fn); % Radio buttons for Scatter Plot
+bg4 = uibuttongroup(uif,'Position',[600 525 80 60],'visible', 'off','SelectionChangedFcn',@bg4fn); % Toggle switches Position for Scatter Plot
+bg5 = uibuttongroup(uif,'Position',[680 525 80 60],'visible', 'off','SelectionChangedFcn',@bg5fn); % Toggle switches Position for Scatter Plot
+bg6 = uibuttongroup(uif,'Position',[760 525 80 60],'visible', 'off','SelectionChangedFcn',@bg6fn); % Toggle switches Position for Scatter Plot
+bg7 = uibuttongroup(uif,'Position',[600 485 250 37],'visible', 'off','Title', 'Choose variable to distinguish:','FontWeight','bold','BackgroundColor','white','SelectionChangedFcn',@bg7fn); % Radio buttons for Scatter Plot
 
 % Individual Toggle switches Position for Histogram
 tb1 = uitogglebutton(bg1,'Position',[0 40 80 20],'Text','All');
@@ -174,9 +172,10 @@ tb17 = uitogglebutton(bg6,'Position',[0 20 80 20],'Text','<69');
 tb18 = uitogglebutton(bg6,'Position',[0 0 80 20],'Text','>=69');
 
 %Radio button for Color Coding
-rb1 = uiradiobutton(bg7, 'Position',[0 15 80 15],'Text','Gender');
-rb2 = uiradiobutton(bg7,'Position',[80 15 80 15],'Text','Healthiness');
-rb3 = uiradiobutton(bg7,'Position',[170 15 80 15],'Text','Age');
+rb1 = uiradiobutton(bg7, 'Position',[0 1 40 15],'Text','All');
+rb2 = uiradiobutton(bg7,'Position',[40 1 60 15],'Text','Gender');
+rb3 = uiradiobutton(bg7,'Position',[110 1 80 15],'Text','Healthiness');
+rb4 = uiradiobutton(bg7,'Position',[200 1 80 15],'Text','Age');
 
 % Creating a dropdown menu for Histogram
 ddmenu = uidropdown(uif,...
@@ -682,8 +681,6 @@ function selection2(ddmenu2, eventdata, handles)
     end
     nmTscat = mTscat;
     nfTscat = fTscat;
-    male_ind = 0;
-    female_ind = 0;
 end
 
 
@@ -767,8 +764,7 @@ function selection3(ddmenu3, eventdata, handles)
     end
     nmTscat = mTscat;
     nfTscat = fTscat;
-    male_ind = 0;
-    female_ind = 0;
+
 end
 
 % Create the function for the Help menu callback
@@ -806,29 +802,41 @@ function plotButtonPushed(b3,ax2)
         m_x = m_xy1(1,:);
         m_y = m_xy1(2,:);
         
-        f_xy = [f_scatter_x'; f_scatter_y'];
-        f_xy1 = f_xy(:, ~any(isnan(f_xy)));
-        f_x = f_xy1(1,:);
-        f_y = f_xy1(2,:);
-
-        cortxt1 = 'Male Correlation Value: ';
-        cortxt2 = 'Female Correlation Value: ';
+        if(~strcmp(scatvar1label, 'All'))
+            f_xy = [f_scatter_x'; f_scatter_y'];
+            f_xy1 = f_xy(:, ~any(isnan(f_xy)));
+            f_x = f_xy1(1,:);
+            f_y = f_xy1(2,:);
+        end
+        corval = ' Correlation Value: ';
+        cortxt1 = strcat(scatvar1label,corval);
+        cortxt2 = strcat(scatvar2label,corval);
         m_r = num2str(corr2(m_x, m_y));
-        f_r = num2str(corr2(f_x, f_y));
-        m_r_str = strcat(cortxt1, m_r);
-        f_r_str = strcat(cortxt2, f_r);
+        m_r_str = strcat(cortxt1,' ', m_r);
         
+        if(~strcmp(scatvar1label, 'All'))
+            f_r = num2str(corr2(f_x, f_y));
+            f_r_str = strcat(cortxt2, ' ', f_r);
+        end
         label1 = uilabel('Text',m_r_str,'Parent',pan2,...
-            'Position',[10 0 180 20]);
-        label2 = uilabel('Text',f_r_str,'Parent',pan2,...
-            'Position',[10 20 180 20]);
+            'Position',[10 20 210 20]);
         
+        if(~strcmp(scatvar1label, 'All'))
+            label2 = uilabel('Text',f_r_str,'Parent',pan2,...
+                'Position',[10 0 210 20]);
+        end
         scatter(ax2,m_scatter_x, m_scatter_y,'r');
         hold(ax2,'on')
-        scatter(ax2,f_scatter_x, f_scatter_y,'b');
+        if(~strcmp(scatvar1label, 'All'))
+            scatter(ax2,f_scatter_x, f_scatter_y,'b');
+        end
         xlabel(ax2,xaxis_label);
         ylabel(ax2,yaxis_label);
-        legend(ax2,'Male','Female');
+        if(~strcmp(scatvar1label, 'All'))
+            legend(ax2, scatvar1label,scatvar2label);
+        else
+            legend(ax2, scatvar1label);
+        end
     end
     m_scatter_x = 0;
     m_scatter_y = 0;
@@ -950,16 +958,25 @@ function bg7fn(source,event)
          mTscat = mTscat(male_ind,:);
          female_ind = (strcmp(fTscat.sex, 'Female'));
          fTscat = fTscat(female_ind,:);
+         scatvar1label = 'Male';
+         scatvar2label = 'Female';
      elseif(strcmp(scatradio, 'Healthiness'))
          male_ind = (mTscat.healthy_icd_and_self_reported_fi == 1);
          mTscat = mTscat(male_ind,:);
          female_ind = (fTscat.healthy_icd_and_self_reported_fi == 0);
          fTscat = fTscat(female_ind,:);
+         scatvar1label = 'Healthy';
+         scatvar2label = 'Unhealthy';
      elseif(strcmp(scatradio, 'Age'))
          male_ind = (mTscat.age3 < 69);
          mTscat = mTscat(male_ind,:);
          female_ind = (fTscat.age3 >= 69);
          fTscat = fTscat(female_ind,:);
+         scatvar1label = 'Age <69';
+         scatvar2label = 'Age >=69';
+     elseif(strcmp(scatradio, 'All'))
+         scatvar1label = 'All';
+         scatvar2label = 'All';
      end
      scatmf = bg4.SelectedObject.Text;
      scathealth = bg5.SelectedObject.Text;
