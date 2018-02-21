@@ -24,38 +24,40 @@ global ActivityIndex;
 % Create Window and Axes
 uif = uifigure('visible','off','name','Pfabulous Pfun with Liver Pfat: A Story of Correlations and Distributions of Relevant Variables', 'Position',[20 20 1000 1000]);
 
+titleall = uilabel('Text','NAFLD Predictor','Parent',uif,...
+            'Position',[350 660 1200 55],'FontSize',40); % Title for all
 %Loads model
 load('liverfatmodel.mat','mdl');
 
 %Waist Circ
-edbox1 = uieditfield(uif,'numeric','visible','off','Position',[50 635 100 20],'ValueChangedFcn', @(edbox1, event) callbox1(edbox1));
+edbox1 = uieditfield(uif,'numeric','visible','off','Position',[75 535 100 20],'ValueChangedFcn', @(edbox1, event) callbox1(edbox1));
 %BMI
-edbox2 = uieditfield(uif,'numeric','visible','off','Position',[50 585 100 20],'ValueChangedFcn', @(edbox2, event) callbox2(edbox2));
+edbox2 = uieditfield(uif,'numeric','visible','off','Position',[75 435 100 20],'ValueChangedFcn', @(edbox2, event) callbox2(edbox2));
 %Diabetes Type
-edbox3 = uieditfield(uif,'numeric','visible','off','Position',[50 535 100 20],'ValueChangedFcn', @(edbox3, event) callbox3(edbox3));
+edbox3 = uieditfield(uif,'numeric','visible','off','Position',[75 335 100 20],'ValueChangedFcn', @(edbox3, event) callbox3(edbox3));
 %Total Fat Index
-edbox4 = uieditfield(uif,'numeric','visible','off','Position',[50 485 100 20],'ValueChangedFcn', @(edbox4, event) callbox4(edbox4));
+edbox4 = uieditfield(uif,'numeric','visible','off','Position',[75 235 100 20],'ValueChangedFcn', @(edbox4, event) callbox4(edbox4));
 %Activity Index
-edbox5 = uieditfield(uif,'numeric','visible','off','Position',[50 435 100 20],'ValueChangedFcn', @(edbox5, event) callbox5(edbox5));
+edbox5 = uieditfield(uif,'numeric','visible','off','Position',[75 135 100 20],'ValueChangedFcn', @(edbox5, event) callbox5(edbox5));
 
 
 
 lab1 = uilabel('Parent',uif,'text','Enter a waist circumference (cm): ','FontWeight','bold',... 
-             'Position',[50 660 200 20],'visible','off');
+             'Position',[75 560 500 50],'FontSize', 18, 'visible','off');
 lab2 = uilabel('Parent',uif,'text','Enter a BMI: ','FontWeight','bold',... 
-             'Position',[50 610 200 20],'visible','off');
+             'Position',[75 460 200 50],'FontSize', 18,'visible','off');
 lab3 = uilabel('Parent',uif,'text','Diabetes Type: ','FontWeight','bold',... 
-             'Position',[50 560 200 20],'visible','off');
+             'Position',[75 360 200 50],'FontSize', 18,'visible','off');
 lab4 = uilabel('Parent',uif,'text','Enter Total Fat Index: ','FontWeight','bold',... 
-             'Position',[50 510 200 20],'visible','off');
+             'Position',[75 260 350 50],'FontSize', 18,'visible','off');
 lab5 = uilabel('Parent',uif,'text','Enter Activity Index: ','FontWeight','bold',... 
-             'Position',[50 460 200 20],'visible','off');
+             'Position',[75 160 350 50],'FontSize', 18,'visible','off');
 
 predlab = uilabel('Parent',uif,'text','Liver Fat Precentage: ','FontWeight','bold',... 
-             'Position',[600 585 200 20],'visible','off');
+             'Position',[600 560 370 50],'FontSize', 18, 'visible','off');
          
 predbut = uibutton(uif,'push',...
-               'Text', 'Predict', 'visible','off','Position',[600, 610, 80, 20], ...
+               'Text', 'Predict','visible','off','Position',[600, 520, 80, 50], ...
                'ButtonPushedFcn', @(predbut,event) predButtonPushed(predbut));         
          
          
