@@ -67,12 +67,12 @@ set([ uif, edbox1, lab1, edbox2, lab2, edbox3, lab3, edbox4, lab4, edbox5,lab5, 
 
 
 
-% %Imaginary Test Subject
-% waist_cir3 = 90;
-% bmi3 = 30;
-% diabetes_type = 2;
-% total_fat_index = 4;
-% ActivityIndex = -1;
+%Imaginary Test Subject
+waist_cir3 = 0;
+bmi3 = 0;
+diabetes_type = 0;
+total_fat_index = 0;
+ActivityIndex = 0;
 
 
 function callbox1(edbox1)
