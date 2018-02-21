@@ -36,7 +36,7 @@ edbox2 = uieditfield(uif,'numeric','visible','off','Position',[75 435 100 20],'V
 %Diabetes Type
 edbox3 = uieditfield(uif,'numeric','visible','off','Position',[75 335 100 20],'ValueChangedFcn', @(edbox3, event) callbox3(edbox3));
 %Total Fat Index
-edbox4 = uieditfield(uif,'numeric','visible','off','Position',[75 235 100 20],'ValueChangedFcn', @(edbox4, event) callbox4(edbox4));
+%edbox4 = uieditfield(uif,'numeric','visible','off','Position',[75 235 100 20],'ValueChangedFcn', @(edbox4, event) callbox4(edbox4));
 %Activity Index
 edbox5 = uieditfield(uif,'numeric','visible','off','Position',[75 135 100 20],'ValueChangedFcn', @(edbox5, event) callbox5(edbox5));
 
@@ -48,8 +48,8 @@ lab2 = uilabel('Parent',uif,'text','Enter a BMI: ','FontWeight','bold',...
              'Position',[75 460 200 50],'FontSize', 18,'visible','off');
 lab3 = uilabel('Parent',uif,'text','Diabetes Type: ','FontWeight','bold',... 
              'Position',[75 360 200 50],'FontSize', 18,'visible','off');
-lab4 = uilabel('Parent',uif,'text','Enter Total Fat Index: ','FontWeight','bold',... 
-             'Position',[75 260 350 50],'FontSize', 18,'visible','off');
+%lab4 = uilabel('Parent',uif,'text','Enter Total Fat Index: ','FontWeight','bold',... 
+             %'Position',[75 260 350 50],'FontSize', 18,'visible','off');
 lab5 = uilabel('Parent',uif,'text','Enter Activity Index: ','FontWeight','bold',... 
              'Position',[75 160 350 50],'FontSize', 18,'visible','off');
 
@@ -61,7 +61,7 @@ predbut = uibutton(uif,'push',...
                'ButtonPushedFcn', @(predbut,event) predButtonPushed(predbut));         
          
          
-set([ uif, edbox1, lab1, edbox2, lab2, edbox3, lab3, edbox4, lab4, edbox5,lab5, predlab, predbut], 'visible','on');
+set([ uif, edbox1, lab1, edbox2, lab2, edbox3, lab3, edbox5,lab5, predlab, predbut], 'visible','on');
 
 
 
@@ -71,7 +71,6 @@ set([ uif, edbox1, lab1, edbox2, lab2, edbox3, lab3, edbox4, lab4, edbox5,lab5, 
 waist_cir3 = 0;
 bmi3 = 0;
 diabetes_type = 0;
-total_fat_index = 0;
 ActivityIndex = 0;
 
 
@@ -90,10 +89,10 @@ function callbox3(edbox3)
      diabetes_type = num;
 end
 
-function callbox4(edbox4)
-     num = edbox4.Value;
-     total_fat_index = num;
-end
+% function callbox4(edbox4)
+%      num = edbox4.Value;
+%      total_fat_index = num;
+% end
 
 function callbox5(edbox5)
      num = edbox5.Value;
@@ -104,10 +103,10 @@ function predButtonPushed(predbut)
       callbox1(edbox1);
       callbox2(edbox2);
       callbox3(edbox3);
-      callbox4(edbox4);
+      %callbox4(edbox4);
       callbox5(edbox5);
       
-      newT = table(waist_cir3, bmi3, diabetes_type, total_fat_index, ActivityIndex);
+      newT = table(waist_cir3, bmi3, diabetes_type, ActivityIndex);
 
       %Prediction of liver fat and confidence interval
       [livfat, conint] = predict(mdl, newT);
