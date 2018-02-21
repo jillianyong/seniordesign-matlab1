@@ -101,6 +101,12 @@ function callbox5(edbox5)
 end
 
 function predButtonPushed(predbut)
+      callbox1(edbox1);
+      callbox2(edbox2);
+      callbox3(edbox3);
+      callbox4(edbox4);
+      callbox5(edbox5);
+      
       newT = table(waist_cir3, bmi3, diabetes_type, total_fat_index, ActivityIndex);
 
       %Prediction of liver fat and confidence interval
