@@ -3,15 +3,12 @@
 %Import Table
 x = detectImportOptions('BCP_Activity6021.xlsx');
 T = readtable('BCP_Activity6021.xlsx',x);
+
 %Create Model
-mdl = fitlm(T,'mean_liver_fat_p~waist_cir3+bmi3+diabetes_type+ActivityIndex+VAT_index+age3')
+%mdl = fitlm(T,'mean_liver_fat_p~waist_cir3+bmi3+diabetes_type+ActivityIndex+VAT_index+age3')
+mdl = fitlm(T,'liver_fat_transform ~ waist_cir3 + bmi3 + ActivityIndex + weight3')
 %Save model
 save('liverfatmodel.mat','mdl');
-
-
-
-
-
 
 % %Imaginary Test Subject
 % waist_cir3 = 90;
