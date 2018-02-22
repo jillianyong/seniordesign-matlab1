@@ -132,7 +132,7 @@ function predButtonPushed(predbut)
         set(predlab, 'visible','off');
       end
       predlab = uilabel('Parent',uif,'text',strliv,'FontWeight','bold',... 
-             'Position',[600 585 500 20]);
+             'Position',[600 585 500 20], 'visible', 'on');
          
 
 end
