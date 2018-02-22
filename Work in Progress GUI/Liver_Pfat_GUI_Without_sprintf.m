@@ -256,6 +256,8 @@ function selection(ddmenu, eventdata, handles)
             end               
             waist_cir = Thist.waist_cir3;
             histy = histogram(ax,waist_cir);
+            ax.XLim = [50 150]; 
+            ax.YLim = [0 450];
             waist_cir(isnan(waist_cir)) = [];
             meanwaistcir = num2str(round(mean(waist_cir),2));
             medianwaistcir = num2str(round(median(waist_cir),2));
@@ -298,6 +300,8 @@ function selection(ddmenu, eventdata, handles)
             end             
             mean_liver_fat_p = Thist.mean_liver_fat_p;
             histy = histogram(ax,mean_liver_fat_p);
+            ax.XLim = [0 35];
+            ax.YLim = [0 2400];
             mean_liver_fat_p(isnan(mean_liver_fat_p)) = [];
             meantxt = 'Mean:';
             mediantxt = 'Median:';
@@ -340,6 +344,8 @@ function selection(ddmenu, eventdata, handles)
             end            
             total_fat = Thist.total_fat_index;
             histy = histogram(ax,total_fat);
+            ax.XLim = [0 15];
+            ax.YLim = [0 500];
             total_fat(isnan(total_fat)) = [];
             meantxt = 'Mean:';
             mediantxt = 'Median:';
@@ -382,6 +388,8 @@ function selection(ddmenu, eventdata, handles)
             end                
             age = Thist.age3;
             histy = histogram(ax,age);
+            ax.XLim = [40 800];
+            ax.YLim = [0 350];
             age(isnan(age)) = [];
             meantxt = 'Mean:';
             mediantxt = 'Median:';
@@ -424,6 +432,8 @@ function selection(ddmenu, eventdata, handles)
             end                
             weight = Thist.weight3;
             histy = histogram(ax,weight);
+            ax.XLim = [35 180];
+            ax.YLim = [0 500];
             weight(isnan(weight)) = [];
             meantxt = 'Mean:';
             mediantxt = 'Median:';
@@ -466,6 +476,8 @@ function selection(ddmenu, eventdata, handles)
             end            
             height = Thist.height3;
             histy = histogram(ax,height);
+            ax.XLim = [140 200 ];
+            ax.YLim = [0 500];
             height(isnan(height)) = [];
             meantxt = 'Mean:';
             mediantxt = 'Median:';
@@ -508,6 +520,8 @@ function selection(ddmenu, eventdata, handles)
             end            
             bmi = Thist.bmi3;
             histy = histogram(ax,bmi);
+            ax.XLim = [10 60]; 
+            ax.YLim = [0 650];
             bmi(isnan(bmi)) = [];
             meantxt = 'Mean:';
             mediantxt = 'Median:';
