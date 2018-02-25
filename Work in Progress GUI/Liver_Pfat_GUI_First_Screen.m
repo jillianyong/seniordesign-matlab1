@@ -15,6 +15,8 @@ global lab5;
 % global lab6;
 global predlab;
 global predbut;
+global vislab;
+global visbut;
 global waist_cir3;
 global bmi3;
 global weight3;
@@ -75,11 +77,18 @@ predlab = uilabel('Parent',uif,'text','Liver Fat Precentage: ','FontWeight','bol
          
 predbut = uibutton(uif,'push',...
                'Text', 'Predict','visible','off','Position',[600, 520, 80, 50], ...
-               'ButtonPushedFcn', @(predbut,event) predButtonPushed(predbut));         
+               'ButtonPushedFcn', @(predbut,event) predButtonPushed(predbut)); 
+
+vislab = uilabel('Parent',uif,'text','Visualize Your Metrics:','FontWeight','bold',... 
+             'Position',[600 340 370 50],'FontSize', 18, 'visible','off');
+         
+visbut = uibutton(uif,'push',...
+               'Text', 'Visualize','visible','off','Position',[600, 300, 80, 50], ...
+               'ButtonPushedFcn', @(visbut,event) visButtonPushed(visbut)); 
          
          
 %set([ uif, edbox1, lab1, edbox2, lab2, edbox3, lab3, edbox4, lab4, edbox5,lab5, edbox6,lab6, predlab, predbut], 'visible','on');
-set([ uif, edbox1, lab1, edbox2, lab2, edbox3, lab3, edbox5,lab5, predlab, predbut], 'visible','on');
+set([ uif, edbox1, lab1, edbox2, lab2, edbox3, lab3, edbox5,lab5, predlab, predbut, vislab, visbut], 'visible','on');
 
 
 
@@ -149,6 +158,11 @@ function predButtonPushed(predbut)
              'Position',[600 585 500 20], 'visible', 'on');
          
 
+end
+
+function visButtonPushed(visbut)
+    Liver_Pfat_GUI_Without_sprintf;
+    %Open a new window with the favorite child
 end
 
 end
