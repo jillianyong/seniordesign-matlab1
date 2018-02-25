@@ -147,9 +147,15 @@ function predButtonPushed(predbut)
       %Prediction of liver fat and confidence interval
       [scaledlivfat, conint] = predict(mdl, newT);
       livfat = scaledlivfat * (sqrt(2));
-      strliv = 'Liver Fat Precentage: ';
-      livnum = num2str(livfat);
-      strliv = [strliv, livnum];  
+      if livfat > 5
+          fatresult = 'Yes';
+      else
+          fatresult = 'No';
+      end
+      
+      strliv = 'Do you have NAFLD? ';
+     % livnum = num2str(livfat);
+      strliv = [strliv, fatresult];  
 
       if (ishandle(predlab))
         set(predlab, 'visible','off');
