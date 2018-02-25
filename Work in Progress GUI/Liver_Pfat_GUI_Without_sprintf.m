@@ -388,7 +388,7 @@ function selection(ddmenu, eventdata, handles)
             end                
             age = Thist.age3;
             histy = histogram(ax,age);
-            ax.XLim = [40 800];
+            ax.XLim = [40 80];
             ax.YLim = [0 350];
             age(isnan(age)) = [];
             meantxt = 'Mean:';
@@ -476,7 +476,7 @@ function selection(ddmenu, eventdata, handles)
             end            
             height = Thist.height3;
             histy = histogram(ax,height);
-            ax.XLim = [140 200 ];
+            ax.XLim = [140 200];
             ax.YLim = [0 500];
             height(isnan(height)) = [];
             meantxt = 'Mean:';
