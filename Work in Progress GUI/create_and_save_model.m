@@ -10,6 +10,7 @@ mdl = fitlm(T,'liver_fat_transform ~ waist_cir3 + bmi3 + ActivityIndex + weight3
 %Save model
 save('liverfatmodel.mat','mdl');
 
+
 % %Imaginary Test Subject
 % waist_cir3 = 90;
 % bmi3 = 30;

@@ -12,8 +12,7 @@ global scatvar1label;
 global scatvar2label;
 
 % Import Data
-x = detectImportOptions('BCP_Activity6021.xlsx');
-T = readtable('BCP_Activity6021.xlsx',x);
+load('LiverTable.mat','T');
 Thist = T;
 mTscat = T;
 fTscat = T;
