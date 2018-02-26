@@ -66,6 +66,7 @@ nfTscat = fTscat;
  global tb16;
  global tb17;
  global tb18;
+ global tbover;
  global rb1;
  global rb2;
  global rb3;
@@ -119,7 +120,7 @@ pan2 = uipanel('Parent',uif,'Title','Relevant Statistics','FontWeight','bold',..
              'Position',[600 420 230 60],'Units','pixels','visible','off');
 
 pan3 = uilabel('Parent',uif,'text','Please select a filter:','FontWeight','bold',... %for Histogram
-             'Position',[50 570 150 50],'visible','off');
+             'Position',[50 585 150 50],'visible','off');
          
 pan4 = uilabel('Parent',uif,'text','Please select a filter:','FontWeight','bold',... %for Scatter Plot
              'Position',[600 555 150 50],'visible','off');
@@ -132,7 +133,7 @@ b4 = uibutton(uif,'push',...
                'Text', 'Help', 'visible','off','Position',[930, 730, 40, 20], ...
                'ButtonPushedFcn', @(b4,event) OpenHelpMenu(b4)); % Push button for Scatter Plot 
            
-bg1 = uibuttongroup(uif,'Position',[50 540 80 60],'visible', 'off','SelectionChangedFcn',@bg1fn); % Toggle switches Position for Histogram
+bg1 = uibuttongroup(uif,'Position',[50 540 80 80],'visible', 'off','SelectionChangedFcn',@bg1fn); % Toggle switches Position for Histogram
 bg2 = uibuttongroup(uif,'Position',[130 540 80 60],'visible', 'off','SelectionChangedFcn',@bg2fn); % Toggle switches Position for Histogram
 bg3 = uibuttongroup(uif,'Position',[210 540 80 60],'visible', 'off','SelectionChangedFcn',@bg3fn); % Toggle switches Position for Histogram
 bg4 = uibuttongroup(uif,'Position',[600 525 80 60],'visible', 'off','SelectionChangedFcn',@bg4fn); % Toggle switches Position for Scatter Plot
@@ -141,7 +142,8 @@ bg6 = uibuttongroup(uif,'Position',[760 525 80 60],'visible', 'off','SelectionCh
 bg7 = uibuttongroup(uif,'Position',[600 485 250 37],'visible', 'off','Title', 'Choose variable to distinguish:','FontWeight','bold','BackgroundColor','white','SelectionChangedFcn',@bg7fn); % Radio buttons for Scatter Plot
 
 % Individual Toggle switches Position for Histogram
-tb1 = uitogglebutton(bg1,'Position',[0 40 80 20],'Text','All');
+tb1 = uitogglebutton(bg1,'Position',[0 60 80 20],'Text','All');
+tbover = uitogglebutton(bg1,'Position',[0 40 80 20],'Text','Overlay');
 tb2 = uitogglebutton(bg1,'Position',[0 20 80 20],'Text','Male');
 tb3 = uitogglebutton(bg1,'Position',[0 0 80 20],'Text','Female');
 
@@ -212,6 +214,8 @@ function selection(ddmenu, eventdata, handles)
         case {'Female'}
             histind = (strcmp(Thist.sex, 'Female'));
             Thist = Thist(histind,:);
+        case {'Overlay'}
+            
         case {'All'}
     end
     
@@ -252,9 +256,22 @@ function selection(ddmenu, eventdata, handles)
             end
             if (ishandle(label6))
             set(label6, 'visible','off');
-            end               
+            end
             waist_cir = Thist.waist_cir3;
-            histy = histogram(ax,waist_cir);
+            if(strcmp(histmf, 'Overlay'))
+                histind = (strcmp(Thist.sex, 'Male'));
+                mThist = Thist(histind,:);
+                mwaist_cir = mThist.waist_cir3;
+                mhisty = histogram(ax,mwaist_cir,'facealpha',0.5,'facecolor','b');
+                hold(ax,'on')
+                histind = (strcmp(Thist.sex, 'Female'));
+                fThist = Thist(histind,:);
+                fwaist_cir = fThist.waist_cir3;
+                fhisty = histogram(ax,fwaist_cir,'facealpha',0.5,'facecolor','r');
+                legend(ax,'Male','Female')
+            else
+                histy = histogram(ax,waist_cir);
+            end
             ax.XLim = [50 150]; 
             ax.YLim = [0 450];
             waist_cir(isnan(waist_cir)) = [];
@@ -298,7 +315,20 @@ function selection(ddmenu, eventdata, handles)
             set(label6, 'visible','off');
             end             
             mean_liver_fat_p = Thist.mean_liver_fat_p;
-            histy = histogram(ax,mean_liver_fat_p);
+            if(strcmp(histmf, 'Overlay'))
+                histind = (strcmp(Thist.sex, 'Male'));
+                mThist = Thist(histind,:);
+                mmean_liver_fat_p = mThist.mean_liver_fat_p;
+                mhisty = histogram(ax,mmean_liver_fat_p,'facealpha',0.5,'facecolor','b');
+                hold(ax,'on')
+                histind = (strcmp(Thist.sex, 'Female'));
+                fThist = Thist(histind,:);
+                fmean_liver_fat_p = fThist.mean_liver_fat_p;
+                fhisty = histogram(ax,fmean_liver_fat_p,'facealpha',0.5,'facecolor','r');
+                legend(ax,'Male','Female')
+            else
+                histy = histogram(ax,mean_liver_fat_p);
+            end
             ax.XLim = [0 35];
             ax.YLim = [0 2400];
             mean_liver_fat_p(isnan(mean_liver_fat_p)) = [];
@@ -342,7 +372,20 @@ function selection(ddmenu, eventdata, handles)
             set(label6, 'visible','off');
             end            
             total_fat = Thist.total_fat_index;
-            histy = histogram(ax,total_fat);
+            if(strcmp(histmf, 'Overlay'))
+                histind = (strcmp(Thist.sex, 'Male'));
+                mThist = Thist(histind,:);
+                mtotal_fat = mThist.total_fat_index;
+                mhisty = histogram(ax,mtotal_fat,'facealpha',0.5,'facecolor','b');
+                hold(ax,'on')
+                histind = (strcmp(Thist.sex, 'Female'));
+                fThist = Thist(histind,:);
+                ftotal_fat = fThist.total_fat_index;
+                fhisty = histogram(ax,ftotal_fat,'facealpha',0.5,'facecolor','r');
+                legend(ax,'Male','Female')
+            else
+                histy = histogram(ax,total_fat);
+            end
             ax.XLim = [0 15];
             ax.YLim = [0 500];
             total_fat(isnan(total_fat)) = [];
@@ -386,7 +429,20 @@ function selection(ddmenu, eventdata, handles)
             set(label6, 'visible','off');
             end                
             age = Thist.age3;
-            histy = histogram(ax,age);
+            if(strcmp(histmf, 'Overlay'))
+                histind = (strcmp(Thist.sex, 'Male'));
+                mThist = Thist(histind,:);
+                mage = mThist.age3;
+                mhisty = histogram(ax,mage,'facealpha',0.5,'facecolor','b');
+                hold(ax,'on')
+                histind = (strcmp(Thist.sex, 'Female'));
+                fThist = Thist(histind,:);
+                fage = fThist.age3;
+                fhisty = histogram(ax,fage,'facealpha',0.5,'facecolor','r');
+                legend(ax,'Male','Female')
+            else
+                histy = histogram(ax,age);
+            end
             ax.XLim = [40 80];
             ax.YLim = [0 350];
             age(isnan(age)) = [];
@@ -430,7 +486,20 @@ function selection(ddmenu, eventdata, handles)
             set(label6, 'visible','off');
             end                
             weight = Thist.weight3;
-            histy = histogram(ax,weight);
+            if(strcmp(histmf, 'Overlay'))
+                histind = (strcmp(Thist.sex, 'Male'));
+                mThist = Thist(histind,:);
+                mweight = mThist.weight3;
+                mhisty = histogram(ax,mweight,'facealpha',0.5,'facecolor','b');
+                hold(ax,'on')
+                histind = (strcmp(Thist.sex, 'Female'));
+                fThist = Thist(histind,:);
+                fweight = fThist.weight3;
+                fhisty = histogram(ax,fweight,'facealpha',0.5,'facecolor','r');
+                legend(ax,'Male','Female')
+            else
+                histy = histogram(ax,weight);
+            end
             ax.XLim = [35 180];
             ax.YLim = [0 500];
             weight(isnan(weight)) = [];
@@ -474,7 +543,20 @@ function selection(ddmenu, eventdata, handles)
             set(label6, 'visible','off');
             end            
             height = Thist.height3;
-            histy = histogram(ax,height);
+            if(strcmp(histmf, 'Overlay'))
+                histind = (strcmp(Thist.sex, 'Male'));
+                mThist = Thist(histind,:);
+                mheight = mThist.height3;
+                mhisty = histogram(ax,mheight,'facealpha',0.5,'facecolor','b');
+                hold(ax,'on')
+                histind = (strcmp(Thist.sex, 'Female'));
+                fThist = Thist(histind,:);
+                fheight = fThist.height3;
+                fhisty = histogram(ax,fheight,'facealpha',0.5,'facecolor','r');
+                legend(ax,'Male','Female')
+            else
+                histy = histogram(ax,height);
+            end
             ax.XLim = [140 200];
             ax.YLim = [0 500];
             height(isnan(height)) = [];
@@ -518,7 +600,20 @@ function selection(ddmenu, eventdata, handles)
             set(label6, 'visible','off');
             end            
             bmi = Thist.bmi3;
-            histy = histogram(ax,bmi);
+            if(strcmp(histmf, 'Overlay'))
+                histind = (strcmp(Thist.sex, 'Male'));
+                mThist = Thist(histind,:);
+                mbmi = mThist.bmi3;
+                mhisty = histogram(ax,mbmi,'facealpha',0.5,'facecolor','b');
+                hold(ax,'on')
+                histind = (strcmp(Thist.sex, 'Female'));
+                fThist = Thist(histind,:);
+                fbmi = fThist.bmi3;
+                fhisty = histogram(ax,fbmi,'facealpha',0.5,'facecolor','r');
+                legend(ax,'Male','Female')
+            else
+                histy = histogram(ax,bmi);
+            end
             ax.XLim = [10 60]; 
             ax.YLim = [0 650];
             bmi(isnan(bmi)) = [];
@@ -562,8 +657,23 @@ function selection(ddmenu, eventdata, handles)
             set(label6, 'visible','off');
             end                
             sex = Thist.sex;
-            c1 = categorical(sex);
-            histy = histogram(ax,c1);
+            if(strcmp(histmf, 'Overlay'))
+                histind = (strcmp(Thist.sex, 'Male'));
+                mThist = Thist(histind,:);
+                msex = mThist.sex;
+                c1 = categorical(msex);
+                mhisty = histogram(ax,c1,'facealpha',0.5,'facecolor','b');
+                hold(ax,'on')
+                histind = (strcmp(Thist.sex, 'Female'));
+                fThist = Thist(histind,:);
+                fsex = fThist.sex;
+                c2 = categorical(fsex);
+                fhisty = histogram(ax,c2,'facealpha',0.5,'facecolor','r');
+                legend(ax,'Male','Female')
+            else
+                c1 = categorical(sex);
+                histy = histogram(ax,c1);
+            end
             xlabel(ax,'Sex');
             ylabel(ax,'Frequency');
             
@@ -584,8 +694,23 @@ function selection(ddmenu, eventdata, handles)
             set(label6, 'visible','off');
             end                
             race = Thist.race3;
-            c2 = categorical(race);
-            histy = histogram(ax,c2);
+            if(strcmp(histmf, 'Overlay'))
+                histind = (strcmp(Thist.sex, 'Male'));
+                mThist = Thist(histind,:);
+                mrace = mThist.race3;
+                c1 = categorical(mrace);
+                mhisty = histogram(ax,c1,'facealpha',0.5,'facecolor','b');
+                hold(ax,'on')
+                histind = (strcmp(Thist.sex, 'Female'));
+                fThist = Thist(histind,:);
+                frace = fThist.race3;
+                c2 = categorical(frace);
+                fhisty = histogram(ax,c2,'facealpha',0.5,'facecolor','r');
+                legend(ax,'Male','Female')
+            else
+                c2 = categorical(race);
+                histy = histogram(ax,c2);
+            end
             xlabel(ax,'Race');
             ylabel(ax,'Frequency');
             
@@ -606,8 +731,23 @@ function selection(ddmenu, eventdata, handles)
             set(label6, 'visible','off');
             end                
             diabetes = Thist.diabetes3;
-            c3 = categorical(diabetes);
-            histy = histogram(ax,c3);
+            if(strcmp(histmf, 'Overlay'))
+                histind = (strcmp(Thist.sex, 'Male'));
+                mThist = Thist(histind,:);
+                mdiabetes = mThist.diabetes3;
+                c1 = categorical(mdiabetes);
+                mhisty = histogram(ax,c1,'facealpha',0.5,'facecolor','b');
+                hold(ax,'on')
+                histind = (strcmp(Thist.sex, 'Female'));
+                fThist = Thist(histind,:);
+                fdiabetes = fThist.diabetes3;
+                c2 = categorical(fdiabetes);
+                fhisty = histogram(ax,c2,'facealpha',0.5,'facecolor','r');
+                legend(ax,'Male','Female')
+            else
+                c3 = categorical(diabetes);
+                histy = histogram(ax,c3);
+            end
             xlabel(ax,'Diabetes');
             ylabel(ax,'Frequency');
     end
