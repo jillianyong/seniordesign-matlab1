@@ -273,7 +273,7 @@ function selection(ddmenu, eventdata, handles)
                 histy = histogram(ax,waist_cir);
             end
             ax.XLim = [50 150]; 
-            ax.YLim = [0 450];
+            ax.YLim = [0 550];
             waist_cir(isnan(waist_cir)) = [];
             meanwaistcir = num2str(round(mean(waist_cir),2));
             medianwaistcir = num2str(round(median(waist_cir),2));
@@ -444,7 +444,7 @@ function selection(ddmenu, eventdata, handles)
                 histy = histogram(ax,age);
             end
             ax.XLim = [40 80];
-            ax.YLim = [0 350];
+            ax.YLim = [0 550];
             age(isnan(age)) = [];
             meantxt = 'Mean:';
             mediantxt = 'Median:';
@@ -978,10 +978,10 @@ function plotButtonPushed(b3,ax2)
             label2 = uilabel('Text',f_r_str,'Parent',pan2,...
                 'Position',[10 0 210 20]);
         end
-        scatter(ax2,m_scatter_x, m_scatter_y,'r');
+        scatter(ax2,m_scatter_x, m_scatter_y,'b');
         hold(ax2,'on')
         if(~strcmp(scatvar1label, 'All'))
-            scatter(ax2,f_scatter_x, f_scatter_y,'b');
+            scatter(ax2,f_scatter_x, f_scatter_y,'r');
         end
         xlabel(ax2,xaxis_label);
         ylabel(ax2,yaxis_label);
