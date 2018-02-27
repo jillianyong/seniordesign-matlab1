@@ -167,7 +167,7 @@ function predButtonPushed(predbut)
 end
 
 function visButtonPushed(visbut)
-    Liver_Pfat_GUI_Without_sprintf;
+    Liver_Pfat_GUI_Visualization;
     %Open a new window with the favorite child
 end
 

@@ -1,4 +1,4 @@
-function Liver_Pfat_GUI_Without_sprintf
+function Liver_Pfat_GUI_Visualization
 % Global Variables for Imported Data
 global T;
 global Thist;
