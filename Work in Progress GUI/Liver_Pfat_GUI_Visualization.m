@@ -1,4 +1,4 @@
-function Liver_Pfat_GUI_Visualization
+function Liver_Pfat_GUI_Without_sprintf
 % Global Variables for Imported Data
 global T;
 global Thist;
@@ -182,7 +182,7 @@ rb4 = uiradiobutton(bg7,'Position',[200 1 80 15],'Text','Age');
 ddmenu = uidropdown(uif,...
     'Position',[50 635 100 20],...
     'Items',{'Waist Circumference', 'Mean Liver Fat p', 'Total Fat Index',...
-    'Age', 'Weight', 'Height', 'BMI', 'Sex', 'Race', 'Diabetes'},...
+    'Age', 'Weight', 'Height', 'BMI','Activity Index', 'Sex', 'Race', 'Diabetes'},...
     'Value','BMI',...
     'ValueChangedFcn',@(ddmenu,event) selection(ddmenu),'visible', 'off');
 
@@ -638,6 +638,63 @@ function selection(ddmenu, eventdata, handles)
             label6 = uilabel('Text',circstr4,'Parent',pan1,...
             'Position',[10 0 180 20]);            
             xlabel(ax,'BMI (kg/m^2)');
+            ylabel(ax,'Frequency');
+            
+        case {'Activity Index'}
+            ax.NextPlot = 'replace';
+            cla(ax);
+            set(ax,'visible','on');
+            if (ishandle(label3))
+            set(label3, 'visible','off');
+            end
+            if (ishandle(label4))
+            set(label4, 'visible','off');
+            end
+            if (ishandle(label5))
+            set(label5, 'visible','off');
+            end
+            if (ishandle(label6))
+            set(label6, 'visible','off');
+            end
+            ActivityIndex = Thist.ActivityIndex;
+            if(strcmp(histmf, 'Overlay'))
+                histind = (strcmp(Thist.sex, 'Male'));
+                mThist = Thist(histind,:);
+                mActivityIndex = mThist.ActivityIndex;
+                mhisty = histogram(ax,mActivityIndex,'facealpha',0.5,'facecolor','b');
+                hold(ax,'on')
+                histind = (strcmp(Thist.sex, 'Female'));
+                fThist = Thist(histind,:);
+                fActivityIndex = fThist.ActivityIndex;
+                fhisty = histogram(ax,fActivityIndex,'facealpha',0.5,'facecolor','r');
+                legend(ax,'Male','Female')
+            else
+                histy = histogram(ax,ActivityIndex);
+            end
+            ax.XLim = [-15 15]; 
+            ax.YLim = [0 350];
+            ActivityIndex(isnan(ActivityIndex)) = [];
+            meanActivityIndex = num2str(round(mean(ActivityIndex),2));
+            medianActivityIndex = num2str(round(median(ActivityIndex),2));
+            fivepActivityIndex = num2str(round(prctile(ActivityIndex,5),2));
+            ninefivepActivityIndex = num2str(round(prctile(ActivityIndex,95),2));
+            meantxt = 'Mean:';
+            mediantxt = 'Median:';
+            fivetxt = '5th Percentile:';
+            ninefivetxt =  '95th Percentile:';
+            circstr1 = strcat(meantxt,meanActivityIndex);
+            circstr2 = strcat(mediantxt,medianActivityIndex);
+            circstr3 = strcat(fivetxt,fivepActivityIndex);
+            circstr4 = strcat(ninefivetxt,ninefivepActivityIndex);
+            label3 = uilabel('Text',circstr1,'Parent',pan1,...
+            'Position',[10 60 180 20]);
+            label4 = uilabel('Text',circstr2,'Parent',pan1,...
+            'Position',[10 40 180 20]);
+            label5 = uilabel('Text',circstr3,'Parent',pan1,...
+            'Position',[10 20 180 20]);
+            label6 = uilabel('Text',circstr4,'Parent',pan1,...
+            'Position',[10 0 180 20]);
+            xlabel(ax,'Activity Index');
             ylabel(ax,'Frequency');
             
         case {'Sex'}
