@@ -1,15 +1,33 @@
 % Imports table and saves matfile containing model variable
 
 %Import Table
-x = detectImportOptions('BCP_Activity6021.xlsx');
-T = readtable('BCP_Activity6021.xlsx',x);
+load('LiverTable.mat','T');
 
 %Create Model
-%mdl = fitlm(T,'mean_liver_fat_p~waist_cir3+bmi3+diabetes_type+ActivityIndex+VAT_index+age3')
-mdl = fitlm(T,'liver_fat_transform ~ waist_cir3 + bmi3 + ActivityIndex + weight3')
+%mdl = fitlm(T,'liver_fat_transform ~ waist_cir3 + bmi3 + ActivityIndex + weight3')
+
+
+waist_cir3 = T.waist_cir3;
+bmi3 = T.bmi3;
+total_fat_index = T.total_fat_index;
+weight3 = T.weight3;
+mean_liver_fat_p = T.mean_liver_fat_p;
+VAT_index = T.VAT_index;
+SAT_index = T.SAT_index;
+treemodelT = table(waist_cir3, bmi3, total_fat_index, VAT_index, SAT_index, weight3, mean_liver_fat_p);
+mdl = TreeBagger(500,treemodelT,'mean_liver_fat_p','Method','regression','OOBPredictorImportance','on');
+imp = mdl.OOBPermutedPredictorDeltaError;
+bar(imp)
+title('Curvature Test');
+ylabel('Predictor importance estimates');
+xlabel('Predictors');
+h = gca;
+h.XTickLabel = mdl.PredictorNames;
+h.XTickLabelRotation = 45;
+h.TickLabelInterpreter = 'none';
+
 %Save model
 save('liverfatmodel.mat','mdl');
-
 
 % %Imaginary Test Subject
 % waist_cir3 = 90;
