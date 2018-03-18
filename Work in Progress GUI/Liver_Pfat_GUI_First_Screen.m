@@ -4,7 +4,11 @@ global uif;
 global edbox1;
 global edbox2;
 global edbox3;
+<<<<<<< HEAD
 global edbox4;
+=======
+global helpbut;
+>>>>>>> 9e321f81360465604892d10870792fdec651bab3
 global edbox5;
 global edbox6;
 global edbox7;
@@ -32,10 +36,13 @@ uif = uifigure('visible','off','name','Pfabulous Pfun with Liver Pfat: A Story o
 
 titleall = uilabel('Text','NAFLD Predictor','Parent',uif,...
             'Position',[350 660 1200 55],'FontSize',40); % Title for all
+lineinst = uilabel('Parent',uif,'text','Please enter the relevant metrics of your patient to predict his/her likelihood for NAFLD. For more information, please press the HELP button.',... 
+            'Position',[35 590 1000 50],'FontSize', 15);
 %Loads model
 load('liverfatmodel.mat','mdl');
 
 %Waist Circ
+<<<<<<< HEAD
 edbox1 = uieditfield(uif,'numeric','visible','off','Position',[75 530 100 20],'ValueChangedFcn', @(edbox1, event) callbox1(edbox1));
 
 %BMI
@@ -43,12 +50,26 @@ edbox2 = uieditfield(uif,'numeric','visible','off','Position',[75 480 100 20],'V
 
 %Weight (formerly diabetes type)
 edbox3 = uieditfield(uif,'numeric','visible','off','Position',[75 430 100 20],'ValueChangedFcn', @(edbox3, event) callbox3(edbox3));
+=======
+edbox1 = uieditfield(uif,'numeric','visible','off','Position',[75 505 100 20],'ValueChangedFcn', @(edbox1, event) callbox1(edbox1));
+
+%BMI
+edbox2 = uieditfield(uif,'numeric','visible','off','Position',[75 405 100 20],'ValueChangedFcn', @(edbox2, event) callbox2(edbox2));
+
+%Weight (formerly diabetes type)
+edbox3 = uieditfield(uif,'numeric','visible','off','Position',[75 305 100 20],'ValueChangedFcn', @(edbox3, event) callbox3(edbox3));
+>>>>>>> 9e321f81360465604892d10870792fdec651bab3
 
 %Age
 %edbox4 = uieditfield(uif,'numeric','visible','off','Position',[75 380 100 20],'ValueChangedFcn', @(edbox4, event) callbox4(edbox4));
 
+<<<<<<< HEAD
 %Total Fat Index
 edbox5 = uieditfield(uif,'numeric','visible','off','Position',[75 330 100 20],'ValueChangedFcn', @(edbox5, event) callbox5(edbox5));
+=======
+%Activity Index
+edbox5 = uieditfield(uif,'numeric','visible','off','Position',[75 205 100 20],'ValueChangedFcn', @(edbox5, event) callbox5(edbox5));
+>>>>>>> 9e321f81360465604892d10870792fdec651bab3
 
 %VAT Index
 edbox6 = uieditfield(uif,'numeric','visible','off','Position',[75 280 100 20],'ValueChangedFcn', @(edbox6, event) callbox6(edbox6));
@@ -58,6 +79,7 @@ edbox7 = uieditfield(uif,'numeric','visible','off','Position',[75 230 100 20],'V
 
 
 lab1 = uilabel('Parent',uif,'text','Enter a waist circumference (cm): ','FontWeight','bold',... 
+<<<<<<< HEAD
              'Position',[75 550 500 25],'FontSize', 18, 'visible','off');
 lab2 = uilabel('Parent',uif,'text','Enter a BMI: ','FontWeight','bold',... 
              'Position',[75 500 200 25],'FontSize', 18,'visible','off');
@@ -70,6 +92,17 @@ lab3 = uilabel('Parent',uif,'text','Weight (kg): ','FontWeight','bold',...
 
 lab5 = uilabel('Parent',uif,'text','Enter Total Fat Index: ','FontWeight','bold',... 
              'Position',[75 350 350 25],'FontSize', 18,'visible','off');
+=======
+             'Position',[75 530 500 50],'FontSize', 18, 'visible','off');
+lab2 = uilabel('Parent',uif,'text','Enter a BMI: ','FontWeight','bold',... 
+             'Position',[75 430 200 50],'FontSize', 18,'visible','off');
+
+lab3 = uilabel('Parent',uif,'text','Weight (kg): ','FontWeight','bold',... 
+             'Position',[75 330 200 50],'FontSize', 18,'visible','off');
+
+lab5 = uilabel('Parent',uif,'text','Enter Activity Index: ','FontWeight','bold',... 
+             'Position',[75 230 350 50],'FontSize', 18,'visible','off');
+>>>>>>> 9e321f81360465604892d10870792fdec651bab3
 
 lab6 = uilabel('Parent',uif,'text','Enter VAT Index: ','FontWeight','bold',... 
              'Position',[75 300 350 25],'FontSize', 18,'visible','off');
@@ -77,23 +110,30 @@ lab6 = uilabel('Parent',uif,'text','Enter VAT Index: ','FontWeight','bold',...
 lab7 = uilabel('Parent',uif,'text','Enter SAT Index: ','FontWeight','bold',... 
              'Position',[75 250 350 25],'FontSize', 18,'visible','off');
 
-predlab = uilabel('Parent',uif,'text','Liver Fat Precentage: ','FontWeight','bold',... 
-             'Position',[600 560 370 50],'FontSize', 18, 'visible','off');
+predlab = uilabel('Parent',uif,'text','Are you likely to have NAFLD? ','FontWeight','bold',... 
+             'Position',[600 530 370 50],'FontSize', 18, 'visible','off');
          
 predbut = uibutton(uif,'push',...
-               'Text', 'Predict','visible','off','Position',[600, 520, 80, 50], ...
+               'Text', 'Predict','visible','off','Position',[600, 490, 80, 50], ...
                'ButtonPushedFcn', @(predbut,event) predButtonPushed(predbut)); 
 
 vislab = uilabel('Parent',uif,'text','Visualize Your Metrics:','FontWeight','bold',... 
-             'Position',[600 340 370 50],'FontSize', 18, 'visible','off');
+             'Position',[600 310 370 50],'FontSize', 18, 'visible','off');
          
 visbut = uibutton(uif,'push',...
-               'Text', 'Visualize','visible','off','Position',[600, 300, 80, 50], ...
+               'Text', 'Visualize','visible','off','Position',[600, 270, 80, 50], ...
                'ButtonPushedFcn', @(visbut,event) visButtonPushed(visbut)); 
+helpbut = uibutton(uif,'push',...
+               'Text', 'Help', 'visible','off','Position',[930, 710, 40, 20], ...
+               'ButtonPushedFcn', @(helpbut,event) OpenHelpMenu(helpbut));
          
          
 %set([ uif, edbox1, lab1, edbox2, lab2, edbox3, lab3, edbox4, lab4, edbox5,lab5, edbox6,lab6, predlab, predbut], 'visible','on');
+<<<<<<< HEAD
 set([ uif, edbox1, lab1, edbox2, lab2, edbox3, lab3, edbox5,lab5, edbox6,lab6, edbox7, lab7, predlab, predbut, vislab, visbut], 'visible','on');
+=======
+set([ uif, edbox1, lab1, edbox2, lab2, edbox3, lab3, edbox5,lab5, predlab, predbut, vislab, visbut, helpbut], 'visible','on');
+>>>>>>> 9e321f81360465604892d10870792fdec651bab3
 
 
 
@@ -180,6 +220,14 @@ end
 function visButtonPushed(visbut)
     Liver_Pfat_GUI_Visualization;
     %Open a new window with the favorite child
+end
+
+function OpenHelpMenu(helpbut)
+    helpfig = uifigure('visible','off','name','Help Menu', 'Position',[100 100 500 250]);
+    pan5 = uilabel('Parent', helpfig,'text','is mayonnaise an instrument?? but really help instructions will go here later','FontWeight','bold',...
+             'Position',[30 100 450 50],'visible','off');
+    set(helpfig, 'visible', 'on')
+    set(pan5, 'visible', 'on')
 end
 
 end
