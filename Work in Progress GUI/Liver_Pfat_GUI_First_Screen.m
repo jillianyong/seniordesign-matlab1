@@ -48,13 +48,13 @@ edbox3 = uieditfield(uif,'numeric','visible','off','Position',[75 430 100 20],'V
 %edbox4 = uieditfield(uif,'numeric','visible','off','Position',[75 380 100 20],'ValueChangedFcn', @(edbox4, event) callbox4(edbox4));
 
 %Total Fat Index
-edbox5 = uieditfield(uif,'numeric','visible','off','Position',[75 330 100 20],'ValueChangedFcn', @(edbox5, event) callbox5(edbox5));
+edbox5 = uieditfield(uif,'numeric','visible','off','Position',[75 380 100 20],'ValueChangedFcn', @(edbox5, event) callbox5(edbox5));
 
 %VAT Index
-edbox6 = uieditfield(uif,'numeric','visible','off','Position',[75 280 100 20],'ValueChangedFcn', @(edbox6, event) callbox6(edbox6));
+edbox6 = uieditfield(uif,'numeric','visible','off','Position',[75 330 100 20],'ValueChangedFcn', @(edbox6, event) callbox6(edbox6));
 
 %SAT Index
-edbox7 = uieditfield(uif,'numeric','visible','off','Position',[75 230 100 20],'ValueChangedFcn', @(edbox7, event) callbox7(edbox7));
+edbox7 = uieditfield(uif,'numeric','visible','off','Position',[75 280 100 20],'ValueChangedFcn', @(edbox7, event) callbox7(edbox7));
 
 
 lab1 = uilabel('Parent',uif,'text','Enter a waist circumference (cm): ','FontWeight','bold',... 
@@ -69,13 +69,13 @@ lab3 = uilabel('Parent',uif,'text','Weight (kg): ','FontWeight','bold',...
              %'Position',[75 400 350 25],'FontSize', 18,'visible','off');
 
 lab5 = uilabel('Parent',uif,'text','Enter Total Fat Index: ','FontWeight','bold',... 
-             'Position',[75 350 350 25],'FontSize', 18,'visible','off');
+             'Position',[75 400 350 25],'FontSize', 18,'visible','off');
 
 lab6 = uilabel('Parent',uif,'text','Enter VAT Index: ','FontWeight','bold',... 
-             'Position',[75 300 350 25],'FontSize', 18,'visible','off');
+             'Position',[75 350 350 25],'FontSize', 18,'visible','off');
 
 lab7 = uilabel('Parent',uif,'text','Enter SAT Index: ','FontWeight','bold',... 
-             'Position',[75 250 350 25],'FontSize', 18,'visible','off');
+             'Position',[75 300 350 25],'FontSize', 18,'visible','off');
 
 predlab = uilabel('Parent',uif,'text','Liver Fat Precentage: ','FontWeight','bold',... 
              'Position',[600 560 370 50],'FontSize', 18, 'visible','off');
