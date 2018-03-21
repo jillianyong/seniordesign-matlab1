@@ -158,15 +158,15 @@ function predButtonPushed(predbut)
       
       %Prediction of liver fat and confidence interval
       [livfat, stdlivfat] = predict(mdl, newT);
-%       if livfat > 6
-%           fatresult = 'Yes';
-%       else
-%           fatresult = 'No';
-%       end
+      if livfat > 6
+          fatresult = 'Yes';
+      else
+          fatresult = 'No';
+      end
       
       strliv = 'Are you likely to have NAFLD? ';
-      livnum = num2str(livfat);
-      strliv = [strliv, livnum];  
+      % livnum = num2str(livfat);
+      strliv = [strliv, fatresult];  
 
       if (ishandle(predlab))
         set(predlab, 'visible','off');
