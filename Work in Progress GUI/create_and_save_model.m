@@ -21,10 +21,13 @@ bar(imp)
 title('Curvature Test');
 ylabel('Predictor importance estimates');
 xlabel('Predictors');
+
 h = gca;
-h.XTickLabel = mdl.PredictorNames;
+h.XTickLabel = {'Waist Circumference', 'BMI', 'Total Fat Index','VAT Index', 'SAT Index', 'Weight'};
 h.XTickLabelRotation = 45;
 h.TickLabelInterpreter = 'none';
+h.FontSize = 15;
+h.FontWeight = 'bold';
 
 %Save model
 save('liverfatmodel.mat','mdl');
