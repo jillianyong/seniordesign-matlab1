@@ -26,6 +26,7 @@ global weight3;
 %global age3;
 global total_fat_index;
 global VAT_index;
+global newT;
 
 % Create Window and Axes
 uif = uifigure('visible','off','name','Pfabulous Pfun with Liver Pfat: A Story of Correlations and Distributions of Relevant Variables', 'Position',[20 20 1000 1000]);
@@ -163,7 +164,7 @@ function predButtonPushed(predbut)
       else
           fatresult = 'No';
       end
-      
+
       strliv = 'Are you likely to have NAFLD? ';
       % livnum = num2str(livfat);
       strliv = [strliv, fatresult];  
@@ -178,7 +179,8 @@ function predButtonPushed(predbut)
 end
 
 function visButtonPushed(visbut)
-    Liver_Pfat_GUI_Visualization;
+    predButtonPushed; 
+    Liver_Pfat_GUI_Visualization(newT);
     %Open a new window with the favorite child
 end
 
