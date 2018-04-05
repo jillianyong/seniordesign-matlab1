@@ -17,6 +17,7 @@ SAT_index = T.SAT_index;
 treemodelT = table(waist_cir3, bmi3, total_fat_index, VAT_index, SAT_index, weight3, mean_liver_fat_p);
 mdl = TreeBagger(500,treemodelT,'mean_liver_fat_p','Method','regression','OOBPredictorImportance','on');
 imp = mdl.OOBPermutedPredictorDeltaError;
+
 bar(imp)
 title('Curvature Test');
 ylabel('Predictor importance estimates');
