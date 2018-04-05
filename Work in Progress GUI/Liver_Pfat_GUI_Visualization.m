@@ -186,15 +186,14 @@ rb4 = uiradiobutton(bg7,'Position',[200 1 80 15],'Text','Age');
 ddmenu = uidropdown(uif,...
     'Position',[50 635 100 20],...
     'Items',{'Waist Circumference', 'Mean Liver Fat p', 'Total Fat Index',...
-    'Age', 'Weight', 'Height', 'BMI', 'Sex', 'Race', 'Diabetes'},...
-    'Value','BMI',...
+    'Age', 'Weight', 'Height', 'BMI', 'Sex', 'Race', 'Diabetes','VAT Index', 'SAT Index'},...
     'ValueChangedFcn',@(ddmenu,event) selection(ddmenu),'visible', 'off');
 
 % Creating a dropdown menu for Scatter Plot
 ddmenu2 = uidropdown(uif,...
     'Position',[600 635 120 20],...
     'Items',{'Select X Variable:','Waist Circumference', 'Mean Liver Fat p', 'Total Fat Index',...
-    'Age', 'Weight', 'Height', 'BMI'},...
+    'Age', 'Weight', 'Height', 'BMI','VAT Index', 'SAT Index'},...
     'Value','Select X Variable:',...
     'ValueChangedFcn',@(ddmenu2,event) selection2(ddmenu2),'visible', 'off');
 
@@ -202,7 +201,7 @@ ddmenu2 = uidropdown(uif,...
 ddmenu3 = uidropdown(uif,...
     'Position',[740 635 120 20],...
     'Items',{'Select Y Variable:','Waist Circumference', 'Mean Liver Fat p', 'Total Fat Index',...
-    'Age', 'Weight', 'Height', 'BMI'},...
+    'Age', 'Weight', 'Height', 'BMI','VAT Index', 'SAT Index'},...
     'Value','Select Y Variable:',...
     'ValueChangedFcn',@(ddmenu3,event) selection3(ddmenu3),'visible', 'off');
 
@@ -770,6 +769,128 @@ function selection(ddmenu, eventdata, handles)
             end
             xlabel(ax,'Diabetes');
             ylabel(ax,'Frequency');
+            
+         case {'VAT Index'}
+            ax.NextPlot = 'replace';
+            cla(ax);
+            set(ax,'visible','on');
+            if (ishandle(label3))
+            set(label3, 'visible','off');
+            end
+            if (ishandle(label4))
+            set(label4, 'visible','off');
+            end
+            if (ishandle(label5))
+            set(label5, 'visible','off');
+            end
+            if (ishandle(label6))
+            set(label6, 'visible','off');
+            end
+            VAT_index = Thist.VAT_index;
+            if(strcmp(histmf, 'Overlay'))
+                histind = (strcmp(Thist.sex, 'Male'));
+                mThist = Thist(histind,:);
+                mVAT_index = mThist.VAT_index;
+                mhisty = histogram(ax,mVAT_index,'facealpha',0.5,'facecolor','b');
+                hold(ax,'on')
+                histind = (strcmp(Thist.sex, 'Female'));
+                fThist = Thist(histind,:);
+                fVAT_index = fThist.VAT_index;
+                fhisty = histogram(ax,fVAT_index,'facealpha',0.5,'facecolor','r');
+                myhisty = plot(ax,[newT.VAT_index newT.VAT_index],[0 550],'Linewidth',2);
+                legend(ax,'Male','Female','Your Value')
+            else
+                histy = histogram(ax,VAT_index);
+                hold(ax,'on')
+                myhisty = plot(ax,[newT.VAT_index newT.VAT_index],[0 550],'Linewidth',2);
+                legend(ax,'Biobank Data','Your Value')
+            end
+            ax.XLim = [0 5]; 
+            ax.YLim = [0 550];
+            VAT_index(isnan(VAT_index)) = [];
+            meanVAT_index = num2str(round(mean(VAT_index),2));
+            medianVAT_index = num2str(round(median(VAT_index),2));
+            fivepVAT_index = num2str(round(prctile(VAT_index,5),2));
+            ninefivepVAT_index = num2str(round(prctile(VAT_index,95),2));
+            meantxt = 'Mean:';
+            mediantxt = 'Median:';
+            fivetxt = '5th Percentile:';
+            ninefivetxt =  '95th Percentile:';
+            circstr1 = strcat(meantxt,meanVAT_index);
+            circstr2 = strcat(mediantxt,medianVAT_index);
+            circstr3 = strcat(fivetxt,fivepVAT_index);
+            circstr4 = strcat(ninefivetxt,ninefivepVAT_index);
+            label3 = uilabel('Text',circstr1,'Parent',pan1,...
+            'Position',[10 60 180 20]);
+            label4 = uilabel('Text',circstr2,'Parent',pan1,...
+            'Position',[10 40 180 20]);
+            label5 = uilabel('Text',circstr3,'Parent',pan1,...
+            'Position',[10 20 180 20]);
+            label6 = uilabel('Text',circstr4,'Parent',pan1,...
+            'Position',[10 0 180 20]);
+            xlabel(ax,'VAT Index');
+            ylabel(ax,'Frequency');
+            
+            case {'SAT Index'}
+            ax.NextPlot = 'replace';
+            cla(ax);
+            set(ax,'visible','on');
+            if (ishandle(label3))
+            set(label3, 'visible','off');
+            end
+            if (ishandle(label4))
+            set(label4, 'visible','off');
+            end
+            if (ishandle(label5))
+            set(label5, 'visible','off');
+            end
+            if (ishandle(label6))
+            set(label6, 'visible','off');
+            end
+            SAT_Index = Thist.SAT_index;
+            if(strcmp(histmf, 'Overlay'))
+                histind = (strcmp(Thist.sex, 'Male'));
+                mThist = Thist(histind,:);
+                mSAT_Index = mThist.SAT_index;
+                mhisty = histogram(ax,mSAT_Index,'facealpha',0.5,'facecolor','b');
+                hold(ax,'on')
+                histind = (strcmp(Thist.sex, 'Female'));
+                fThist = Thist(histind,:);
+                fSAT_Index = fThist.SAT_index;
+                fhisty = histogram(ax,fSAT_Index,'facealpha',0.5,'facecolor','r');
+                myhisty = plot(ax,[newT.SAT_index newT.SAT_index],[0 550],'Linewidth',2);
+                legend(ax,'Male','Female','Your Value')
+            else
+                histy = histogram(ax,SAT_Index);
+                hold(ax,'on')
+                myhisty = plot(ax,[newT.SAT_index newT.SAT_index],[0 550],'Linewidth',2);
+                legend(ax,'Biobank Data','Your Value')
+            end
+            ax.XLim = [0 10]; 
+            ax.YLim = [0 550];
+            SAT_Index(isnan(SAT_Index)) = [];
+            meanSAT_Index = num2str(round(mean(SAT_Index),2));
+            medianSAT_Index = num2str(round(median(SAT_Index),2));
+            fivepSAT_Index = num2str(round(prctile(SAT_Index,5),2));
+            ninefivepSAT_Index = num2str(round(prctile(SAT_Index,95),2));
+            meantxt = 'Mean:';
+            mediantxt = 'Median:';
+            fivetxt = '5th Percentile:';
+            ninefivetxt =  '95th Percentile:';
+            circstr1 = strcat(meantxt,meanSAT_Index);
+            circstr2 = strcat(mediantxt,medianSAT_Index);
+            circstr3 = strcat(fivetxt,fivepSAT_Index);
+            circstr4 = strcat(ninefivetxt,ninefivepSAT_Index);
+            label3 = uilabel('Text',circstr1,'Parent',pan1,...
+            'Position',[10 60 180 20]);
+            label4 = uilabel('Text',circstr2,'Parent',pan1,...
+            'Position',[10 40 180 20]);
+            label5 = uilabel('Text',circstr3,'Parent',pan1,...
+            'Position',[10 20 180 20]);
+            label6 = uilabel('Text',circstr4,'Parent',pan1,...
+            'Position',[10 0 180 20]);
+            xlabel(ax,'SAT Index');
+            ylabel(ax,'Frequency');
     end
     Thist = T;
 end
@@ -855,6 +976,16 @@ function selection2(ddmenu2, eventdata, handles)
             f_scatter_x = nfTscat.bmi3;
             yourvar_x = newT.bmi3;
             xaxis_label = 'BMI (kg/m^2)';
+        case {'VAT Index'}
+            m_scatter_x = nmTscat.VAT_index;
+            f_scatter_x = nfTscat.VAT_index;
+            yourvar_x = newT.VAT_index;
+            xaxis_label = 'VAT Index';
+        case {'SAT Index'}
+            m_scatter_x = nmTscat.SAT_index;
+            f_scatter_x = nfTscat.SAT_index;
+            yourvar_x = newT.SAT_index;
+            xaxis_label = 'SAT Index';
     end
     nmTscat = mTscat;
     nfTscat = fTscat;
@@ -942,6 +1073,16 @@ function selection3(ddmenu3, eventdata, handles)
             f_scatter_y = nfTscat.bmi3;
             yourvar_y = newT.bmi3;
             yaxis_label = 'BMI (kg/m^2)';
+            case {'VAT Index'}
+            m_scatter_y = nmTscat.VAT_index;
+            f_scatter_y = nfTscat.VAT_index;
+            yourvar_y = newT.VAT_index;
+            yaxis_label = 'VAT Index';
+        case {'SAT Index'}
+            m_scatter_y = nmTscat.SAT_index;
+            f_scatter_y = nfTscat.SAT_index;
+            yourvar_y = newT.SAT_index;
+            yaxis_label = 'SAT Index';
     end
     nmTscat = mTscat;
     nfTscat = fTscat;
