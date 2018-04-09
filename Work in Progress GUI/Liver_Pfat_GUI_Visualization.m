@@ -90,6 +90,7 @@ nfTscat = fTscat;
  yourvar_x = NaN;
  global yourvar_y;
  yourvar_y = NaN;
+ global faqtext;
 
 % Initiate Toggle Switches 
 histmf = 'All';
@@ -1091,11 +1092,18 @@ end
 
 % Create the function for the Help menu callback
 function OpenHelpMenu(b4)
-    helpfig = uifigure('visible','off','name','Help Menu', 'Position',[100 100 500 250]);
-    pan5 = uilabel('Parent', helpfig,'text','is mayonnaise an instrument?? but really help instructions will go here later','FontWeight','bold',...
-             'Position',[30 100 450 50],'visible','off');
+
+    helpfig = figure('Position',[100 1000 500 700]);
+    % Make a text uicontrol to wrap in Units of Pixels
+    % Create it in Units of Pixels, 100 wide, 10 high
+    helptitle = uicontrol('Parent',helpfig,'Style','Text','Position',[10 650 500 50],'FontWeight','bold', 'String','Frequently Asked Questions', 'FontSize',18);
+    htfaq1 = uicontrol('Parent',helpfig,'Style','Text','Position',[5 620 200 50],'FontWeight','bold', 'String','1) How is NAFLD classified?', 'FontSize',12);
+    txt1 = {'A person is officially diagnosed to have NAFLD if a liver biopsy or MRI result determined that their liver fat percentage is over 5%.'};
+        httxt1 = uicontrol('Parent',helpfig,'Style','Text','Position',[20 580 450 70],'String',txt1);
+    % Wrap text, also returning a new position for ht
+%     [outtext,newpos] = textwrap(httxt1,txt1);
+%     set(httxt1,'String',outtext,'Position',newpos)
     set(helpfig, 'visible', 'on')
-    set(pan5, 'visible', 'on')
 end
     
 % Create the function for the ButtonPushedFcn callback (Scatter Plot):
