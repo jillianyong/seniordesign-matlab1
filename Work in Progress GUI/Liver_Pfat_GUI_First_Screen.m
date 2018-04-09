@@ -60,6 +60,7 @@ edbox7 = uieditfield(uif,'numeric','visible','off','Position',[75 280 100 20],'V
 
 lab1 = uilabel('Parent',uif,'text','Enter a waist circumference (cm): ','FontWeight','bold',... 
              'Position',[75 550 500 25],'FontSize', 18, 'visible','off');
+         
 lab2 = uilabel('Parent',uif,'text','Enter a BMI: ','FontWeight','bold',... 
              'Position',[75 500 200 25],'FontSize', 18,'visible','off');
 
@@ -98,7 +99,6 @@ set([ uif, edbox1, lab1, edbox2, lab2, edbox3, lab3, edbox5,lab5, edbox6,lab6, e
 
 
 
-
 %Imaginary Test Subject
 waist_cir3 = 0;
 bmi3 = 0;
@@ -109,17 +109,19 @@ weight3 = 0;
 VAT_index = 0;
 SAT_index = 0;
 
-
+%Waist Circ
 function callbox1(edbox1)
      num = edbox1.Value;
      waist_cir3 = num;
 end
 
+%BMI
 function callbox2(edbox2)
      num = edbox2.Value;
      bmi3 = num;
 end
 
+%Weight
 function callbox3(edbox3)
      num = edbox3.Value;
      weight3 = num;
@@ -130,30 +132,49 @@ end
 %      age3 = num;
 % end
 
+%Total Fat Index
 function callbox5(edbox5)
      num = edbox5.Value;
-     total_fat_index = num;
+     total_fat_index = num
 end
 
+%VAT Index
 function callbox6(edbox6)
      num = edbox6.Value;
      VAT_index = num;
 end
 
+%SAT Index
 function callbox7(edbox7)
      num = edbox7.Value;
      SAT_index = num;
 end
 
 function predButtonPushed(predbut)
-      callbox1(edbox1);
-      callbox2(edbox2);
-      callbox3(edbox3);
-      %callbox4(edbox4);
-      callbox5(edbox5);
-      callbox6(edbox6);
-      callbox7(edbox7);
+    callbox1(edbox1)
+    callbox2(edbox2)
+    callbox3(edbox3)
+    callbox5(edbox5)
+    callbox6(edbox6)
+    callbox7(edbox7)    
       
+
+      %Prompting users to input valid number
+      if waist_cir3 <= 15 | waist_cir3 > 55 | waist_cir3 == 0
+         errordlg('Please enter a number within a valid range of waist circumference.', 'Input Error')
+      elseif bmi3 <= 15 | bmi3 > 55 | bmi3 == 0
+         errordlg('Please enter a number within a valid range of BMI.', 'Input Error')
+      elseif weight3 <= 40 | weight3 > 180 | weight3 == 0
+         errordlg('Please enter a number within a valid range of weight.', 'Input Error')
+      elseif total_fat_index <= 0 | total_fat_index > 15 
+        errordlg('Please enter a number within a valid range of total fat index.', 'Input Error')
+      elseif VAT_index <= 0 | VAT_index > 5.5
+         errordlg('Please enter a number within a valid range of VAT index.', 'Input Error')
+      elseif SAT_index <= 0 | SAT_index > 9
+         errordlg('Please enter a number within a valid range of SAT index.', 'Input Error')
+      end
+
+
       %newT = table(waist_cir3, bmi3, diabetes_type, age3, ActivityIndex, VAT_index);
       newT = table(waist_cir3, bmi3, total_fat_index, weight3, VAT_index,SAT_index);
       
