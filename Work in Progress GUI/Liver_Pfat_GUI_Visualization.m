@@ -1093,16 +1093,43 @@ end
 % Create the function for the Help menu callback
 function OpenHelpMenu(b4)
 
-    helpfig = figure('Position',[100 1000 500 700]);
+    helpfig = figure('Position',[100 800 500 550]);
     % Make a text uicontrol to wrap in Units of Pixels
     % Create it in Units of Pixels, 100 wide, 10 high
-    helptitle = uicontrol('Parent',helpfig,'Style','Text','Position',[10 650 500 50],'FontWeight','bold', 'String','Frequently Asked Questions', 'FontSize',18);
-    htfaq1 = uicontrol('Parent',helpfig,'Style','Text','Position',[5 620 200 50],'FontWeight','bold', 'String','1) How is NAFLD classified?', 'FontSize',12);
+    helptitle = uicontrol('Parent',helpfig,'Style','Text','Position',[10 500 470 50],'FontWeight','bold', 'String','Frequently Asked Questions', 'FontSize',18);
+    
+    htfaq1 = uicontrol('Parent',helpfig,'Style','Text','Position',[10 480 450 40],'FontWeight','bold', 'String','1) How is NAFLD classified?', 'FontSize',12);
     txt1 = {'A person is officially diagnosed to have NAFLD if a liver biopsy or MRI result determined that their liver fat percentage is over 5%.'};
-        httxt1 = uicontrol('Parent',helpfig,'Style','Text','Position',[20 580 450 70],'String',txt1);
-    % Wrap text, also returning a new position for ht
-%     [outtext,newpos] = textwrap(httxt1,txt1);
-%     set(httxt1,'String',outtext,'Position',newpos)
+    httxt1 = uicontrol('Parent',helpfig,'Style','Text','Position',[20 460 450 40],'String',txt1);
+    
+    htfaq2 = uicontrol('Parent',helpfig,'Style','Text','Position',[10 420 450 40],'FontWeight','bold', 'String','2) Is my result an accurate diagnosis of NAFLD?', 'FontSize',12);
+    txt2 = {'NO. This software is designed to help clinicians identify patients who are AT RISK for NAFLD. It does not serve as an official diagnosis.'};
+    httxt2 = uicontrol('Parent',helpfig,'Style','Text','Position',[20 400 450 40],'String',txt2);
+        
+    htfaq3 = uicontrol('Parent',helpfig,'Style','Text','Position',[10 360 450 40],'FontWeight','bold', 'String','3) What is the dataset used to predict NAFLD?', 'FontSize',12);
+    txt3 = {'The data used for analysis originated from the UK Biobank. The subjects this organization recruited were predominantly people between the ages of 40 and 69 and of Caucasian descent. To better categorize and analyze the data, a healthy population within the dataset was defined using relevant information, such as self reported medications, diseases, patient blood work, and metrics.'};
+    httxt3 = uicontrol('Parent',helpfig,'Style','Text','Position',[20 320 450 60],'String',txt3);
+    
+    htfaq4 = uicontrol('Parent',helpfig,'Style','Text','Position',[10 270 450 40],'FontWeight','bold', 'String','4) How do I obtain some of the parameters used (ie. VAT/SAT indices)?', 'FontSize',12);
+    txt4 = {'These parameters can be obtained through blood assays and imaging tests.'};
+    httxt4 = uicontrol('Parent',helpfig,'Style','Text','Position',[20 250 450 40],'String',txt4);
+    
+    htfaq5 = uicontrol('Parent',helpfig,'Style','Text','Position',[10 220 450 40],'FontWeight','bold', 'String','5) What predictive model was used and how accurate is it?', 'FontSize',12);
+    txt5 = {'TreeBagger, a function in MATLAB which uses the Random Forest predictive algorithm, was used as the predictive model. The algorithm used 500 bags, with an error of 14%.'};
+    httxt5 = uicontrol('Parent',helpfig,'Style','Text','Position',[20 200 450 40],'String',txt5);
+    
+    htfaq6 = uicontrol('Parent',helpfig,'Style','Text','Position',[10 160 450 40],'FontWeight','bold', 'String','6) What is the software used?', 'FontSize',12);
+    txt6 = {'MATLAB 2017b.'};
+    httxt6 = uicontrol('Parent',helpfig,'Style','Text','Position',[20 140 450 40],'String',txt6);
+    
+    htfaq7 = uicontrol('Parent',helpfig,'Style','Text','Position',[10 110 450 40],'FontWeight','bold', 'String','7) How was this project developed?', 'FontSize',12);
+    txt7 = {'This software was developed by 3 biomedical engineering undergraduate students at Boston University in collaboration with Pfizer for their senior design project.'};
+    httxt7 = uicontrol('Parent',helpfig,'Style','Text','Position',[20 90 450 40],'String',txt7);
+    
+    htfaq8 = uicontrol('Parent',helpfig,'Style','Text','Position',[10 50 450 40],'FontWeight','bold', 'String','8) Who should I contact if I have more questions?', 'FontSize',12);
+    txt8 = {'You can contact Pfizer on their website.'};
+    httxt8 = uicontrol('Parent',helpfig,'Style','Text','Position',[20 30 450 40],'String',txt8);
+    
     set(helpfig, 'visible', 'on')
 end
     
