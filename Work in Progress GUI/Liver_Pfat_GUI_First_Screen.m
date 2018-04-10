@@ -160,17 +160,17 @@ function predButtonPushed(predbut)
       
 
       %Prompting users to input valid number
-      if waist_cir3 <= 15 | waist_cir3 > 55 | waist_cir3 == 0
+      if waist_cir3 <= 15 || waist_cir3 > 155 || waist_cir3 == 0
          errordlg('Please enter a number within a valid range of waist circumference.', 'Input Error')
-      elseif bmi3 <= 15 | bmi3 > 55 | bmi3 == 0
+      elseif bmi3 <= 15 || bmi3 > 55 || bmi3 == 0
          errordlg('Please enter a number within a valid range of BMI.', 'Input Error')
-      elseif weight3 <= 40 | weight3 > 180 | weight3 == 0
+      elseif weight3 <= 40 || weight3 > 180 || weight3 == 0
          errordlg('Please enter a number within a valid range of weight.', 'Input Error')
-      elseif total_fat_index <= 0 | total_fat_index > 15 
+      elseif total_fat_index <= 0 || total_fat_index > 15 
         errordlg('Please enter a number within a valid range of total fat index.', 'Input Error')
-      elseif VAT_index <= 0 | VAT_index > 5.5
+      elseif VAT_index <= 0 || VAT_index > 5.5
          errordlg('Please enter a number within a valid range of VAT index.', 'Input Error')
-      elseif SAT_index <= 0 | SAT_index > 9
+      elseif SAT_index <= 0 || SAT_index > 9
          errordlg('Please enter a number within a valid range of SAT index.', 'Input Error')
       end
 
