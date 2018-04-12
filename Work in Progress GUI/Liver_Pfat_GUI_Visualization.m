@@ -104,6 +104,9 @@ scatmf = 'All';
 scatvar1label = 'All';
 scatvar2label = 'All';
 
+%%The following code is just a lot of front-end development using UIFigure
+%%to create a good looking and easy to use GUI.
+
 % Create Window and Axes
 uif = uifigure('visible','off','name','Pfabulous Pfun with Liver Pfat: A Story of Correlations and Distributions of Relevant Variables', 'Position',[20 20 1000 1000]);
 ax = uiaxes('Parent',uif,'Position',[10 10 400 400],'visible','off'); % Axis for Histogram 
@@ -137,13 +140,15 @@ b3 = uibutton(uif,'push',...
 b4 = uibutton(uif,'push',...
                'Text', 'Help', 'visible','off','Position',[930, 730, 40, 20], ...
                'ButtonPushedFcn', @(b4,event) OpenHelpMenu(b4)); % Push button for Scatter Plot 
-           
-bg1 = uibuttongroup(uif,'Position',[50 540 80 80],'visible', 'off','SelectionChangedFcn',@bg1fn); % Toggle switches Position for Histogram
-bg2 = uibuttongroup(uif,'Position',[130 540 80 60],'visible', 'off','SelectionChangedFcn',@bg2fn); % Toggle switches Position for Histogram
-bg3 = uibuttongroup(uif,'Position',[210 540 80 60],'visible', 'off','SelectionChangedFcn',@bg3fn); % Toggle switches Position for Histogram
-bg4 = uibuttongroup(uif,'Position',[600 525 80 60],'visible', 'off','SelectionChangedFcn',@bg4fn); % Toggle switches Position for Scatter Plot
-bg5 = uibuttongroup(uif,'Position',[680 525 80 60],'visible', 'off','SelectionChangedFcn',@bg5fn); % Toggle switches Position for Scatter Plot
-bg6 = uibuttongroup(uif,'Position',[760 525 80 60],'visible', 'off','SelectionChangedFcn',@bg6fn); % Toggle switches Position for Scatter Plot
+          
+%Creating toggle switches for both histogram and scatterplot to determine
+%which variables to distinguish between
+bg1 = uibuttongroup(uif,'Position',[50 540 80 80],'visible', 'off','SelectionChangedFcn',@bg1fn); 
+bg2 = uibuttongroup(uif,'Position',[130 540 80 60],'visible', 'off','SelectionChangedFcn',@bg2fn); 
+bg3 = uibuttongroup(uif,'Position',[210 540 80 60],'visible', 'off','SelectionChangedFcn',@bg3fn); 
+bg4 = uibuttongroup(uif,'Position',[600 525 80 60],'visible', 'off','SelectionChangedFcn',@bg4fn); 
+bg5 = uibuttongroup(uif,'Position',[680 525 80 60],'visible', 'off','SelectionChangedFcn',@bg5fn); 
+bg6 = uibuttongroup(uif,'Position',[760 525 80 60],'visible', 'off','SelectionChangedFcn',@bg6fn); 
 bg7 = uibuttongroup(uif,'Position',[600 485 250 37],'visible', 'off','Title', 'Choose variable to distinguish:','FontWeight','bold','BackgroundColor','white','SelectionChangedFcn',@bg7fn); % Radio buttons for Scatter Plot
 
 % Individual Toggle switches Position for Histogram
@@ -243,7 +248,10 @@ function selection(ddmenu, eventdata, handles)
         case {'All'}
     end
 
-    % Switching between different variables for Histogram
+    %The following code determines the type of data to show on the
+    %histogram based on the toggle switches selected by the user. Gaussian
+    %statistics are also calculated from the data (mean, median, 5th and
+    %95th percentiles
     switch choice
         case {'Waist Circumference'}
             ax.NextPlot = 'replace';
@@ -280,6 +288,7 @@ function selection(ddmenu, eventdata, handles)
                 myhisty = plot(ax,[newT.waist_cir3 newT.waist_cir3],[0 550],'Linewidth',2);
                 legend(ax,'Biobank Data','Your Value')
             end
+            %Calculating mean, median, 5th and 95th percentiles of data
             ax.XLim = [50 150]; 
             ax.YLim = [0 550];
             waist_cir(isnan(waist_cir)) = [];
@@ -1039,7 +1048,8 @@ function selection3(ddmenu3, eventdata, handles)
         case {'All'}
     end
 
-    % Switching between different variables for Scatter Plot     
+    %The following code determines the type of data to show on the
+    %scatterplot based on the toggle switches selected by the user.
     switch choice3
         case {'Select Y Variable:'}
         case {'Waist Circumference'}
@@ -1093,9 +1103,9 @@ end
 % Create the function for the Help menu callback
 function OpenHelpMenu(b4)
 
+    %Creating a FAQ box for any possible questions a user may have while
+    %using the software.
     helpfig = figure('Position',[100 800 500 550]);
-    % Make a text uicontrol to wrap in Units of Pixels
-    % Create it in Units of Pixels, 100 wide, 10 high
     helptitle = uicontrol('Parent',helpfig,'Style','Text','Position',[10 500 470 50],'FontWeight','bold', 'String','Frequently Asked Questions', 'FontSize',18);
     
     htfaq1 = uicontrol('Parent',helpfig,'Style','Text','Position',[10 480 450 40],'FontWeight','bold', 'String','1) How is NAFLD classified?', 'FontSize',12);
@@ -1135,6 +1145,11 @@ end
     
 % Create the function for the ButtonPushedFcn callback (Scatter Plot):
 function plotButtonPushed(b3,ax2)
+    %The following code determines the type of data to plot on the
+    %scatter plot based on the toggle switches/radio buttons selected by
+    %the user. Correlation coefficients were also calculated based on the 2
+    %variables selected.
+    
     if(~strcmp(choice2, 'Select X Variable:') && ~strcmp(choice3, 'Select Y Variable:'))
         if(~strcmp(choice2, 'Select X Variable:'))
             selection2(ddmenu2);
