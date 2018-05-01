@@ -1,4 +1,4 @@
-function Liver_Pfat_GUI_Visualization(newT)
+function Liver_Pfat_GUI_Visualization(newT_with_livfat)
 % Global Variables for Imported Data
 global T;
 global Thist;
@@ -280,12 +280,12 @@ function selection(ddmenu, eventdata, handles)
                 fThist = Thist(histind,:);
                 fwaist_cir = fThist.waist_cir3;
                 fhisty = histogram(ax,fwaist_cir,'facealpha',0.5,'facecolor','r');
-                myhisty = plot(ax,[newT.waist_cir3 newT.waist_cir3],[0 550],'Linewidth',2);
+                myhisty = plot(ax,[newT_with_livfat.waist_cir3 newT_with_livfat.waist_cir3],[0 550],'Linewidth',2);
                 legend(ax,'Male','Female','Your Value')
             else
                 histy = histogram(ax,waist_cir);
                 hold(ax,'on')
-                myhisty = plot(ax,[newT.waist_cir3 newT.waist_cir3],[0 550],'Linewidth',2);
+                myhisty = plot(ax,[newT_with_livfat.waist_cir3 newT_with_livfat.waist_cir3],[0 550],'Linewidth',2);
                 legend(ax,'Biobank Data','Your Value')
             end
             %Calculating mean, median, 5th and 95th percentiles of data
@@ -315,7 +315,7 @@ function selection(ddmenu, eventdata, handles)
             xlabel(ax,'Waist Circumference (cm)');
             ylabel(ax,'Frequency');
             
-        case {'Mean Liver Fat p'}
+case {'Mean Liver Fat p'}
             ax.NextPlot = 'replace';
             cla(ax);
             set(ax,'visible','on');
@@ -342,9 +342,13 @@ function selection(ddmenu, eventdata, handles)
                 fThist = Thist(histind,:);
                 fmean_liver_fat_p = fThist.mean_liver_fat_p;
                 fhisty = histogram(ax,fmean_liver_fat_p,'facealpha',0.5,'facecolor','r');
-                legend(ax,'Male','Female')
+                myhisty = plot(ax,[newT_with_livfat.mean_liver_fat_p newT_with_livfat.mean_liver_fat_p],[0 2500],'Linewidth',2); 
+                legend(ax,'Male','Female', 'Your Value')
             else
                 histy = histogram(ax,mean_liver_fat_p);
+                hold(ax,'on')
+                myhisty = plot(ax,[newT_with_livfat.mean_liver_fat_p newT_with_livfat.mean_liver_fat_p],[0 2500],'Linewidth',2);
+                legend(ax,'Biobank Data','Your Value')
             end
             ax.XLim = [0 35];
             ax.YLim = [0 2400];
@@ -370,7 +374,7 @@ function selection(ddmenu, eventdata, handles)
             label6 = uilabel('Text',circstr4,'Parent',pan1,...
             'Position',[10 0 180 20]);
             xlabel(ax,'Mean Liver Fat p (%)');
-            ylabel(ax,'Frequency');     
+            ylabel(ax,'Frequency');         
             
         case {'Total Fat Index'}            
             ax.NextPlot = 'replace';
@@ -399,12 +403,12 @@ function selection(ddmenu, eventdata, handles)
                 fThist = Thist(histind,:);
                 ftotal_fat = fThist.total_fat_index;
                 fhisty = histogram(ax,ftotal_fat,'facealpha',0.5,'facecolor','r');
-                myhisty=plot(ax,[newT.total_fat_index newT.total_fat_index],[0 500],'Linewidth',2);
+                myhisty=plot(ax,[newT_with_livfat.total_fat_index newT_with_livfat.total_fat_index],[0 500],'Linewidth',2);
                 legend(ax,'Male','Female','Your Value')
             else
                 histy = histogram(ax,total_fat);
                 hold(ax,'on')
-                myhisty=plot(ax,[newT.total_fat_index newT.total_fat_index],[0 500],'Linewidth',2);
+                myhisty=plot(ax,[newT_with_livfat.total_fat_index newT_with_livfat.total_fat_index],[0 500],'Linewidth',2);
                 legend(ax,'Biobank Data','Your Value')
             end
             ax.XLim = [0 15];
@@ -517,12 +521,12 @@ function selection(ddmenu, eventdata, handles)
                 fThist = Thist(histind,:);
                 fweight = fThist.weight3;
                 fhisty = histogram(ax,fweight,'facealpha',0.5,'facecolor','r');
-                myhisty=plot(ax,[newT.weight3 newT.weight3],[0 650],'Linewidth',2);
+                myhisty=plot(ax,[newT_with_livfat.weight3 newT_with_livfat.weight3],[0 650],'Linewidth',2);
                 legend(ax,'Male','Female','Your Value')
             else
                 histy = histogram(ax,weight);
                 hold(ax,'on')
-                myhisty=plot(ax,[newT.weight3 newT.weight3],[0 500],'Linewidth',2);
+                myhisty=plot(ax,[newT_with_livfat.weight3 newT_with_livfat.weight3],[0 500],'Linewidth',2);
                 legend(ax,'Biobank Data','Your Value')
             end
             ax.XLim = [35 180];
@@ -635,12 +639,12 @@ function selection(ddmenu, eventdata, handles)
                 fThist = Thist(histind,:);
                 fbmi = fThist.bmi3;
                 fhisty = histogram(ax,fbmi,'facealpha',0.5,'facecolor','r');
-                myhisty=plot(ax,[newT.bmi3 newT.bmi3],[0 650],'Linewidth',2);
+                myhisty=plot(ax,[newT_with_livfat.bmi3 newT_with_livfat.bmi3],[0 650],'Linewidth',2);
                 legend(ax,'Male','Female','Your Value')
             else
                 histy = histogram(ax,bmi);
                 hold(ax,'on')
-                myhisty=plot(ax,[newT.bmi3 newT.bmi3],[0 650],'Linewidth',2);
+                myhisty=plot(ax,[newT_with_livfat.bmi3 newT_with_livfat.bmi3],[0 650],'Linewidth',2);
                 legend(ax,'Biobank Data','Your Value')
             end
             ax.XLim = [10 60]; 
@@ -807,12 +811,12 @@ function selection(ddmenu, eventdata, handles)
                 fThist = Thist(histind,:);
                 fVAT_index = fThist.VAT_index;
                 fhisty = histogram(ax,fVAT_index,'facealpha',0.5,'facecolor','r');
-                myhisty = plot(ax,[newT.VAT_index newT.VAT_index],[0 550],'Linewidth',2);
+                myhisty = plot(ax,[newT_with_livfat.VAT_index newT_with_livfat.VAT_index],[0 550],'Linewidth',2);
                 legend(ax,'Male','Female','Your Value')
             else
                 histy = histogram(ax,VAT_index);
                 hold(ax,'on')
-                myhisty = plot(ax,[newT.VAT_index newT.VAT_index],[0 550],'Linewidth',2);
+                myhisty = plot(ax,[newT_with_livfat.VAT_index newT_with_livfat.VAT_index],[0 550],'Linewidth',2);
                 legend(ax,'Biobank Data','Your Value')
             end
             ax.XLim = [0 5]; 
@@ -868,12 +872,12 @@ function selection(ddmenu, eventdata, handles)
                 fThist = Thist(histind,:);
                 fSAT_Index = fThist.SAT_index;
                 fhisty = histogram(ax,fSAT_Index,'facealpha',0.5,'facecolor','r');
-                myhisty = plot(ax,[newT.SAT_index newT.SAT_index],[0 550],'Linewidth',2);
+                myhisty = plot(ax,[newT_with_livfat.SAT_index newT_with_livfat.SAT_index],[0 550],'Linewidth',2);
                 legend(ax,'Male','Female','Your Value')
             else
                 histy = histogram(ax,SAT_Index);
                 hold(ax,'on')
-                myhisty = plot(ax,[newT.SAT_index newT.SAT_index],[0 550],'Linewidth',2);
+                myhisty = plot(ax,[newT_with_livfat.SAT_index newT_with_livfat.SAT_index],[0 550],'Linewidth',2);
                 legend(ax,'Biobank Data','Your Value')
             end
             ax.XLim = [0 10]; 
@@ -957,16 +961,17 @@ function selection2(ddmenu2, eventdata, handles)
         case {'Waist Circumference'}
             m_scatter_x = nmTscat.waist_cir3;
             f_scatter_x = nfTscat.waist_cir3;
-            yourvar_x = newT.waist_cir3;
+            yourvar_x = newT_with_livfat.waist_cir3;
             xaxis_label = 'Waist Circumference (cm)';
         case {'Mean Liver Fat p'}
             m_scatter_x = nmTscat.mean_liver_fat_p;
             f_scatter_x = nfTscat.mean_liver_fat_p;
+            yourvar_x = newT_with_livfat.mean_liver_fat_p;
             xaxis_label = 'Mean Liver Fat p (%)';
         case {'Total Fat Index'}
             m_scatter_x = nmTscat.total_fat_index;
             f_scatter_x = nfTscat.total_fat_index;
-            yourvar_x = newT.total_fat_index;
+            yourvar_x = newT_with_livfat.total_fat_index;
             xaxis_label = 'Total Fat Index';
         case {'Age'}
             m_scatter_x = nmTscat.age3;
@@ -975,7 +980,7 @@ function selection2(ddmenu2, eventdata, handles)
         case {'Weight'}
             m_scatter_x = nmTscat.weight3;
             f_scatter_x = nfTscat.weight3;
-            yourvar_x = newT.weight3;
+            yourvar_x = newT_with_livfat.weight3;
             xaxis_label = 'Weight (kg)';
         case {'Height'}
             m_scatter_x = nmTscat.height3;
@@ -984,17 +989,17 @@ function selection2(ddmenu2, eventdata, handles)
         case {'BMI'}
             m_scatter_x = nmTscat.bmi3;
             f_scatter_x = nfTscat.bmi3;
-            yourvar_x = newT.bmi3;
+            yourvar_x = newT_with_livfat.bmi3;
             xaxis_label = 'BMI (kg/m^2)';
         case {'VAT Index'}
             m_scatter_x = nmTscat.VAT_index;
             f_scatter_x = nfTscat.VAT_index;
-            yourvar_x = newT.VAT_index;
+            yourvar_x = newT_with_livfat.VAT_index;
             xaxis_label = 'VAT Index';
         case {'SAT Index'}
             m_scatter_x = nmTscat.SAT_index;
             f_scatter_x = nfTscat.SAT_index;
-            yourvar_x = newT.SAT_index;
+            yourvar_x = newT_with_livfat.SAT_index;
             xaxis_label = 'SAT Index';
     end
     nmTscat = mTscat;
@@ -1055,16 +1060,17 @@ function selection3(ddmenu3, eventdata, handles)
         case {'Waist Circumference'}
             m_scatter_y = nmTscat.waist_cir3;
             f_scatter_y = nfTscat.waist_cir3;
-            yourvar_y = newT.waist_cir3;
+            yourvar_y = newT_with_livfat.waist_cir3;
             yaxis_label = 'Waist Circumference (cm)';
         case {'Mean Liver Fat p'}
             m_scatter_y = nmTscat.mean_liver_fat_p;
             f_scatter_y = nfTscat.mean_liver_fat_p;
+            yourvar_y = newT_with_livfat.mean_liver_fat_p;
             yaxis_label = 'Mean Liver Fat p (%)';
         case {'Total Fat Index'}
             m_scatter_y = nmTscat.total_fat_index;
             f_scatter_y = nfTscat.total_fat_index;
-            yourvar_y = newT.total_fat_index;
+            yourvar_y = newT_with_livfat.total_fat_index;
             yaxis_label = 'Total Fat Index';
         case {'Age'}
             m_scatter_y = nmTscat.age3;
@@ -1073,7 +1079,7 @@ function selection3(ddmenu3, eventdata, handles)
         case {'Weight'}
             m_scatter_y = nmTscat.weight3;
             f_scatter_y = nfTscat.weight3;
-            yourvar_y = newT.weight3;
+            yourvar_y = newT_with_livfat.weight3;
             yaxis_label = 'Weight (kg)';
         case {'Height'}
             m_scatter_y = nmTscat.height3;
@@ -1082,17 +1088,17 @@ function selection3(ddmenu3, eventdata, handles)
         case {'BMI'}
             m_scatter_y = nmTscat.bmi3;
             f_scatter_y = nfTscat.bmi3;
-            yourvar_y = newT.bmi3;
+            yourvar_y = newT_with_livfat.bmi3;
             yaxis_label = 'BMI (kg/m^2)';
             case {'VAT Index'}
             m_scatter_y = nmTscat.VAT_index;
             f_scatter_y = nfTscat.VAT_index;
-            yourvar_y = newT.VAT_index;
+            yourvar_y = newT_with_livfat.VAT_index;
             yaxis_label = 'VAT Index';
         case {'SAT Index'}
             m_scatter_y = nmTscat.SAT_index;
             f_scatter_y = nfTscat.SAT_index;
-            yourvar_y = newT.SAT_index;
+            yourvar_y = newT_with_livfat.SAT_index;
             yaxis_label = 'SAT Index';
     end
     nmTscat = mTscat;
