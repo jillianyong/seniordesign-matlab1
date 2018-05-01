@@ -189,6 +189,7 @@ function predButtonPushed(predbut)
       else
           fatresult = 'No';
       end
+      
 
       strliv = 'Are you likely to have NAFLD? ';
       strliv = [strliv, fatresult];  
