@@ -27,6 +27,8 @@ global weight3;
 global total_fat_index;
 global VAT_index;
 global newT;
+global newT_with_livfat;
+global mean_liver_fat_p;
 
 %All the following is mostly just front-end to make the GUI look good
 
@@ -183,13 +185,12 @@ function predButtonPushed(predbut)
       
       %Prediction of liver fat and confidence interval using random forest
       %model
-      [livfat, stdlivfat] = predict(mdl, newT);
-      if livfat > 6
+      [mean_liver_fat_p, stdlivfat] = predict(mdl, newT);
+      if mean_liver_fat_p > 6
           fatresult = 'Yes';
       else
           fatresult = 'No';
       end
-      
 
       strliv = 'Are you likely to have NAFLD? ';
       strliv = [strliv, fatresult];  
@@ -200,14 +201,17 @@ function predButtonPushed(predbut)
       predlab = uilabel('Parent',uif,'text',strliv,'FontWeight','bold',... 
              'Position',[600 565 500 40], 'FontSize',18,'visible', 'on');
          
-
+    
+      newT_with_livfat = table(waist_cir3, bmi3, total_fat_index, weight3, VAT_index,SAT_index, mean_liver_fat_p);
+      
 end
+
 
 %Linker function to open the visualization screen to allow patient to view
 %metrics
 function visButtonPushed(visbut)
     predButtonPushed; 
-    Liver_Pfat_GUI_Visualization(newT);
+    Liver_Pfat_GUI_Visualization(newT_with_livfat);
 end
 
 end
